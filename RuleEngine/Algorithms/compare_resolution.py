@@ -9,7 +9,6 @@ def compare_resolution(image_a, image_b):
         width_factor, height_factor, bands_factor = divide(image_a.shape, image_b.shape)
     except ValueError:
         # ToDo: Think about whether the function should return infinite values or some error message
-        print('The images do not match from their shape')
         width_factor, height_factor, bands_factor = (float('inf'), float('inf'), float('inf'))
 
     return width_factor, height_factor, bands_factor

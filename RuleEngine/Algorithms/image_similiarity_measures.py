@@ -17,6 +17,7 @@ def run_image_similarity_measures(image_a, image_b, threshold):
             score, difference_image = function(gray_a, gray_b, full=True)
         else:
             score = function(image_a, image_b)
+            print(function.__name__ + ' ' + str(score))
 
         # ToDo: Weigh the score with the threshold and judge whether the test passed or not
         # ToDo: Create map of functions and what their return value means
