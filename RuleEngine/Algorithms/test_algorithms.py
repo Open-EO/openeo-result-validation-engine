@@ -11,10 +11,8 @@ class TestAlgorithms(TestCase):
     def test_run_image_similarity_measures(self):
         image_a = np.zeros((512, 512, 3), np.uint8)
         image_b = np.zeros((512, 512, 3), np.uint8)
-        scores, result, difference_image = run_image_similarity_measures(image_a, image_b, 1.0)
-        self.assertEqual(scores[0], ('compare_mse', 0.0))
-        # ('compare_nrmse', 0.0), ('compare_psnr', float('inf')), ('compare_ssim', 1.0)])
-        self.assertEqual(result, 'passed')
+        result = run_image_similarity_measures(image_a, image_b, 1.0)
+        self.assertEqual(result['rule'], 'passed')
         # ToDo: Check the binary image 'difference_image'
 
     def test_check_channel_mapping(self):

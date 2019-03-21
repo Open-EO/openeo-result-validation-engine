@@ -11,7 +11,8 @@ class ValidationEngine:
         if current_rule:
             print('Working on: ' + current_rule.get_rule_type())
             current_rule.set_results(self.processResults)
-            current_rule.apply()
+            # Todo: Apply returns the results -> Fetch and store them
+            print(current_rule.apply())
             print('Result of rule: ' + str(current_rule.has_passed()))
             self.validate()
         else:
