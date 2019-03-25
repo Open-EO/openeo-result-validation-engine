@@ -13,28 +13,25 @@ class JobWorker:
 
     def start_fetching(self):
         with requests_mock.Mocker() as m:
-            m.get('http://localhost:8000/job/id/results', [{'text': 'mock/min-time/backend.png', 'status_code': 200},
-                                                           {'text': 'mock/min-time/backend2.png',
-                                                               'status_code': 200},
-                                                           {'text': 'mock/min-time/backend3.png',
-                                                               'status_code': 200},
-                                                           {'text': 'mock/min-time/backend4.png', 'status_code': 200},
-                                                           {'text': 'mock/min-time/backend5-wrong-resolution.png', 'status_code': 200},
-                                                           {'text': 'mock/min-time/backend.jpg',
-                                                            'status_code': 200}]
+            files = [{'text': 'mock/min-time/backend.png', 'status_code': 200},
+                     {'text': 'mock/min-time/backend2.png',
+                       'status_code': 200},
+                     {'text': 'mock/min-time/backend3.png',
+                       'status_code': 200},
+                     {'text': 'mock/min-time/backend4.png', 'status_code': 200},
+                     {'text': 'mock/min-time/backend5-wrong-resolution.png', 'status_code': 200},
+                     {'text': 'mock/min-time/backend.jpg',
+                      'status_code': 200},
+                     {'text': 'mock/min-time/backend-smaller-resolution-exportedwithGimp.png',
+                      'status_code': 200},
+                     ]
+
+            m.get('http://localhost:8000/job/id/results', files
                   )
-            self.results.append(requests.get(
-                'http://localhost:8000/job/id/results').text)
-            self.results.append(requests.get(
-                'http://localhost:8000/job/id/results').text)
-            self.results.append(requests.get(
-                'http://localhost:8000/job/id/results').text)
-            self.results.append(requests.get(
-                'http://localhost:8000/job/id/results').text)
-            self.results.append(requests.get(
-                'http://localhost:8000/job/id/results').text)
-            self.results.append(requests.get(
-                'http://localhost:8000/job/id/results').text)
+
+            for file in files:
+                self.results.append(requests.get(
+                    'http://localhost:8000/job/id/results').text)
 
     def run_processgraph(session, pg):
         headers = {'Authorization': 'Bearer e4d96fd79ab8dd37'}
