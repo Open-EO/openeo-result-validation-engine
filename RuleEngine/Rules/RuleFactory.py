@@ -9,13 +9,13 @@ class RuleFactory:
         pass
 
     @staticmethod
-    def create_rule(outputformat, rulename, parameters):
+    def create_rule(output_format, rulename, parameters):
         if rulename == 'pixel-checks':
             return PixelChecks(rulename, parameters)
         elif rulename == 'input-data-checks':
             return InputDataChecks(rulename, parameters)
         elif rulename == 'output-data-checks':
-            return OutputDataChecks(rulename, parameters)
+            return OutputDataChecks(rulename, parameters, output_format)
         elif rulename == 'classification-checks':
             return ClassificationChecks(rulename, parameters)
         else:

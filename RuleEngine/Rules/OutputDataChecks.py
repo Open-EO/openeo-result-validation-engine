@@ -3,22 +3,20 @@ from RuleEngine.Rules.Rule import Rule
 
 
 class OutputDataChecks(Rule):
-    def __init__(self, rule_type, parameters):
+    def __init__(self, rule_type, parameters, output_format):
+        self._output_format = output_format
         super(OutputDataChecks, self).__init__(rule_type, parameters)
 
     def apply(self):
         result_dict = {}
-        for combination in self.get_result_combinations():
-            combination_result = self.check_rule(combination[0], combination[1])
-            result_dict[str(combination)] = combination_result
+        for filepath in self._results:
+            result_dict[filepath] = self.check_rule(filepath)
         return result_dict
 
-    def check_rule(self, image_path_a, image_path_b):
+    def check_rule(self, image_path_a):
         result = {}
-        if self._parameters['identical-filenames']:
-            result['identical-filenames'] = compare_filenames(image_path_a, image_path_b)
+        if self._parameters['matching-file-extensions']:
+            result['matching-file-extensions'] = compare_filenames(image_path_a, self._output_format)
         return result
 
     # ToDo: Check file size between results
-
-    # ToDo: Check file extension between results

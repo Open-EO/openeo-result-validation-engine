@@ -39,7 +39,7 @@
               "matching-processinglevel": "True"
           },
           "output-data-checks": {
-              "identical-filenames": "True",
+              "matching-file-extensions": "True",
               "identical-colors": "True",
               "processing-time": "1.1",
               "resolution-check": "Match"

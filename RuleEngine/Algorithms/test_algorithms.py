@@ -50,11 +50,17 @@ class TestAlgorithms(TestCase):
 
     def test_compare_filenames(self):
         file_a = 'test/test.png'
-        file_b = 'test.tiff'
+        res = compare_filenames(file_a, 'png')
+        self.assertEqual(res, True)
 
-        res = compare_filenames(file_a, file_b)
-        self.assertEqual(res, False)
         file_a = 'test.tiff'
-        file_b = 'test.tiff'
-        res = compare_filenames(file_a, file_b)
+        res = compare_filenames(file_a, 'png')
+        self.assertEqual(res, False)
+
+        file_a = 'test.tiff'
+        res = compare_filenames(file_a, 'tiff')
+        self.assertEqual(res, True)
+
+        file_a = 'test.tiff'
+        res = compare_filenames(file_a, 'TIFF')
         self.assertEqual(res, True)
