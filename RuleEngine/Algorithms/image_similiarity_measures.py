@@ -1,5 +1,5 @@
-from skimage.measure import compare_ssim, compare_mse, compare_nrmse, compare_psnr
 import cv2
+from skimage.measure import compare_ssim, compare_mse, compare_nrmse, compare_psnr
 
 
 def run_image_similarity_measures(image_a, image_b, threshold):
@@ -27,7 +27,8 @@ def run_image_similarity_measures(image_a, image_b, threshold):
         else:
             check = 'failed'
 
-    result['differenceImage'] = difference_image
+    # result['differenceImage'] = difference_image
+    result['differenceImage'] = 'diffImagePath?'
     result['rule'] = check
 
     return result

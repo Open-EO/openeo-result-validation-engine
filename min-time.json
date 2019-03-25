@@ -39,7 +39,7 @@
               "matching-processinglevel": "True"
           },
           "output-data-checks": {
-              "identical-file-size": "True",
+              "identical-filenames": "True",
               "identical-colors": "True",
               "processing-time": "1.1",
               "resolution-check": "Match"
@@ -51,7 +51,7 @@
               "allow-different-channel-map": "True"
           },
           "classification-checks": {
-              "matching-boundaries": "1.2",
+              "matching-boundaries": "0.20",
               "matching-colours": "False",
               "number-of-classes": "Equal",
               "equal-scale": "False"

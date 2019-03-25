@@ -29,5 +29,4 @@ class RuleEngine:
             if newrule:
                 self.functionsList.append(newrule)
             else:
-                print('The rule: {} does not exist yet'.format(rule))
-                print('Skipping rule')
+                print('Rule: {} is not implemented'.format(rule))

@@ -1,9 +1,11 @@
 from unittest import TestCase
-from RuleEngine.Algorithms.image_similiarity_measures import run_image_similarity_measures
-from RuleEngine.Algorithms.check_channel_mapping import check_channel_mapping
-from RuleEngine.Algorithms.compare_resolution import compare_resolution
 
 import numpy as np
+
+from RuleEngine.Algorithms.check_channel_mapping import check_channel_mapping
+from RuleEngine.Algorithms.compare_filenames import compare_filenames
+from RuleEngine.Algorithms.compare_resolution import compare_resolution
+from RuleEngine.Algorithms.image_similiarity_measures import run_image_similarity_measures
 
 
 class TestAlgorithms(TestCase):
@@ -41,3 +43,18 @@ class TestAlgorithms(TestCase):
         self.assertEqual(width_factor, float('inf'))
         self.assertEqual(height_factor, float('inf'))
         self.assertEqual(band_factor, float('inf'))
+
+    # def test_compare_filesize(self):
+    #    factor = compare_filesize(file_a, file_b)
+    #    self.assertEqual(factor, 1)
+
+    def test_compare_filenames(self):
+        file_a = 'test/test.png'
+        file_b = 'test.tiff'
+
+        res = compare_filenames(file_a, file_b)
+        self.assertEqual(res, False)
+        file_a = 'test.tiff'
+        file_b = 'test.tiff'
+        res = compare_filenames(file_a, file_b)
+        self.assertEqual(res, True)

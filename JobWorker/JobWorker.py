@@ -19,8 +19,12 @@ class JobWorker:
                                                            {'text': 'mock/min-time/backend3.png',
                                                                'status_code': 200},
                                                            {'text': 'mock/min-time/backend4.png', 'status_code': 200},
-                                                           {'text': 'mock/min-time/backend5-wrong-resolution.png', 'status_code': 200}]
+                                                           {'text': 'mock/min-time/backend5-wrong-resolution.png', 'status_code': 200},
+                                                           {'text': 'mock/min-time/backend.jpg',
+                                                            'status_code': 200}]
                   )
+            self.results.append(requests.get(
+                'http://localhost:8000/job/id/results').text)
             self.results.append(requests.get(
                 'http://localhost:8000/job/id/results').text)
             self.results.append(requests.get(
