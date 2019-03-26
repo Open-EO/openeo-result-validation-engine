@@ -13,7 +13,7 @@ class TestAlgorithms(TestCase):
     def test_run_image_similarity_measures(self):
         image_a = np.zeros((512, 512, 3), np.uint8)
         image_b = np.zeros((512, 512, 3), np.uint8)
-        result = run_image_similarity_measures(image_a, image_b, 1.0)
+        result = run_image_similarity_measures(image_a, image_b, '///', 1.0)
         self.assertEqual(result['rule'], 'passed')
         # ToDo: Check the binary image 'difference_image'
 
@@ -43,10 +43,6 @@ class TestAlgorithms(TestCase):
         self.assertEqual(width_factor, float('inf'))
         self.assertEqual(height_factor, float('inf'))
         self.assertEqual(band_factor, float('inf'))
-
-    # def test_compare_filesize(self):
-    #    factor = compare_filesize(file_a, file_b)
-    #    self.assertEqual(factor, 1)
 
     def test_compare_filenames(self):
         file_a = 'test/test.png'

@@ -1,4 +1,5 @@
 from RuleEngine.Algorithms.compare_filenames import compare_filenames
+from RuleEngine.Algorithms.compare_filesize import compare_filesize
 from RuleEngine.Rules.Rule import Rule
 
 
@@ -13,10 +14,13 @@ class OutputDataChecks(Rule):
             result_dict[filepath] = self.check_rule(filepath)
         return result_dict
 
-    def check_rule(self, image_path_a):
+    def check_rule(self, file_path_a):
         result = {}
         if self._parameters['matching-file-extensions']:
-            result['matching-file-extensions'] = compare_filenames(image_path_a, self._output_format)
+            result['matching-file-extensions'] = compare_filenames(file_path_a, self._output_format)
+        if self._parameters['file-size-check']:
+            result['file-size-check'] = compare_filesize(file_path_a, self._results)
+
         return result
 
     # ToDo: Check file size between results

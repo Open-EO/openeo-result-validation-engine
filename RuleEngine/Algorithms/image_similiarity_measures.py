@@ -1,20 +1,27 @@
 import cv2
+import logging
 from skimage.measure import compare_ssim, compare_mse, compare_nrmse, compare_psnr
 
 
-def run_image_similarity_measures(image_a, image_b, threshold):
+def run_image_similarity_measures(image_a, image_b, combination_name, threshold):
+    logger = logging.getLogger(__name__)
+
     check = 'passed'
-    difference_image = []
     result = {}
 
     functions = [compare_mse, compare_nrmse, compare_psnr, compare_ssim]
 
     for function in functions:
-        # ToDo: Find better solution to execute structural similarity index
+        logger.info('Executing {}'.format(function.__name__))
+
         if function.__name__ == 'compare_ssim':
             gray_a = cv2.cvtColor(image_a, cv2.COLOR_BGR2GRAY)
             gray_b = cv2.cvtColor(image_b, cv2.COLOR_BGR2GRAY)
             score, difference_image = function(gray_a, gray_b, full=True)
+            if score != 1.0:
+                difference_image = (difference_image * 255).astype("uint8")
+                cv2.imwrite(combination_name + '.png', difference_image)
+                result['differenceImage_Path'] = combination_name + '.png'
             result[function.__name__] = score
         else:
             score = function(image_a, image_b)
@@ -27,9 +34,6 @@ def run_image_similarity_measures(image_a, image_b, threshold):
         else:
             check = 'failed'
 
-    # result['differenceImage'] = difference_image
-    result['differenceImage'] = 'diffImagePath?'
     result['rule'] = check
-
     return result
 

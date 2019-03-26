@@ -1,6 +1,6 @@
 from abc import ABC
 
-from itertools import product
+from itertools import combinations
 
 
 class Rule(ABC):
@@ -29,4 +29,4 @@ class Rule(ABC):
 
     def get_result_combinations(self):
         """  :returns an array of all (unique) possible combinations of the results i.e the output of the back-ends """
-        return set(product(self._results, self._results))
+        return set(combinations(self._results, 2))

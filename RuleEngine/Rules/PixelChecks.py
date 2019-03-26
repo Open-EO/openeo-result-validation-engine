@@ -1,4 +1,5 @@
 import cv2
+import logging
 
 from RuleEngine.Algorithms.check_channel_mapping import check_channel_mapping
 from RuleEngine.Algorithms.compare_histograms import compare_histograms
@@ -14,11 +15,13 @@ class PixelChecks(Rule):
     def apply(self):
         result_dict = {}
         for combination in self.get_result_combinations():
-            combination_result = self.check_rule(combination[0], combination[1])
+            combination_result = self.check_rule(combination[0], combination[1], combination)
             result_dict[str(combination)] = combination_result
         return result_dict
 
-    def check_rule(self, image_path_a, image_path_b):
+    def check_rule(self, image_path_a, image_path_b, combination):
+        logger = logging.getLogger('PixelChecks')
+
         """ Has two image paths as input, the threshold comes from the instantiation of the rule"""
         threshold = self._parameters['threshold']
         image_a = cv2.imread(image_path_a)
@@ -29,13 +32,18 @@ class PixelChecks(Rule):
             result['check-channel-mapping']= check_channel_mapping(image_a, image_b)
 
         if self._parameters['image-similarity-measures'] == 'True':
+            logger.info('Executing Histogram Check')
             result['compare_histograms'] = compare_histograms(image_a, image_b)
 
             if compare_resolution(image_a, image_b) == (1.0, 1.0, 1.0):
-                result['image-similarity-measures'] = run_image_similarity_measures(image_a, image_b, threshold)
+                logger.info('Executing Image Similarity measures')
+                # ToDo: Create proper naming for the difference image
+                combination = ((combination[0].strip('.png')).strip('.jpg') +
+                               '_' + (combination[1].strip('.png')).strip('.jpg')).replace('/', '_')
+                combination = 'reports/' + combination
+
+                result['image-similarity-measures'] = run_image_similarity_measures(image_a, image_b, combination, threshold)
             else:
                 result['image-similarity-measures'] = 'The test was not able to run for this combination'
 
         return result
-
-

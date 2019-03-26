@@ -42,6 +42,7 @@
               "matching-file-extensions": "True",
               "identical-colors": "True",
               "processing-time": "1.1",
+              "file-size-check": "True",
               "resolution-check": "Match"
           },
           "pixel-checks": {

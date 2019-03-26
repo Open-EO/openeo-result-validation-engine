@@ -1,6 +1,7 @@
 import json
 
 
+
 class ValidationEngine:
     def __init__(self, rule_engine, process_results):
         self.processResults = process_results
@@ -20,7 +21,7 @@ class ValidationEngine:
             self.validate()
         else:
             print('Validation done, results are in!')
-            with open('ValidationReport.json', 'w') as fp:
+            with open('reports/ValidationReport.json', 'w') as fp:
                 json.dump(self._report, fp)
 
 
