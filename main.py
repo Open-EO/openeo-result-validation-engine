@@ -1,7 +1,6 @@
 import json
 import logging
 
-
 from JobWorker.JobWorker import  JobWorker
 from RuleEngine.RuleEngine import RuleEngine
 from ValidationEngine.ValidationEngine import ValidationEngine

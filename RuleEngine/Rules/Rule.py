@@ -11,7 +11,13 @@ class Rule(ABC):
         self._results = []
 
     def apply(self):
-        """ Applys the rule on a given object"""
+        result_dict = {}
+        for combination in self.get_result_combinations():
+            combination_result = self.check_rule(combination[0], combination[1], combination)
+            result_dict[str(combination)] = combination_result
+        return result_dict
+
+    def check_rule(self, *kwargs):
         pass
 
     def set_results(self, results):

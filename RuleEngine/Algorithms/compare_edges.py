@@ -18,11 +18,9 @@ def calculate_canny_edges(image_a, image_b):
     edges_a = cv2.Canny(gray_image_a, 30, 30*3)
     edges_b = cv2.Canny(gray_image_b, 30, 30*3)
 
-
     # Lets dilate the output to fill holes and to alleviate the issue that some lines may only slightly diverge
     edges_a = cv2.dilate(edges_a, kernel)
     edges_b = cv2.dilate(edges_b, kernel)
-
 
     if edges_a.size == edges_b.size:
         diff = edges_a - edges_b

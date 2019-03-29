@@ -56,14 +56,6 @@
               "matching-colours": "False",
               "number-of-classes": "Equal",
               "equal-scale": "False"
-          },
-            "not-yet-implemented-checks": {
-              "matching-boundaries": "1.2",
-              "matching-colours": "False"
-          },
-          "further-rule-not-yet": {
-              "matching-boundaries": "1.2",
-              "matching-colours": "False"
           }
       }
   }

@@ -1,4 +1,4 @@
-def compare_filenames(file_a, output_format):
+def compare_file_extensions(file_a, output_format):
 
     _, ext_a = file_a.split('.')
     #_, ext_b = file_b.split('.')

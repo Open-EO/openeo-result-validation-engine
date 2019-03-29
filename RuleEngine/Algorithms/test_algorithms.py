@@ -3,7 +3,7 @@ from unittest import TestCase
 import numpy as np
 
 from RuleEngine.Algorithms.check_channel_mapping import check_channel_mapping
-from RuleEngine.Algorithms.compare_filenames import compare_filenames
+from RuleEngine.Algorithms.compare_file_extensions import compare_file_extensions
 from RuleEngine.Algorithms.compare_resolution import compare_resolution
 from RuleEngine.Algorithms.image_similiarity_measures import run_image_similarity_measures
 
@@ -46,17 +46,17 @@ class TestAlgorithms(TestCase):
 
     def test_compare_filenames(self):
         file_a = 'test/test.png'
-        res = compare_filenames(file_a, 'png')
+        res = compare_file_extensions(file_a, 'png')
         self.assertEqual(res, True)
 
         file_a = 'test.tiff'
-        res = compare_filenames(file_a, 'png')
+        res = compare_file_extensions(file_a, 'png')
         self.assertEqual(res, False)
 
         file_a = 'test.tiff'
-        res = compare_filenames(file_a, 'tiff')
+        res = compare_file_extensions(file_a, 'tiff')
         self.assertEqual(res, True)
 
         file_a = 'test.tiff'
-        res = compare_filenames(file_a, 'TIFF')
+        res = compare_file_extensions(file_a, 'TIFF')
         self.assertEqual(res, True)
