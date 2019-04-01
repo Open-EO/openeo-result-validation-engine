@@ -5,7 +5,7 @@ import numpy as np
 from RuleEngine.Algorithms.check_channel_mapping import check_channel_mapping
 from RuleEngine.Algorithms.compare_file_extensions import compare_file_extensions
 from RuleEngine.Algorithms.compare_resolution import compare_resolution
-from RuleEngine.Algorithms.image_similiarity_measures import run_image_similarity_measures
+from RuleEngine.Algorithms.image_similiarity_measures import image_similarity_measures
 
 
 class TestAlgorithms(TestCase):
@@ -13,7 +13,7 @@ class TestAlgorithms(TestCase):
     def test_run_image_similarity_measures(self):
         image_a = np.zeros((512, 512, 3), np.uint8)
         image_b = np.zeros((512, 512, 3), np.uint8)
-        result = run_image_similarity_measures(image_a, image_b, '///', 1.0)
+        result = image_similarity_measures(image_a, image_b, '///', 1.0)
         self.assertEqual(result['rule'], 'passed')
         # ToDo: Check the binary image 'difference_image'
 

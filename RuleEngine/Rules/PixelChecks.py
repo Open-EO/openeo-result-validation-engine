@@ -4,7 +4,7 @@ import logging
 from RuleEngine.Algorithms.check_channel_mapping import check_channel_mapping
 from RuleEngine.Algorithms.compare_histograms import compare_histograms
 from RuleEngine.Algorithms.compare_resolution import compare_resolution
-from RuleEngine.Algorithms.image_similiarity_measures import run_image_similarity_measures
+from RuleEngine.Algorithms.image_similiarity_measures import image_similarity_measures
 from RuleEngine.Rules.Rule import Rule
 
 
@@ -31,10 +31,10 @@ class PixelChecks(Rule):
                 # ToDo: Create proper naming for the difference image
                 combination = ((combination[0].strip('.png')).strip('.jpg') +
                                '_' + (combination[1].strip('.png')).strip('.jpg')).replace('/', '_')
-                combination = 'reports/' + combination
+                combination = 'reports/SSIM' + combination
 
-                result['image-similarity-measures'] = run_image_similarity_measures(image_a, image_b, combination,
-                                                                                    self._parameters['threshold'])
+                result['image-similarity-measures'] = image_similarity_measures(image_a, image_b, combination,
+                                                                                self._parameters['threshold'])
             else:
                 result['image-similarity-measures'] = 'The test was not able to run for this combination'
 

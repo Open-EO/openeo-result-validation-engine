@@ -7,13 +7,13 @@ class RuleEngine:
 
     def __init__(self, reference_job):
         self.referenceJob = reference_job
-        self.functionsList = []
+        self.ruleList = []
         self.outputFormat = reference_job['job']['output']['format']
 
     def next_rule(self):
-        if len(self.functionsList) > 0:
-            next_function = self.functionsList[0]
-            self.functionsList.pop(0)
+        if len(self.ruleList) > 0:
+            next_function = self.ruleList[0]
+            self.ruleList.pop(0)
             return next_function
         else:
             return None
@@ -22,11 +22,11 @@ class RuleEngine:
         """ Parses the reference job for rules and creates a list of rule objects,
             this might be better than parsing them in nextRule as this will allow to throw configuration errors
             beforehand """
-        self.functionsList = []
-        rule_factory = RuleFactory()
+        self.ruleList = []
+        rule_factory = RuleFactory.get_instance()
         for rule in self.referenceJob['validation']['rules']:
             newrule = rule_factory.create_rule(self.outputFormat, rule, self.referenceJob['validation']['rules'][rule])
             if newrule:
-                self.functionsList.append(newrule)
+                self.ruleList.append(newrule)
             else:
                 print('Rule: {} is not implemented'.format(rule))

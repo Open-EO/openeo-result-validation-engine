@@ -27,6 +27,9 @@ class JobWorker:
                          {'text': 'mock/min-time/backend-smaller-resolution-exportedwithGimp.png',
                           'status_code': 200},
                          ]
+            elif test_file_selection == 'classification':
+                files = [{'text': 'mock/min-time/classification.jpg', 'status_code': 200},
+                         {'text': 'mock/min-time/classification_2.jpg', 'status_code': 200}]
             else:
                 files = [{'text': 'mock/min-time/RealFilesizes/Backend.jp2', 'status_code': 200},
                          {'text': 'mock/min-time/RealFilesizes/T19NGH_20190120T145729_TCI_10m Kopie 2.jp2', 'status_code': 200}]

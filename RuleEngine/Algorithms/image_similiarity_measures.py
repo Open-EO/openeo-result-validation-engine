@@ -3,7 +3,7 @@ import logging
 from skimage.measure import compare_ssim, compare_mse, compare_nrmse, compare_psnr
 
 
-def run_image_similarity_measures(image_a, image_b, combination_name, threshold):
+def image_similarity_measures(image_a, image_b, combination_name, threshold):
     logger = logging.getLogger(__name__)
 
     check = 'passed'
