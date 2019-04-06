@@ -24,25 +24,25 @@ class TestAlgorithms(TestCase):
         self.assertEqual(result, False, 'The result should be false')
 
     def test_compare_resolution(self):
-        width_factor, height_factor, band_factor = compare_resolution(np.zeros((512, 512, 3)), np.zeros((512, 512, 3)))
-        self.assertEqual(width_factor, 1.0)
-        self.assertEqual(height_factor, 1.0)
-        self.assertEqual(band_factor, 1.0)
+        result = compare_resolution(np.zeros((512, 512, 3)), np.zeros((512, 512, 3)))
+        self.assertEqual(result, {'widthFactor': 1,
+                                  'heightFactor': 1,
+                                  'bandsFactor': 1})
 
-        width_factor, height_factor, band_factor = compare_resolution(np.zeros((512, 512, 3)), np.zeros((1024, 1024, 3)))
-        self.assertEqual(width_factor, 0.5)
-        self.assertEqual(height_factor, 0.5)
-        self.assertEqual(band_factor, 1.0)
+        result = compare_resolution(np.zeros((512, 512, 3)), np.zeros((1024, 1024, 3)))
+        self.assertEqual(result, {'widthFactor': 0.5,
+                                  'heightFactor': 0.5,
+                                  'bandsFactor': 1})
 
-        width_factor, height_factor, band_factor = compare_resolution(np.zeros((1024, 1024, 3)), np.zeros((512, 512, 3)))
-        self.assertEqual(width_factor, 2.0)
-        self.assertEqual(height_factor, 2.0)
-        self.assertEqual(band_factor, 1.0)
+        result = compare_resolution(np.zeros((1024, 1024, 3)), np.zeros((512, 512, 3)))
+        self.assertEqual(result, {'widthFactor': 2.0,
+                                  'heightFactor': 2.0,
+                                  'bandsFactor': 1})
 
-        width_factor, height_factor, band_factor = compare_resolution(np.zeros((1024, 1024, 3)), np.zeros((512, 512)))
-        self.assertEqual(width_factor, float('inf'))
-        self.assertEqual(height_factor, float('inf'))
-        self.assertEqual(band_factor, float('inf'))
+        result = compare_resolution(np.zeros((1024, 1024, 3)), np.zeros((512, 512)))
+        self.assertEqual(result, {'widthFactor': None,
+                                  'heightFactor': None,
+                                  'bandsFactor': None})
 
     def test_compare_filenames(self):
         file_a = 'test/test.png'

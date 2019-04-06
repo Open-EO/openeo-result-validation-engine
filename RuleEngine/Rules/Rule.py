@@ -1,5 +1,4 @@
 from abc import ABC
-
 from itertools import combinations
 
 
@@ -11,11 +10,13 @@ class Rule(ABC):
         self._results = []
 
     def apply(self):
-        result_dict = {}
+        result_arr = []
         for combination in self.get_result_combinations():
             combination_result = self.check_rule(combination[0], combination[1], combination)
-            result_dict[str(combination)] = combination_result
-        return result_dict
+            if combination_result:
+                combination_result['checked-files'] = [str(combination[0]), str(combination[1])]
+            result_arr.append(combination_result)
+        return {self._ruleType: result_arr}
 
     def check_rule(self, *kwargs):
         pass
@@ -35,4 +36,7 @@ class Rule(ABC):
 
     def get_result_combinations(self):
         """  :returns an array of all (unique) possible combinations of the results i.e the output of the back-ends """
-        return set(combinations(self._results, 2))
+        files = []
+        for backend_name_file in self._results:
+            files.append(backend_name_file['file'])
+        return set(combinations(files, 2))

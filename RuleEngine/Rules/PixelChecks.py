@@ -26,9 +26,11 @@ class PixelChecks(Rule):
             logger.info('Executing Histogram Check')
             result['compare_histograms'] = compare_histograms(image_a, image_b)
             result['compare_resolution'] = compare_resolution(image_a, image_b)
-            if result['compare_resolution'] == (1.0, 1.0, 1.0):
+            if result['compare_resolution'] == {'widthFactor': 1,
+                                                'heightFactor': 1,
+                                                'bandsFactor': 1}:
                 logger.info('Executing Image Similarity measures')
-                # ToDo: Create proper naming for the difference image
+                # ToDo: Create universal extension removal
                 combination = ((combination[0].strip('.png')).strip('.jpg') +
                                '_' + (combination[1].strip('.png')).strip('.jpg')).replace('/', '_')
                 combination = 'reports/SSIM' + combination
@@ -36,6 +38,6 @@ class PixelChecks(Rule):
                 result['image-similarity-measures'] = image_similarity_measures(image_a, image_b, combination,
                                                                                 self._parameters['threshold'])
             else:
-                result['image-similarity-measures'] = 'The test was not able to run for this combination'
+                result['image-similarity-measures'] = None
 
         return result

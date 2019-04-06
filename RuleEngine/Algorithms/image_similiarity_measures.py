@@ -25,10 +25,12 @@ def image_similarity_measures(image_a, image_b, combination_name, threshold):
             result[function.__name__] = score
         else:
             score = function(image_a, image_b)
+            if score == float("inf"):
+                score = "infinity"
             result[function.__name__] = score
 
-        # ToDo: Weigh the score with the threshold and judge whether the test passed or not
-        # ToDo: Create map of functions and what their return value means
+        # ToDo: Maybe the rules should not return whether they passed or not. This behaviour could be done later on
+        #  by parsing the validation report and comparing the results with a threshold there
         if score in [0.0, 1.0, float("inf")]:
             check = 'passed'
         else:

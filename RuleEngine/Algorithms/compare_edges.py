@@ -9,7 +9,7 @@ def calculate_canny_edges(image_a, image_b, combination, threshold):
     :returns A factor 0.0 up to 1.0 of as a percentage of how much the images differ
     If a result of inf is returned this indicates that the check could not be run.
     ref: https://www.pyimagesearch.com/2015/04/06/zero-parameter-automatic-canny-edge-detection-with-python-and-opencv/ """
-    # Todo: Create Input with different color scheme but same regions
+    # Todo: Rework this.
     kernel = np.ones((5, 5), np.uint8)
 
     gray_image_a = cv2.cvtColor(image_a, cv2.COLOR_BGR2GRAY)
@@ -42,10 +42,10 @@ def calculate_canny_edges(image_a, image_b, combination, threshold):
         # diff = cv2.morphologyEx(diff, cv2.MORPH_OPEN, kernel)
         # diff = cv2.erode(diff, np.ones((5, 5), np.uint8))
 
-        #cv2.imshow('edges_a', edges_a)
-        #cv2.imshow('edges_b', edges_b)
-        #cv2.imshow('diff', diff)
-        #cv2.waitKey(0)
+        cv2.imshow('edges_a', edges_a)
+        cv2.imshow('edges_b', edges_b)
+        cv2.imshow('diff', diff)
+        cv2.waitKey(0)
         # 1 is equal to 255 (white dot)
         different_pixels = diff.sum() / 255
         total_pixels = diff.size

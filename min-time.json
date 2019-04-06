@@ -52,7 +52,7 @@
               "allow-different-channel-map": "True"
           },
           "classification-checks": {
-              "matching-boundaries": "0.20",
+              "matching-boundaries": "0.02",
               "matching-colours": "False",
               "number-of-classes": "Equal",
               "equal-scale": "False"

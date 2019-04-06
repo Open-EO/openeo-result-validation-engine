@@ -15,8 +15,7 @@ class ClassificationChecks(Rule):
         result = {}
 
         if self._parameters['matching-boundaries']:
-            result = calculate_canny_edges(image_a, image_b, combination, self._parameters['matching-boundaries'])
-        # if self._parameters['color-band-check']:
-        # ToDo: The amount of colors could be checked here, this may be similar to a histogram check [Have to check]
+            result['matching-boundaries'] = calculate_canny_edges(image_a, image_b, combination,
+                                                                  self._parameters['matching-boundaries'])
 
         return result
