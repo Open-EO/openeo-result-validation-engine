@@ -25,5 +25,3 @@ class ValidationEngine:
             print('Saving to report to disk')
             with open('reports/ValidationReport.json', 'w') as fp:
                 json.dump(self._report, fp)
-
-

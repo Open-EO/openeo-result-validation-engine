@@ -25,11 +25,3 @@ class JobWorker:
                     self.results.append(session.get('mock://test.com/1').json())
 
 
-            for file in files:
-                self.results.append(requests.get(
-                    'http://localhost:8000/job/id/results').text)
-
-    def run_processgraph(session, pg):
-        headers = {'Authorization': 'Bearer e4d96fd79ab8dd37'}
-        with session.post("https://earthengine.openeo.org/v0.3/preview", headers=headers, json=pg) as response:
-            print('response: {}'.format(response.content))

@@ -42,10 +42,10 @@ def calculate_canny_edges(image_a, image_b, combination, threshold):
         # diff = cv2.morphologyEx(diff, cv2.MORPH_OPEN, kernel)
         # diff = cv2.erode(diff, np.ones((5, 5), np.uint8))
 
-        cv2.imshow('edges_a', edges_a)
-        cv2.imshow('edges_b', edges_b)
-        cv2.imshow('diff', diff)
-        cv2.waitKey(0)
+        #cv2.imshow('edges_a', edges_a)
+        #cv2.imshow('edges_b', edges_b)
+        #cv2.imshow('diff', diff)
+        #cv2.waitKey(0)
         # 1 is equal to 255 (white dot)
         different_pixels = diff.sum() / 255
         total_pixels = diff.size
