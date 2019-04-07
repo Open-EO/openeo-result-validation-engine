@@ -1,12 +1,12 @@
-import cv2
 import logging
+
+import cv2
 from skimage.measure import compare_ssim, compare_mse, compare_nrmse, compare_psnr
 
 
-def image_similarity_measures(image_a, image_b, combination_name, threshold):
+def image_similarity_measures(image_a, image_b, file_save_path):
     logger = logging.getLogger(__name__)
 
-    check = 'passed'
     result = {}
 
     functions = [compare_mse, compare_nrmse, compare_psnr, compare_ssim]
@@ -20,8 +20,9 @@ def image_similarity_measures(image_a, image_b, combination_name, threshold):
             score, difference_image = function(gray_a, gray_b, full=True)
             if score != 1.0:
                 difference_image = (difference_image * 255).astype("uint8")
-                cv2.imwrite(combination_name + '.png', difference_image)
-                result['differenceImage_Path'] = combination_name + '.png'
+                file_save_path = 'reports/SSIM' + file_save_path + '.png'
+                cv2.imwrite(file_save_path, difference_image)
+                result['differenceImage_Path'] = file_save_path
             result[function.__name__] = score
         else:
             score = function(image_a, image_b)
@@ -29,13 +30,5 @@ def image_similarity_measures(image_a, image_b, combination_name, threshold):
                 score = "infinity"
             result[function.__name__] = score
 
-        # ToDo: Maybe the rules should not return whether they passed or not. This behaviour could be done later on
-        #  by parsing the validation report and comparing the results with a threshold there
-        if score in [0.0, 1.0, float("inf")]:
-            check = 'passed'
-        else:
-            check = 'failed'
-
-    result['rule'] = check
     return result
 

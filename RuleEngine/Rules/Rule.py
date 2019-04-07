@@ -1,5 +1,7 @@
+import os
 from abc import ABC
 from itertools import combinations
+
 
 
 class Rule(ABC):
@@ -40,3 +42,10 @@ class Rule(ABC):
         for backend_name_file in self._results:
             files.append(backend_name_file['file'])
         return set(combinations(files, 2))
+
+    @staticmethod
+    def create_file_path(combination):
+        filename_a = os.path.splitext(combination[0])[0]
+        filename_b = os.path.splitext(combination[1])[0]
+        file_path = (filename_a + '_' + filename_b).replace('/', '_')
+        return file_path

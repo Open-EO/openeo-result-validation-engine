@@ -1,5 +1,6 @@
-import cv2
 import logging
+
+import cv2
 
 from RuleEngine.Algorithms.check_channel_mapping import check_channel_mapping
 from RuleEngine.Algorithms.compare_histograms import compare_histograms
@@ -30,14 +31,11 @@ class PixelChecks(Rule):
                                                 'heightFactor': 1,
                                                 'bandsFactor': 1}:
                 logger.info('Executing Image Similarity measures')
-                # ToDo: Create universal extension removal
-                combination = ((combination[0].strip('.png')).strip('.jpg') +
-                               '_' + (combination[1].strip('.png')).strip('.jpg')).replace('/', '_')
-                combination = 'reports/SSIM' + combination
+                result['image-similarity-measures'] = image_similarity_measures(image_a, image_b,
+                                                                                self.create_file_path(combination))
 
-                result['image-similarity-measures'] = image_similarity_measures(image_a, image_b, combination,
-                                                                                self._parameters['threshold'])
             else:
                 result['image-similarity-measures'] = None
 
         return result
+
