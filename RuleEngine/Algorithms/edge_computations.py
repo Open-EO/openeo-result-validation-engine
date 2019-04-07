@@ -27,20 +27,24 @@ def calculate_canny_edges(image_a, image_b):
 def compute_overlap(edge_images):
     if edge_images[0].size == edge_images[1].size:
         # Overlap computation
-        # ToDo: Work out proper calculation
         # ref: http://answers.opencv.org/question/37392/how-to-compute-intersections-of-two-contours/
-        # the higher the overlap the better
+        non_zero_image_a = cv2.countNonZero(edge_images[0])
+        non_zero_image_b = cv2.countNonZero(edge_images[1])
+
         height, width = edge_images[0].shape
         overlap_image = np.zeros((height, width), np.uint8)
+
         cv2.bitwise_and(edge_images[0], edge_images[1], overlap_image)
-        # sum of all edges
-        non_zero_image_a = cv2.countNonZero(edge_images[0])
-        #non_zero_image_b = cv2.countNonZero(edge_images[1])
-        # sum of the overlap (should be lower than the sums)
+
         non_zero_overlap_image = cv2.countNonZero(overlap_image)
-        percent_difference_roi_a = non_zero_overlap_image / non_zero_image_a
-        #percent_difference_roi_b = non_zero_overlap_image / non_zero_image_b
-        return percent_difference_roi_a
+
+        try:
+            percent_difference_roi_a = non_zero_overlap_image / non_zero_image_a
+            percent_difference_roi_b = non_zero_overlap_image / non_zero_image_b
+            return percent_difference_roi_a / percent_difference_roi_b
+
+        except ZeroDivisionError:
+            return 0.0
     else:
         return None
 

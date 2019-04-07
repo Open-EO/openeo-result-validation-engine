@@ -21,17 +21,18 @@ class ClassificationChecks(Rule):
             edge_images = calculate_canny_edges(image_a, image_b)
 
             if create_comparison_image(edge_images) is not None:
-                file_save_path = 'reports/comparison_image_' + self.create_file_path(combination) + '.png'
+                file_save_path = self.create_file_path(combination, 'comparison_image_', '.png')
                 cv2.imwrite(file_save_path, create_comparison_image(edge_images))
                 result['matching-boundaries']['comparison-image'] = file_save_path
 
             edge_detect_result = compute_overlap(edge_images)
             if edge_detect_result:
+                # ToDo: Proper check for threshold
                 rule_state = edge_detect_result < float(self._parameters['matching-boundaries'])
                 rule_state = 'passed' if rule_state else 'failed'
                 result['matching-boundaries']['overlap-check'] = {
                     'rule': rule_state,
-                    'percent-difference': str(edge_detect_result),
+                    'overlap-percentage': str(edge_detect_result),
                 }
             else:
                 result['matching-boundaries']['overlap-check'] = 'Test was not able to run due to different image sizes'

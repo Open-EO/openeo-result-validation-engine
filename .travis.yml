@@ -5,5 +5,5 @@ cache: pip
 install:
   - pip install -r requirements.txt
 script:
-  - python main.py
+  - python ValidationEngine.py
   - python -m unittest

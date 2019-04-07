@@ -21,7 +21,7 @@ class PixelChecks(Rule):
         result = {}
 
         if self._parameters['allow-different-channel-map'] == 'False':
-            result['check-channel-mapping']= check_channel_mapping(image_a, image_b)
+            result['check-channel-mapping'] = check_channel_mapping(image_a, image_b)
 
         if self._parameters['image-similarity-measures'] == 'True':
             logger.info('Executing Histogram Check')
@@ -30,9 +30,14 @@ class PixelChecks(Rule):
             if result['compare_resolution'] == {'widthFactor': 1,
                                                 'heightFactor': 1,
                                                 'bandsFactor': 1}:
+
                 logger.info('Executing Image Similarity measures')
-                result['image-similarity-measures'] = image_similarity_measures(image_a, image_b,
-                                                                                self.create_file_path(combination))
+
+                result['image-similarity-measures'], difference_image = image_similarity_measures(image_a, image_b)
+                if difference_image is not None:
+                    file_save_path = self.create_file_path(combination, 'SSIM_', '.png')
+                    cv2.imwrite(file_save_path, difference_image)
+                    result['differenceImage_Path'] = file_save_path
 
             else:
                 result['image-similarity-measures'] = None

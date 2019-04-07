@@ -5,6 +5,7 @@ import numpy as np
 from RuleEngine.Algorithms.check_channel_mapping import check_channel_mapping
 from RuleEngine.Algorithms.compare_file_extensions import compare_file_extensions
 from RuleEngine.Algorithms.compare_resolution import compare_resolution
+from RuleEngine.Algorithms.edge_computations import compute_overlap
 from RuleEngine.Algorithms.image_similiarity_measures import image_similarity_measures
 
 
@@ -13,7 +14,7 @@ class TestAlgorithms(TestCase):
     def test_run_image_similarity_measures(self):
         image_a = np.zeros((512, 512, 3), np.uint8)
         image_b = np.zeros((512, 512, 3), np.uint8)
-        result = image_similarity_measures(image_a, image_b, '//')
+        result = image_similarity_measures(image_a, image_b)
         # ToDo: Reimplement proper test
 
     def test_check_channel_mapping(self):
@@ -59,3 +60,46 @@ class TestAlgorithms(TestCase):
         file_a = 'test.tiff'
         res = compare_file_extensions(file_a, 'TIFF')
         self.assertEqual(res, True)
+
+    def test_compute_overlap(self):
+        image_a = np.zeros((2,2), np.uint8)
+        image_b = np.zeros((2,2), np.uint8)
+        image_a[0:1, 0:2] = 1
+        image_b[0:1, 0:2] = 1
+        edges = [image_a, image_b]
+        res = compute_overlap(edges)
+        self.assertEqual(res, 1.0)
+
+        image_a = np.zeros((2,2), np.uint8)
+        image_b = np.zeros((2,2), np.uint8)
+        image_a[0:1, 0:2] = 1
+        image_b[0:1, 1:2] = 1
+        edges = [image_a, image_b]
+        res = compute_overlap(edges)
+        self.assertEqual(res, 0.5)
+
+        image_a = np.zeros((4,4), np.uint8)
+        image_b = np.zeros((4,4), np.uint8)
+        image_a[:2, :2] = 1
+        image_b[:1, :2] = 1
+        edges = [image_a, image_b]
+        res = compute_overlap(edges)
+        self.assertEqual(res, 0.5)
+
+        image_a = np.zeros((4,4), np.uint8)
+        image_b = np.zeros((4,4), np.uint8)
+        image_a[1:3, :4] = 1
+        image_b[1:2, :3] = 1
+        print(image_a)
+        print(image_b)
+        edges = [image_a, image_b]
+        res = compute_overlap(edges)
+        self.assertEqual(res, 0.375)
+
+        image_a = np.ones((4,4), np.uint8)
+        image_b = np.ones((4,4), np.uint8)
+        print(image_a)
+        print(image_b)
+        edges = [image_a, image_b]
+        res = compute_overlap(edges)
+        self.assertEqual(res, 1)
