@@ -26,6 +26,16 @@ class JobWorker:
         else:
             return None
 
+    def get_all_jobs(self):
+        jobs = []
+        for current_job in self._jobs:
+            imagery = []
+            for result in self.results:
+                if result['job'] == current_job:
+                    imagery.append(result)
+            jobs.append(imagery)
+        return jobs
+
     def start_fetching(self):
         # ToDo: In the future, this job worker would use the OpenEO Python client to connect to various
         #  backend Providers and send the process graph of the validation job to all configured backend providers
