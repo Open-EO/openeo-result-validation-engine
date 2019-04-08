@@ -15,6 +15,12 @@
                         "files": [
                             "mock/GEE/Venezuela/327f4181-a25d-48dd-af04-1fd41957357b.png"
                         ]
+                },
+                              {
+                    "job": "UGANDA",
+                        "files": [
+                            "mock/GEE/Uganda/2b00784e-10f8-4e83-bd60-b1ed836a1c9c.png"
+                        ]
                 }
             ]
         },
@@ -32,6 +38,12 @@
                     "job": "VENEZUELA",
                         "files": [
                             "mock/EURAC/Venezuela/85718779-0729-4595-9092-49bf1effdc97-resized.png"
+                        ]
+                },
+                              {
+                    "job": "UGANDA",
+                        "files": [
+                            "mock/EURAC/Uganda/3fd00d3f-022a-4d45-8fd5-02c6790ce340_resized.png"
                         ]
                 }
             ]

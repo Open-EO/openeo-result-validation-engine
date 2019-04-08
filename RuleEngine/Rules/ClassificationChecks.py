@@ -25,16 +25,16 @@ class ClassificationChecks(Rule):
                 cv2.imwrite(file_save_path, create_comparison_image(edge_images))
                 result['matching-boundaries']['comparison-image'] = file_save_path
 
-            edge_detect_result = compute_overlap(edge_images)
-            if edge_detect_result:
-                # ToDo: Proper check for threshold
-                rule_state = edge_detect_result < float(self._parameters['matching-boundaries'])
-                rule_state = 'passed' if rule_state else 'failed'
-                result['matching-boundaries']['overlap-check'] = {
-                    'rule': rule_state,
-                    'overlap-percentage': str(edge_detect_result),
-                }
-            else:
-                result['matching-boundaries']['overlap-check'] = 'Test was not able to run due to different image sizes'
+                edge_detect_result = compute_overlap(edge_images)
+                if edge_detect_result:
+                    # ToDo: Proper check for threshold
+                    rule_state = edge_detect_result < float(self._parameters['matching-boundaries'])
+                    rule_state = 'passed' if rule_state else 'failed'
+                    result['matching-boundaries']['overlap-check'] = {
+                        'rule': rule_state,
+                        'overlap-percentage': str(edge_detect_result),
+                    }
+                else:
+                    result['matching-boundaries']['overlap-check'] = 'Test was not able to run due to different image sizes'
 
         return result

@@ -11,14 +11,20 @@ class JobWorker:
 
     def get_results(self):
         current_job = self.next_job()
-        imagery = []
-        for result in self.results:
-            if result['job'] == current_job:
-                imagery.append(result)
-        return imagery
+        if current_job:
+            imagery = []
+            for result in self.results:
+                if result['job'] == current_job:
+                    imagery.append(result)
+            return imagery
+        else:
+            return None
 
     def next_job(self):
-        return self._jobs.pop()
+        if self._jobs:
+            return self._jobs.pop()
+        else:
+            return None
 
     def start_fetching(self):
         # ToDo: In the future, this job worker would use the OpenEO Python client to connect to various
