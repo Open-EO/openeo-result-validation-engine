@@ -1,21 +1,17 @@
+from itertools import product
 
 def check_channel_mapping(image_a, image_b):
     """ Receives two input images and checks their band mapping"""
     # ToDo: This implementation is not correct, write a function that compares two images and checks
     #  whether they might be inverted
-    mixed_bands = False
+    bands = [0, 1, 2]
+    combis = product(bands, bands)
     # If the images are not equal, check the channel mapping as they might be mixed up
-    if image_a.all() != image_b.all():
-        if image_a[0].all() == image_b[1].all():
-            print('Band 0 is switched with Band 1')
-            mixed_bands = True
+    if image_a.shape == image_b.shape:
+        for combi in combis:
+            #print(combi)
+            #print('is channel ' + str(combi[0]) + ' equal to channel ' + str(combi[1]) + '?')
+            #print(np.array_equal(image_a[combi[0]], image_b[combi[1]]))
+            continue
 
-        if image_a[1].all() == image_b[2].all():
-            print('Band 1 is switched with Band 2')
-            mixed_bands = True
-        if image_a[2].all() == image_b[0].all():
-            print('Band 2 is switched with Band 0')
-            mixed_bands = True
-        return mixed_bands
-    else:
-        return mixed_bands
+    return None
