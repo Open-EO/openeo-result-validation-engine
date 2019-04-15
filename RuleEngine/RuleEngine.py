@@ -18,6 +18,9 @@ class RuleEngine:
         else:
             return None
 
+    def get_rules(self):
+        return self.ruleList
+
     def parse_rules(self):
         """ Parses the reference job for rules and creates a list of rule objects,
             this might be better than parsing them in nextRule as this will allow to throw configuration errors
@@ -25,8 +28,7 @@ class RuleEngine:
         self.ruleList = []
         rule_factory = RuleFactory.get_instance()
         for rule in self.referenceJob['validation']['rules']:
-            newrule = rule_factory.create_rule(self.outputFormat, rule, self.referenceJob['validation']['rules'][rule])
-            if newrule:
-                self.ruleList.append(newrule)
-            else:
-                print('Rule: {} is not implemented'.format(rule))
+            new_rule = rule_factory.create_rule(rule, self.referenceJob['validation']['rules'][rule])
+            if new_rule:
+                self.ruleList.append(new_rule)
+

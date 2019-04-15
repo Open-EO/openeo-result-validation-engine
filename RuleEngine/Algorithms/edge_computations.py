@@ -1,13 +1,20 @@
 import cv2
 import numpy as np
 
+from RuleEngine.Algorithms.image_similiarity_measures import img_registration
 
-def calculate_canny_edges(image_a, image_b):
+
+def calculate_canny_edges(image_a, image_b, align_images):
     """ This function performs a canny edge detection on two given images, afterwards the edges are compared
     :param image_a OpenCV Image,
     :param image_b OpenCV Image,
-    :returns A dict with a factor 0.0 up to 1.0 of as a percentage of how much the images differ and the image of the edges
-    ref: https://www.pyimagesearch.com/2015/04/06/zero-parameter-automatic-canny-edge-detection-with-python-and-opencv/ """
+    :param align_images boolean, whether the images should be aligned with image registration
+    :returns an array of an image pair, where canny edge detection was performed on
+    ref: https://www.pyimagesearch.com/2015/04/06/zero-parameter-automatic-canny-edge-detection-with-python-and-opencv/
+    """
+    # We translate the image_a to fit to image_b
+    if image_a.shape == image_b.shape and align_images == True:
+        image_a, homography = img_registration(image_a, image_b)
     images = [image_a, image_b]
     edge_images = []
     for image in images:

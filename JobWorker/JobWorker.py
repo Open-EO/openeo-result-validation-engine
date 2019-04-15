@@ -43,7 +43,7 @@ class JobWorker:
             session = requests.Session()
             adapter = requests_mock.Adapter()
             session.mount('mock', adapter)
-            if provider['name'] in ['EURAC', 'GEE']:
+            if provider['name'] in ['EURAC', 'GEE', 'QGIS']:
                 for job in provider['jobs']:
                     self._jobs.append(job['job'])
                     for file in job['files']:

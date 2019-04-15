@@ -1,18 +1,10 @@
-from RuleEngine.Rules.PixelChecks import PixelChecks
-from RuleEngine.Rules.ClassificationChecks import ClassificationChecks
-from RuleEngine.Rules.InputDataChecks import InputDataChecks
-from RuleEngine.Rules.OutputDataChecks import OutputDataChecks
+import importlib
+
+RULES_DIRECTORY = 'RuleEngine.Rules.'
 
 
 class RuleFactory:
     __instance = None
-
-    rules = {
-        'pixel-checks': PixelChecks,
-        'input-data-checks': InputDataChecks,
-        'output-data-checks': OutputDataChecks,
-        'classification-checks': ClassificationChecks
-    }
 
     def __init__(self):
         if RuleFactory.__instance is not None:
@@ -26,12 +18,24 @@ class RuleFactory:
             RuleFactory()
         return RuleFactory.__instance
 
-    def create_rule(self, output_format, rulename, parameters):
-        # ToDo: Remove special case and add return None for all rules that do not exist
-        if rulename == 'output-data-checks':
-            return self.rules[rulename](rulename, parameters, output_format)
-        elif rulename in self.rules:
-            return self.rules[rulename](rulename, parameters)
-        else:
+    def create_rule(self, rule_name, parameters):
+        pascal_case_rule_name = self.pascal_rule_name(rule_name)
+
+        try:
+            imported_module = importlib.import_module(RULES_DIRECTORY + pascal_case_rule_name)
+            class_ = getattr(imported_module, pascal_case_rule_name)
+        except ModuleNotFoundError:
+            print('Rule not implemented - skipping')
             return None
+
+        if pascal_case_rule_name is not None:
+            return class_(parameters)
+
+    @staticmethod
+    def pascal_rule_name(name):
+        pascal_rule = name.split('-')
+        rule_name = ''
+        for word in pascal_rule:
+            rule_name += word.capitalize()
+        return rule_name
 

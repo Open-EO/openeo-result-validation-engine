@@ -2,8 +2,8 @@ import cv2
 
 OPENCV_METHODS = (
     ("Correlation", cv2.HISTCMP_CORREL),
-    ("Chi-Squared", cv2.HISTCMP_CHISQR),
     ("Intersection", cv2.HISTCMP_INTERSECT),
+    ("Chi-Squared", cv2.HISTCMP_CHISQR),
     ("Hellinger", cv2.HISTCMP_BHATTACHARYYA))
 
 

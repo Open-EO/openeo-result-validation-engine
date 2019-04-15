@@ -31,7 +31,7 @@
                 {
                     "job": "SWISS",
                         "files": [
-                            "mock/EURAC/Swiss/1673f433-3b70-4eb1-98eb-c5b6f34a7dc3_resized.png"
+                            "/Users/simon/Documents/Uni/MasterThesis/openeo-sentinel-reference-jobs/Swiss/EURAC/Job-1/6938716b-baa7-458b-b72f-b2604a52b274.png"
                         ]
                 },
                 {
@@ -44,6 +44,18 @@
                     "job": "UGANDA",
                         "files": [
                             "mock/EURAC/Uganda/3fd00d3f-022a-4d45-8fd5-02c6790ce340_resized.png"
+                        ]
+                }
+            ]
+        },
+        {
+            "name": "QGIS",
+            "baseURL": "local",
+            "jobs": [
+                {
+                    "job": "SWISS",
+                        "files": [
+                            "/Users/simon/Documents/Uni/MasterThesis/openeo-sentinel-reference-jobs/Swiss/QGIS/Job-1/NDVI-Masked.png"
                         ]
                 }
             ]
