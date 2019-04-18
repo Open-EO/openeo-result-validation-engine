@@ -15,8 +15,9 @@ class ClassificationChecks(Rule):
 
     def check_rule(self, image_path_a, image_path_b, combination):
         """ Has two image paths as inputs, calls functions that concern the use case of validating classifications """
-        image_a = cv2.imread(image_path_a)
-        image_b = cv2.imread(image_path_b)
+
+        image_a = self.read_image(image_path_a)
+        image_b = self.read_image(image_path_b)
         result = {}
 
         if self._parameters.get('matching-boundaries', None) is not None:

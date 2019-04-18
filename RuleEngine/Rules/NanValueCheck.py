@@ -1,7 +1,5 @@
 import os
 
-import cv2
-
 from RuleEngine.Algorithms.check_nan_value import check_nan_value
 from RuleEngine.Rules.Rule import Rule
 
@@ -21,7 +19,7 @@ class NanValueCheck(Rule):
 
     def check_rule(self, image_path):
         """ Has two image paths as inputs, calls functions that concern the use case of validating classifications """
-        image = cv2.imread(image_path)
+        image = self.read_image(image_path)
 
         result = {'file': os.path.split(image_path)[1]}
         if self._parameters.get('allow-nan', None) is True:

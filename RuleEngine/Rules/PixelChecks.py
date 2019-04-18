@@ -16,27 +16,25 @@ class PixelChecks(Rule):
     def check_rule(self, image_path_a, image_path_b, combination):
         logger = logging.getLogger('PixelChecks')
         """ Has two image paths as input, the threshold comes from the instantiation of the rule"""
-        image_a = cv2.imread(image_path_a)
-        image_b = cv2.imread(image_path_b)
+        image_a = self.read_image(image_path_a)
+        image_b = self.read_image(image_path_b)
         result = {}
 
         if self._parameters.get('image-similarity-measures', 0) is not 0:
             result['compare_resolution'] = compare_resolution(image_a, image_b)
             resolution_allowed_divergence = self._parameters.get('resolution-allow-divergence')
 
-            if result['compare_resolution'] == {'widthFactor': 1,
-                                                'heightFactor': 1,
-                                                'bandsFactor': 1}:
-                logger.info('Executing Image Similarity measures')
 
+            logger.info('Executing Image Similarity measures')
+            try:
                 result['image-similarity-measures'], difference_image = image_similarity_measures(image_a, image_b)
-                if difference_image is not None:
+                # If there is a difference image and there are differences => store the file
+                if difference_image is not None and result['image-similarity-measures']['compare_ssim'] != 1.0:
                     file_save_path = self.create_file_path(combination, 'SSIM_', '.png')
                     cv2.imwrite(file_save_path, difference_image)
                     result['differenceImage_Path'] = os.path.split(file_save_path)[1]
-
-            else:
-                result['image-similarity-measures'] = None
+            except ValueError as e:
+                result['image-similarity-measures'] = str(e)
 
         return result
 

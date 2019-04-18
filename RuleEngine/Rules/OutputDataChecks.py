@@ -19,7 +19,7 @@ class OutputDataChecks(Rule):
         return result_arr
 
     def check_rule(self, file_path_a):
-        result = {'file': os.path.split(file_path_a) }
+        result = {'file': os.path.split(file_path_a)[1] }
         if self._parameters.get('matching-file-extensions', None) is not None:
             result['matching-file-extensions'] = compare_file_extensions(file_path_a,
                                                                          self._parameters.get('matching-file-extensions'))

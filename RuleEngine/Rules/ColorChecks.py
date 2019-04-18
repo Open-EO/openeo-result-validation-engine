@@ -1,7 +1,5 @@
 import logging
 
-import cv2
-
 from RuleEngine.Algorithms.compare_histograms import compare_histograms
 from RuleEngine.Rules.Rule import Rule
 
@@ -13,8 +11,8 @@ class ColorChecks(Rule):
 
     def check_rule(self, image_path_a, image_path_b, combination):
         logger = logging.getLogger('ColorChecks')
-        image_a = cv2.imread(image_path_a)
-        image_b = cv2.imread(image_path_b)
+        image_a = self.read_image(image_path_a)
+        image_b = self.read_image(image_path_b)
         result = {}
 
         logger.info('Executing Histogram Check')

@@ -11,7 +11,7 @@ def image_similarity_measures(image_a, image_b):
     result = {}
 
     # Align image_a to image_b
-    image_a, homography = img_registration(image_a, image_b)
+    # image_a, homography = img_registration(image_a, image_b)
 
     functions = [compare_mse, compare_nrmse, compare_psnr, compare_ssim]
     difference_image = None
@@ -20,8 +20,14 @@ def image_similarity_measures(image_a, image_b):
         logger.info('Executing {}'.format(function.__name__))
 
         if function.__name__ == 'compare_ssim':
-            gray_a = cv2.cvtColor(image_a, cv2.COLOR_BGR2GRAY)
-            gray_b = cv2.cvtColor(image_b, cv2.COLOR_BGR2GRAY)
+            # If its a tif, we can just use the single band converted to uint8
+            try:
+                gray_a = cv2.cvtColor(image_a, cv2.COLOR_BGR2GRAY)
+                gray_b = cv2.cvtColor(image_b, cv2.COLOR_BGR2GRAY)
+            except cv2.error:
+                gray_a = np.uint8(image_a)
+                gray_b = np.uint8(image_b)
+
             score, difference_image = function(gray_a, gray_b, full=True)
             if score != 1.0:
                 difference_image = (difference_image * 255).astype("uint8")
