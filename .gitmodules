@@ -1,0 +1,6 @@
+[submodule "openeo-sentinel-reference-jobs"]
+	path = openeo-sentinel-reference-jobs
+	url = https://github.com/Sijoma/openeo-sentinel-reference-jobs
+[submodule "openeo-python-client"]
+	path = openeo-python-client
+	url = https://github.com/Sijoma/openeo-python-client

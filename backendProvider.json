@@ -1,63 +1,93 @@
 {
     "providers": [
-        {
+      {
             "name": "GEE",
             "baseURL": "https://earthengine.openeo.org/v0.3",
             "jobs": [
-                {
-                    "job": "SWISS",
-                        "files": [
-                            "mock/GEE/Swiss/86ec0e53-09fb-4436-ac16-09a5df9cead9.png"
-                        ]
+              {
+                "name": "SWITZERLAND",
+                "process_graph": {
+                  "min": -1,
+                  "max": 1,
+                  "imagery": {
+                    "imagery": {
+                      "red": "B4",
+                      "nir": "B8",
+                      "imagery": {
+                        "extent": [
+                          "2018-06-04T00:00:00Z",
+                          "2018-06-04T23:59:59Z"
+                        ],
+                        "imagery": {
+                          "extent": {
+                            "west": 8.71,
+                            "south": 47,
+                            "east": 9.8,
+                            "north": 47.8
+                          },
+                          "imagery": {
+                            "process_id": "get_collection",
+                            "name": "COPERNICUS/S2"
+                          },
+                          "process_id": "filter_bbox"
+                        },
+                        "process_id": "filter_daterange"
+                      },
+                      "process_id": "NDVI"
+                    },
+                    "process_id": "min_time"
+                  },
+                  "process_id": "stretch_colors"
                 },
-                {
-                    "job": "VENEZUELA",
-                        "files": [
-                            "mock/GEE/Venezuela/327f4181-a25d-48dd-af04-1fd41957357b.png"
-                        ]
-                },
-                              {
-                    "job": "UGANDA",
-                        "files": [
-                            "mock/GEE/Uganda/2b00784e-10f8-4e83-bd60-b1ed836a1c9c.png"
-                        ]
-                }
+                "output_format": "PNG"
+              }
             ]
         },
         {
             "name": "EURAC",
             "baseURL": "http://saocompute.eurac.edu/openEO_0_3_0/openeo",
+          "credentials": {
+            "user": "",
+            "password": ""
+          },
             "jobs": [
-                {
-                    "job": "SWISS",
-                        "files": [
-                            "/Users/simon/Documents/Uni/MasterThesis/openeo-sentinel-reference-jobs/Swiss/EURAC/Job-1/6938716b-baa7-458b-b72f-b2604a52b274.png"
-                        ]
+              {
+                "name": "SWITZERLAND",
+                "process_graph": {
+                  "min": -1,
+                  "max": 1,
+                  "imagery": {
+                    "imagery": {
+                      "red": "B04",
+                      "nir": "B08",
+                      "imagery": {
+                        "extent": [
+                          "2018-06-04T00:00:00Z",
+                          "2018-06-04T23:59:59Z"
+                        ],
+                        "imagery": {
+                          "extent": {
+                            "west": 8.71,
+                            "south": 47,
+                            "east": 9.8,
+                            "north": 47.8
+                          },
+                          "imagery": {
+                            "process_id": "get_collection",
+                            "name": "openEO_S2_32632_10m_L2A"
+                          },
+                          "process_id": "filter_bbox"
+                        },
+                        "process_id": "filter_daterange"
+                      },
+                      "process_id": "NDVI"
+                    },
+                    "process_id": "min_time"
+                  },
+                  "process_id": "stretch_colors"
                 },
-                {
-                    "job": "VENEZUELA",
-                        "files": [
-                            "mock/EURAC/Venezuela/85718779-0729-4595-9092-49bf1effdc97-resized.png"
-                        ]
-                },
-                              {
-                    "job": "UGANDA",
-                        "files": [
-                            "mock/EURAC/Uganda/3fd00d3f-022a-4d45-8fd5-02c6790ce340_resized.png"
-                        ]
-                }
-            ]
-        },
-        {
-            "name": "QGIS",
-            "baseURL": "local",
-            "jobs": [
-                {
-                    "job": "SWISS",
-                        "files": [
-                            "/Users/simon/Documents/Uni/MasterThesis/openeo-sentinel-reference-jobs/Swiss/QGIS/Job-1/NDVI-Masked.png"
-                        ]
-                }
+                "output_format": "PNG"
+              }
             ]
         }
     ]

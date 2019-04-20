@@ -4,6 +4,7 @@ import os
 def compare_filesize(file_path, files):
     """ Compares the file size of a given file with the mean file size of all files
     :returns number of the mean deviation in percent """
+    # ToDo: Rewrite this to compare two files
     file_sizes = []
     for file in files:
         file_sizes.append(os.stat(file).st_size)
