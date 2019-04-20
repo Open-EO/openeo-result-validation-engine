@@ -3,6 +3,10 @@
       {
             "name": "GEE",
             "baseURL": "https://earthengine.openeo.org/v0.3",
+        "credentials": {
+          "user": "****",
+          "password": "****"
+        },
             "jobs": [
               {
                 "name": "SWITZERLAND",
