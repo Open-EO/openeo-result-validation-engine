@@ -2,20 +2,21 @@ from unittest import TestCase
 
 import numpy as np
 
-from RuleEngine.Algorithms.check_channel_mapping import check_channel_mapping
 from RuleEngine.Algorithms.check_nan_value import check_nan_value
 from RuleEngine.Algorithms.compare_file_extensions import compare_file_extensions
 from RuleEngine.Algorithms.compare_resolution import compare_resolution
 from RuleEngine.Algorithms.edge_computations import compute_overlap
+from RuleEngine.Algorithms.image_similiarity_measures import image_similarity_measures
 
 
 class TestAlgorithms(TestCase):
 
-    # def test_run_image_similarity_measures(self):
-    #    image_a = np.zeros((512, 512, 3), np.uint8)
-    #    image_b = np.zeros((512, 512, 3), np.uint8)
-    #    result = image_similarity_measures(image_a, image_b)
-        # ToDo: Reimplement proper test
+    def test_run_image_similarity_measures(self):
+        image_a = np.zeros((512, 512, 3), np.uint8)
+        image_b = np.zeros((512, 512, 3), np.uint8)
+        result, diff_image = image_similarity_measures(image_a, image_b)
+        self.assertEqual(diff_image.all(), np.ones((512, 512, 1)).all())
+
 
     def test_check_nan_value(self):
         image = np.zeros((2, 2, 3), dtype=np.float)
@@ -24,43 +25,26 @@ class TestAlgorithms(TestCase):
         image[:, :, :] = np.nan
         image[1, 1, 1] = 1.2
         print(image)
-        self.assertEqual(check_nan_value(image)['types'], [np.nan])
+        self.assertEqual(check_nan_value(image)['types'], [str(np.nan)])
         self.assertEqual(check_nan_value(image)['amount'], 11)
         image[:, :, :] = np.nan
         image[1, 1, 0] = 0
         print(image)
-        self.assertEqual(check_nan_value(image)['types'], [0, np.nan])
+        self.assertEqual(check_nan_value(image)['types'], [0, str(np.nan)])
 
-    def test_check_channel_mapping(self):
-        image_a = np.zeros((3, 3, 3), np.uint8)
-        image_b = np.zeros((3, 3, 3), np.uint8)
-        image_a[:, :, :] = 0.55
-        image_b[:, :, :] = 0.25
-        image_a[1, :, :] = 1
-        image_b[2, :, :] = 1
-        result = check_channel_mapping(image_a, image_b)
-        #self.assertEqual(result, False, 'The result should be false')
 
     def test_compare_resolution(self):
         result = compare_resolution(np.zeros((512, 512, 3)), np.zeros((512, 512, 3)))
-        self.assertEqual(result, {'widthFactor': 1,
-                                  'heightFactor': 1,
-                                  'bandsFactor': 1})
+        self.assertEqual(result, {'resolution_factors': [1.0, 1.0, 1.0]})
 
         result = compare_resolution(np.zeros((512, 512, 3)), np.zeros((1024, 1024, 3)))
-        self.assertEqual(result, {'widthFactor': 0.5,
-                                  'heightFactor': 0.5,
-                                  'bandsFactor': 1})
+        self.assertEqual(result, {'resolution_factors': [0.5, 0.5, 1.0]})
 
         result = compare_resolution(np.zeros((1024, 1024, 3)), np.zeros((512, 512, 3)))
-        self.assertEqual(result, {'widthFactor': 2.0,
-                                  'heightFactor': 2.0,
-                                  'bandsFactor': 1})
+        self.assertEqual(result, {'resolution_factors': [2.0, 2.0, 1.0]})
 
         result = compare_resolution(np.zeros((1024, 1024, 3)), np.zeros((512, 512)))
-        self.assertEqual(result, {'widthFactor': None,
-                                  'heightFactor': None,
-                                  'bandsFactor': None})
+        self.assertEqual(result, {'resolution_factors': None})
 
     def test_compare_filenames(self):
         file_a = 'test/test.png'
