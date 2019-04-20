@@ -14,15 +14,17 @@ class PixelChecks(Rule):
         super(PixelChecks, self).__init__(parameters)
 
     def check_rule(self, image_path_a, image_path_b, combination):
-        logger = logging.getLogger('PixelChecks')
         """ Has two image paths as input, the threshold comes from the instantiation of the rule"""
+        logger = logging.getLogger('PixelChecks')
         image_a = self.read_image(image_path_a)
         image_b = self.read_image(image_path_b)
         result = {}
 
         if self._parameters.get('image-similarity-measures', 0) is not 0:
             result['compare_resolution'] = compare_resolution(image_a, image_b)
+            # ToDo: Judge the resolution
             resolution_allowed_divergence = self._parameters.get('resolution-allow-divergence')
+            print(resolution_allowed_divergence)
 
 
             logger.info('Executing Image Similarity measures')
