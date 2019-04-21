@@ -25,10 +25,12 @@ SHA=`git rev-parse --verify HEAD`
 # Create a new empty branch if gh-pages doesn't exist yet (should only happen on first deply)
 # Delete all existing contents except .git (we will re-create them)
 git clone $REPO reports
+ln reports/.gitignore ./
 cd reports
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 find -maxdepth 1 ! -name .git ! -name . | xargs rm -rf
 cd ..
+mv .gitignore reports/
 
 echo "Running validation"
 runValidation
