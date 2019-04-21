@@ -8,7 +8,6 @@ from skimage.external.tifffile.tifffile import imread as imread_tiff
 class Rule(ABC):
     def __init__(self, parameters):
         self._parameters = parameters
-        self._name_of_rule
         self._directory = ''
         self._results = []
 
@@ -16,7 +15,7 @@ class Rule(ABC):
         result = self.check_rule(self._results[0], self._results[1], self._results)
         return result
 
-    def check_rule(self, *kwargs):
+    def check_rule(self, image_path_a, image_path_b, combination):
         pass
 
     def set_results(self, results):
@@ -44,14 +43,16 @@ class Rule(ABC):
         file_path = self._directory + prepend + (filename_a + '_' + filename_b) + ext
         return file_path
 
-    def read_tiff(self, file_path):
+    @staticmethod
+    def read_tiff(file_path):
         return imread_tiff(file_path)
 
-    def read_png_jpeg(self, file_path):
+    @staticmethod
+    def read_png_jpeg(file_path):
         return cv2.imread(file_path)
 
     def read_image(self, file_path):
-        root, ext = os.path.splitext(file_path)
+        _, ext = os.path.splitext(file_path)
         if ext in ['.tif', '.tiff']:
             return self.read_tiff(file_path)
         else:

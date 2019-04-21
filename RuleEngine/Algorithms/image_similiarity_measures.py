@@ -77,8 +77,8 @@ def img_registration(image_a, image_b):
 
     # Find homography
     h, mask = cv2.findHomography(points1, points2, cv2.RANSAC)
-
+    print(mask)
     # Use homography
-    height, width, channels = image_b.shape
+    height, width, _ = image_b.shape
     imbReg = cv2.warpPerspective(image_a, h, (width, height))
     return imbReg, h
