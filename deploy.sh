@@ -29,6 +29,16 @@ cd reports
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 find -maxdepth 1 ! -name .git ! -name .gitignore ! -name . | xargs rm -rf
 cd ..
+
+# Gets backend credentials
+rm -rf backendProvider.json
+ENCRYPTED_KEY_VAR="encrypted_${ENCRYPTION_LABEL}_key"
+ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL}_iv"
+ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
+ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
+openssl aes-256-cbc -K $encrypted_db6b38dbc639_key -iv $encrypted_db6b38dbc639_iv -in backendProvider.json.enc -out backendProvider.json -d
+
+
 echo "Running validation"
 runValidation
 
@@ -51,10 +61,6 @@ git add -A .
 git commit -m "Deploy to GitHub Pages: ${SHA}"
 
 # Get the deploy key by using Travis's stored variables to decrypt deploy_key.enc
-ENCRYPTED_KEY_VAR="encrypted_${ENCRYPTION_LABEL}_key"
-ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL}_iv"
-ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
-ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
 openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in ../openeo.enc -out ../deploy_key -d
 chmod 600 ../deploy_key
 eval `ssh-agent -s`
