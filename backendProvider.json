@@ -4,48 +4,9 @@
             "name": "GEE",
             "baseURL": "https://earthengine.openeo.org/v0.3",
         "credentials": {
-          "user": "****",
-          "password": "****"
-        },
-            "jobs": [
-              {
-                "name": "SWITZERLAND",
-                "process_graph": {
-                  "min": -1,
-                  "max": 1,
-                  "imagery": {
-                    "imagery": {
-                      "red": "B4",
-                      "nir": "B8",
-                      "imagery": {
-                        "extent": [
-                          "2018-06-04T00:00:00Z",
-                          "2018-06-04T23:59:59Z"
-                        ],
-                        "imagery": {
-                          "extent": {
-                            "west": 8.71,
-                            "south": 47,
-                            "east": 9.8,
-                            "north": 47.8
-                          },
-                          "imagery": {
-                            "process_id": "get_collection",
-                            "name": "COPERNICUS/S2"
-                          },
-                          "process_id": "filter_bbox"
-                        },
-                        "process_id": "filter_daterange"
-                      },
-                      "process_id": "NDVI"
-                    },
-                    "process_id": "min_time"
-                  },
-                  "process_id": "stretch_colors"
-                },
-                "output_format": "PNG"
-              }
-            ]
+          "user": "",
+          "password": ""
+        }
         },
         {
             "name": "EURAC",
@@ -53,46 +14,7 @@
           "credentials": {
             "user": "",
             "password": ""
-          },
-            "jobs": [
-              {
-                "name": "SWITZERLAND",
-                "process_graph": {
-                  "min": -1,
-                  "max": 1,
-                  "imagery": {
-                    "imagery": {
-                      "red": "B04",
-                      "nir": "B08",
-                      "imagery": {
-                        "extent": [
-                          "2018-06-04T00:00:00Z",
-                          "2018-06-04T23:59:59Z"
-                        ],
-                        "imagery": {
-                          "extent": {
-                            "west": 8.71,
-                            "south": 47,
-                            "east": 9.8,
-                            "north": 47.8
-                          },
-                          "imagery": {
-                            "process_id": "get_collection",
-                            "name": "openEO_S2_32632_10m_L2A"
-                          },
-                          "process_id": "filter_bbox"
-                        },
-                        "process_id": "filter_daterange"
-                      },
-                      "process_id": "NDVI"
-                    },
-                    "process_id": "min_time"
-                  },
-                  "process_id": "stretch_colors"
-                },
-                "output_format": "PNG"
-              }
-            ]
+          }
         }
     ]
 }

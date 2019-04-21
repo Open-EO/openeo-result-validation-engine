@@ -12,11 +12,12 @@ if __name__ == "__main__":
             process_graph_with_validation_rules = json.loads(referenceJob.read())
             backendProviders = json.loads(backendProvidersFile.read())
 
-            jobWorker = JobWorker(backendProviders, referenceJob)
+            jobWorker = JobWorker(backendProviders)
             jobWorker.start_fetching()
 
             jobs = jobWorker.get_all_jobs()
             for job in jobs:
+                # ToDo: Validation rules should come from job
                 rule_engine = RuleEngine(process_graph_with_validation_rules)
                 rule_engine.parse_rules()
 
