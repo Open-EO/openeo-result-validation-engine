@@ -10,6 +10,10 @@ install:
   - pip install -e .
   - cd ..
 
+before_script:
+  - chmod +x deploy.sh
+  - chmod +x test.sh
+
 script:
   - bash ./deploy.sh
 
