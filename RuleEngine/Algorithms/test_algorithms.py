@@ -2,7 +2,6 @@ from unittest import TestCase
 
 import numpy as np
 
-from RuleEngine.Algorithms.check_nan_value import check_nan_value
 from RuleEngine.Algorithms.compare_file_extensions import compare_file_extensions
 from RuleEngine.Algorithms.compare_resolution import compare_resolution
 from RuleEngine.Algorithms.edge_computations import compute_overlap
@@ -16,22 +15,6 @@ class TestAlgorithms(TestCase):
         image_b = np.zeros((512, 512, 3), np.uint8)
         result, diff_image = image_similarity_measures(image_a, image_b)
         self.assertEqual(diff_image.all(), np.ones((512, 512, 1)).all())
-
-
-    def test_check_nan_value(self):
-        image = np.zeros((2, 2, 3), dtype=np.float)
-        self.assertEqual(check_nan_value(image)['types'], [0])
-        self.assertEqual(check_nan_value(image)['amount'], 12)
-        image[:, :, :] = np.nan
-        image[1, 1, 1] = 1.2
-        print(image)
-        self.assertEqual(check_nan_value(image)['types'], [str(np.nan)])
-        self.assertEqual(check_nan_value(image)['amount'], 11)
-        image[:, :, :] = np.nan
-        image[1, 1, 0] = 0
-        print(image)
-        self.assertEqual(check_nan_value(image)['types'], [0, str(np.nan)])
-
 
     def test_compare_resolution(self):
         result = compare_resolution(np.zeros((512, 512, 3)), np.zeros((512, 512, 3)))
