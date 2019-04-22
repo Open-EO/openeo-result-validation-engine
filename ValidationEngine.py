@@ -7,21 +7,22 @@ from ValidationWorker.ValidationWorker import ValidationWorker
 
 if __name__ == "__main__":
     logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
-    with open('min-time.json', 'r') as referenceJob:
-        with open('backendProvider.json', 'r') as backendProvidersFile:
-            process_graph_with_validation_rules = json.loads(referenceJob.read())
-            backendProviders = json.loads(backendProvidersFile.read())
+    with open('backendProvider.json', 'r') as backendProvidersFile:
+        backendProviders = json.loads(backendProvidersFile.read())
 
-            jobWorker = JobWorker(backendProviders)
-            jobWorker.start_fetching()
+        jobWorker = JobWorker(backendProviders)
+        jobWorker.start_fetching()
 
-            jobs = jobWorker.get_all_jobs()
-            for job in jobs:
+        jobs = jobWorker.get_all_jobs()
+        for job in jobs:
+            with open('default-validation-rules.json', 'r') as default_validation_rules:
                 # ToDo: Validation rules should come from job
-                rule_engine = RuleEngine(process_graph_with_validation_rules)
+                default_validation_rules_dict = json.loads(default_validation_rules.read())
+
+                rule_engine = RuleEngine(default_validation_rules_dict)
                 rule_engine.parse_rules()
 
-                validation_worker = ValidationWorker(rule_engine, job, backendProviders)
+                validation_worker = ValidationWorker(rule_engine, job)
                 validation_worker.start()
 
 

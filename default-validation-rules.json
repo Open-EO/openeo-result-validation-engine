@@ -1,36 +1,5 @@
 {
-  "job": {
-      "process_graph": {
-          "imagery": {
-              "red": "B4",
-              "nir": "B8A",
-              "imagery": {
-                  "extent": ["2018-01-01T00:00:00Z", "2018-12-31T23:59:59Z"],
-                  "imagery": {
-                      "extent": {
-                          "west": 4.757069,
-                          "south": 51.502332,
-                          "east": 6.020497,
-                          "north": 52.849645
-                      },
-                      "imagery": {
-                          "process_id": "get_collection",
-                          "name": "COPERNICUS/S2"
-                      },
-                      "process_id": "filter_bbox"
-                  },
-                  "process_id": "filter_daterange"
-              },
-              "process_id": "NDVI"
-          },
-          "process_id": "min_time"
-      },
-      "budget": null,
-      "output": {
-          "format": "png",
-          "parameters": {}
-      }
-  },
+  "job": "common",
   "validation": {
       "rules": {
           "input-data-checks": {

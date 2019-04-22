@@ -5,12 +5,11 @@ from itertools import combinations
 
 
 class ValidationWorker:
-    def __init__(self, rule_engine, process_results, backend_providers):
+    def __init__(self, rule_engine, process_results):
         self.processResults = process_results
         self.ruleEngine = rule_engine
         self.directory = ''
         self._report = {}
-        self._backendProviders = backend_providers
         self._report['results'] = []
 
     def start(self):
