@@ -48,19 +48,19 @@ class TestAlgorithms(TestCase):
 
     def test_compare_filenames(self):
         file_a = 'test/test.png'
-        res = compare_file_extensions(file_a, 'png')
+        res = compare_file_extensions(file_a, 'test.png')
         self.assertEqual(res, True)
 
         file_a = 'test.tiff'
-        res = compare_file_extensions(file_a, 'png')
+        res = compare_file_extensions(file_a, 'test.png')
         self.assertEqual(res, False)
 
         file_a = 'test.tiff'
-        res = compare_file_extensions(file_a, 'tiff')
+        res = compare_file_extensions(file_a, 'test.tiff')
         self.assertEqual(res, True)
 
         file_a = 'test.tiff'
-        res = compare_file_extensions(file_a, 'TIFF')
+        res = compare_file_extensions(file_a, 'test.TIFF')
         self.assertEqual(res, True)
 
     def test_compute_overlap(self):
