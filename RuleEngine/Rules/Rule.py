@@ -21,7 +21,7 @@ class Rule(ABC):
     def set_results(self, results):
         """ Sets the process results i.e the output of the back-ends
          :param results Array with Jsons, one for each file in a job
-         Example: {'backend': 'GEE', 'job': 'SWISS', 'file': 'mock/GEE/Swiss/86ec0e53-09fb-4436-ac16-09a5df9cead9.png'}
+         Example: {'backend': 'GEE', 'job': 'SWITZERLAND', 'file': 'mock/GEE/Switzerland/86ec0e53-09fb-4436-ac16-09a5df9cead9.png'}
          """
         self._results = results
 
