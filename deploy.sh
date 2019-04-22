@@ -2,7 +2,7 @@
 set -e # Exit with nonzero exit code if anything fails
 
 SOURCE_BRANCH="master"
-TARGET_BRANCH="validation-reports"
+TARGET_BRANCH="gh-pages"
 
 function runValidation {
     python ValidationEngine.py
