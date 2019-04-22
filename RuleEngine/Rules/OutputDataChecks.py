@@ -11,13 +11,6 @@ class OutputDataChecks(Rule):
         self._name_of_rule = 'output-data-checks'
         super(OutputDataChecks, self).__init__(parameters)
 
-    def apply(self):
-        result_arr = []
-        for file_path in self._results:
-            self._files.append(file_path)
-            result_arr.append(self.check_rule(file_path))
-        return result_arr
-
     def check_rule(self, image_path_a, image_path_b, combination):
         result = {'combination': combination}
         if self._parameters.get('matching-file-extensions', None) is not None:
