@@ -14,10 +14,9 @@ class OutputDataChecks(Rule):
     def check_rule(self, image_path_a, image_path_b, combination):
         result = {'combination': combination}
         if self._parameters.get('matching-file-extensions', None) is not None:
-            result['matching-file-extensions'] = compare_file_extensions(image_path_a, image_path_b,
-                                                                         self._parameters.get('matching-file-extensions'))
+            result['matching-file-extensions'] = compare_file_extensions(image_path_a, image_path_b)
 
         if self._parameters.get('file-size-check') is True:
-            result['file-size-check'] = compare_filesize(image_path_a, image_path_b, self._files)
+            result['file-size-check'] = compare_filesize(image_path_a, image_path_b)
 
         return result
