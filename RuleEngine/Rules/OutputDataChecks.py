@@ -1,5 +1,3 @@
-import os
-
 from RuleEngine.Algorithms.compare_file_extensions import compare_file_extensions
 from RuleEngine.Algorithms.compare_filesize import compare_filesize
 from RuleEngine.Rules.Rule import Rule
@@ -18,5 +16,10 @@ class OutputDataChecks(Rule):
 
         if self._parameters.get('file-size-check') is True:
             result['file-size-check'] = compare_filesize(image_path_a, image_path_b)
+            file_size_factor = result['file-size-check'].get('file_size_factor')
+            if file_size_factor > 1.3 or file_size_factor < 0.8:
+                result['file-size-check']['rule'] = 'failed'
+            else:
+                result['file-size-check']['rule'] = 'passed'
 
         return result

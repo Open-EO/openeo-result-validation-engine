@@ -13,11 +13,10 @@ class ValidationWorker:
         self._report['results'] = []
 
     def start(self):
-        self.directory = 'reports/' + self.processResults[0]['job'] + '/'
+        region, job, number = self.processResults[0]['job'].split('-')
+        self.directory = os.path.join('reports/', region, job + '-' + number)
         # Currently not useful.
         # + str(datetime.datetime.now()) + '/'
-        if not os.path.exists(self.directory):
-            os.makedirs(self.directory)
         print('Validation of ' + self.processResults[0]['job'] + ' reference job started')
         self.validate()
 

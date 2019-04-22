@@ -43,35 +43,33 @@ class JobWorker:
     def start_fetching(self):
         """ This function fetches the results for each backend provider"""
         # ToDo: This should be parallelized, as it sometimes can take long to fetch the results from a provider.
+        job_directory = 'openeo-sentinel-reference-jobs/'
         for provider in self.backendProviders['providers']:
             user = provider['credentials']['user']
             password = provider['credentials']['password']
 
             con = openeo.connect(provider['baseURL'], auth_type=BearerAuth,
-                                 auth_options={"username": user, "password": password})
+                                auth_options={"username": user, "password": password})
 
-            job_directory = 'openeo-sentinel-reference-jobs/'
             # In the future, the regions layer could be removed,
             # it is not factual information but just a pattern for myself
             regions = [f.path for f in os.scandir(job_directory) if f.is_dir()]
 
             for region in regions:
-                dirpath = os.path.join(region, provider['name'])
-                jobs = [f.path for f in os.scandir(dirpath) if f.is_dir()]
-
+                jobs = [f.path for f in os.scandir(region) if f.is_dir()]
                 for job in jobs:
-                    process_graphs = [f for f in os.listdir(job) if os.path.isfile(os.path.join(job, f))]
-                    path_to_process_graph = os.path.join(job, process_graphs[0])
+                    process_graph_folder = os.path.join(job, provider['name'])
+                    # ToDo: Think whether the directory should contain only one process graph anyway
+                    process_graphs = [f for f in os.listdir(process_graph_folder) if os.path.isfile(os.path.join(process_graph_folder, f))]
+                    path_to_process_graph = os.path.join(process_graph_folder, process_graphs[0])
 
                     with open(path_to_process_graph, 'r') as process_graph:
                         process_graph = json.loads(process_graph.read())
-
-                        save_path = job.replace(job_directory, 'reports/')
+                        save_path = process_graph_folder.replace(job_directory, 'reports/')
 
                         if not os.path.exists(save_path):
                             os.makedirs(save_path)
 
-                        # file_uuid = str(uuid.uuid4())
                         job_identifier = region.split('/')[1] + '-' + job.split('/')[-1]
                         file_path = save_path + '/' + job_identifier + '.' + 'png'
 
@@ -82,6 +80,7 @@ class JobWorker:
                         if use_backends is True:
                             # stopwatch starting
                             if provider['name'] == 'EURAC':
+                                print('Downloading synchronously')
                                 con.download(process_graph, 0, file_path, {'format': 'PNG'})
                                 download_successful = True
                             else:
