@@ -18,14 +18,13 @@ class OutputDataChecks(Rule):
             result_arr.append(self.check_rule(file_path))
         return result_arr
 
-    def check_rule(self, file_path_a):
-        result = {'file': os.path.split(file_path_a)[1] }
+    def check_rule(self, image_path_a, image_path_b, combination):
+        result = {'combination': combination}
         if self._parameters.get('matching-file-extensions', None) is not None:
-            result['matching-file-extensions'] = compare_file_extensions(file_path_a,
+            result['matching-file-extensions'] = compare_file_extensions(image_path_a, image_path_b,
                                                                          self._parameters.get('matching-file-extensions'))
 
-        # ToDo: Evaluate whether this should also be a comparison between two files
         if self._parameters.get('file-size-check') is True:
-            result['file-size-check'] = compare_filesize(file_path_a, self._files)
+            result['file-size-check'] = compare_filesize(image_path_a, image_path_b, self._files)
 
         return result

@@ -49,24 +49,20 @@ class JobWorker:
 
             con = openeo.connect(provider['baseURL'], auth_type=BearerAuth,
                                  auth_options={"username": user, "password": password})
-            cap = con.capabilities()
-
-            print(cap.version())
 
             job_directory = 'openeo-sentinel-reference-jobs/'
-            # In the future, the regions layer could be removed, it is not factual information but just a pattern for myself
+            # In the future, the regions layer could be removed,
+            # it is not factual information but just a pattern for myself
             regions = [f.path for f in os.scandir(job_directory) if f.is_dir()]
 
             for region in regions:
-                print(region)
                 dirpath = os.path.join(region, provider['name'])
                 jobs = [f.path for f in os.scandir(dirpath) if f.is_dir()]
-                print(jobs)
 
                 for job in jobs:
                     process_graphs = [f for f in os.listdir(job) if os.path.isfile(os.path.join(job, f))]
                     path_to_process_graph = os.path.join(job, process_graphs[0])
-                    print(job)
+
                     with open(path_to_process_graph, 'r') as process_graph:
                         process_graph = json.loads(process_graph.read())
 
@@ -75,11 +71,13 @@ class JobWorker:
                         if not os.path.exists(save_path):
                             os.makedirs(save_path)
 
-                        file_uuid = str(uuid.uuid4())
-                        file_path = save_path + '/' + file_uuid + '.' + 'png'
-                        print(file_path)
-                        # Todo: Count the time it takes to retrieve the results
+                        # file_uuid = str(uuid.uuid4())
+                        job_identifier = region.split('/')[1] + '-' + job.split('/')[-1]
+                        file_path = save_path + '/' + job_identifier + '.' + 'png'
+
                         download_successful = False
+                        start_time = time.time()
+                        time.clock()
                         use_backends = True
                         if use_backends is True:
                             # stopwatch starting
@@ -97,21 +95,23 @@ class JobWorker:
                                             download_successful = True
                                         except ConnectionAbortedError:
                                             download_successful = False
-                                            print('Retrying to download file in 5 seconds')
+                                            print('Retrying to download file in 15 seconds')
                                             print(openEO_job.describe_job())
                                             time.sleep(15)
                                 except ConnectionAbortedError as e:
                                     """ Unauthorized """
                                     print(e)
                             # stopwatch end
+                        end_time = time.time()
+                        time_to_result = end_time - start_time
+                        print(time_to_result)
                         if download_successful or use_backends is False:
-                            # ToDo: Fix naming and process
-                            job_identifier = region.split('/')[1] + '-' + job.split('/')[-1]
                             self._jobs_names.append(job_identifier)
                             details = {
                                 'backend': provider['name'],
                                 'job': job_identifier,
-                                'file': file_path
+                                'file': file_path,
+                                'time_to_result': time_to_result
                             }
                             self.results.append(details)
 

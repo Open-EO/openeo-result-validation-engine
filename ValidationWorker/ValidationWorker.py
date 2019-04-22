@@ -14,7 +14,9 @@ class ValidationWorker:
         self._report['results'] = []
 
     def start(self):
-        self.directory = 'reports/' + self.processResults[0]['job'] + '/' + str(datetime.datetime.now()) + '/'
+        self.directory = 'reports/' + self.processResults[0]['job'] + '/'
+        # Currently not useful.
+        # + str(datetime.datetime.now()) + '/'
         if not os.path.exists(self.directory):
             os.makedirs(self.directory)
         print('Validation of ' + self.processResults[0]['job'] + ' reference job started')
@@ -42,9 +44,6 @@ class ValidationWorker:
         print('Images and job results analyzed!')
         print('Saving to report to disk')
         self.wrap_report()
-
-        # with open(self.directory + 'ValidationReport.json', 'w') as fp:
-        #    json.dump(self._report, fp)
 
     def wrap_report(self):
         analysed_report = {}

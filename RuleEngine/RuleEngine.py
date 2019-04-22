@@ -8,7 +8,6 @@ class RuleEngine:
     def __init__(self, reference_job):
         self.referenceJob = reference_job
         self.ruleList = []
-        self.outputFormat = reference_job['job']['output']['format']
 
     def next_rule(self):
         if len(self.ruleList) > 0:
