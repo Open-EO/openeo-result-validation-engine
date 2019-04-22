@@ -5,8 +5,8 @@ SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
 
 function runValidation {
-    python ValidationEngine.py
     python -m unittest
+    python ValidationEngine.py
 }
 
 # This could be useful once the system is in production
