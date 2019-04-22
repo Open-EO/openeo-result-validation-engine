@@ -8,7 +8,7 @@ def compare_filesize(image_path_a, image_path_b):
     file_size_b = os.stat(image_path_b).st_size
     result = {
         'file_size_a': file_size_a,
-        'file_size_b': file_size_b
+        'file_size_b': file_size_b,
         'file_size_factor': file_size_a/file_size_b
     }
 
