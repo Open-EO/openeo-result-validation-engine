@@ -80,32 +80,37 @@ class JobWorker:
                         print(file_path)
                         # Todo: Count the time it takes to retrieve the results
                         download_successful = False
-                        if provider['name'] == 'EURAC':
-                            con.download(process_graph, 0, file_path, {'format': 'PNG'})
-                            download_successful = True
-                        else:
-                            try:
-                                openEO_job = con.create_job(process_graph, output_format='PNG')
-                                openEO_job.start_job()
-                                print(openEO_job.describe_job())
-                                while download_successful is not True:
-                                    try:
-                                        openEO_job.download_results(file_path)
-                                        download_successful = True
-                                    except ConnectionAbortedError:
-                                        download_successful = False
-                                        print('Retrying to download file in 5 seconds')
-                                        print(openEO_job.describe_job())
-                                        time.sleep(15)
-                            except ConnectionAbortedError as e:
-                                """ Unauthorized """
-                                print(e)
-                        if download_successful:
+                        use_backends = True
+                        if use_backends is True:
+                            # stopwatch starting
+                            if provider['name'] == 'EURAC':
+                                con.download(process_graph, 0, file_path, {'format': 'PNG'})
+                                download_successful = True
+                            else:
+                                try:
+                                    openEO_job = con.create_job(process_graph, output_format='PNG')
+                                    openEO_job.start_job()
+                                    print(openEO_job.describe_job())
+                                    while download_successful is not True:
+                                        try:
+                                            openEO_job.download_results(file_path)
+                                            download_successful = True
+                                        except ConnectionAbortedError:
+                                            download_successful = False
+                                            print('Retrying to download file in 5 seconds')
+                                            print(openEO_job.describe_job())
+                                            time.sleep(15)
+                                except ConnectionAbortedError as e:
+                                    """ Unauthorized """
+                                    print(e)
+                            # stopwatch end
+                        if download_successful or use_backends is False:
                             # ToDo: Fix naming and process
-                            self._jobs_names.append(region.split('/')[1])
+                            job_identifier = region.split('/')[1] + '-' + job.split('/')[-1]
+                            self._jobs_names.append(job_identifier)
                             details = {
                                 'backend': provider['name'],
-                                'job': region.split('/')[1],
+                                'job': job_identifier,
                                 'file': file_path
                             }
                             self.results.append(details)

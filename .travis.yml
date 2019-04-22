@@ -10,6 +10,14 @@ install:
   - pip install -e .
   - cd ..
 
+before_script:
+  - chmod +x deploy.sh
+
 script:
-  - python ValidationEngine.py
-  - python -m unittest
+  - bash ./deploy.sh
+
+env:
+  global:
+  - ENCRYPTION_LABEL: db6b38dbc639
+  - COMMIT_AUTHOR_EMAIL: "simonschulte@posteo.net"
+    
