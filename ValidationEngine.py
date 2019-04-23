@@ -13,8 +13,8 @@ if __name__ == "__main__":
         jobWorker = JobWorker(backendProviders)
         jobWorker.start_fetching()
 
-        jobs = jobWorker.get_all_jobs()
-        for job in jobs:
+        job_results = jobWorker.get_all_jobs()
+        for job_result in job_results:
             with open('default-validation-rules.json', 'r') as default_validation_rules:
                 # ToDo: Validation rules should come from job
                 default_validation_rules_dict = json.loads(default_validation_rules.read())
@@ -22,7 +22,7 @@ if __name__ == "__main__":
                 rule_engine = RuleEngine(default_validation_rules_dict)
                 rule_engine.parse_rules()
 
-                validation_worker = ValidationWorker(rule_engine, job)
+                validation_worker = ValidationWorker(rule_engine, job_result)
                 validation_worker.start()
 
 

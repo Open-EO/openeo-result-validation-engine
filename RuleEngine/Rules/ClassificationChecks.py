@@ -18,10 +18,10 @@ class ClassificationChecks(Rule):
 
         image_a = self.read_image(image_path_a)
         image_b = self.read_image(image_path_b)
-        result = {}
+        result = None
 
         if self._parameters.get('matching-boundaries', None) is not None and (image_a.shape == image_b.shape):
-            result['matching-boundaries'] = {}
+            result = {'matching-boundaries': {}}
             edge_images = calculate_canny_edges(image_a, image_b, align_images=True)
 
             if create_comparison_image(edge_images) is not None:

@@ -1,4 +1,3 @@
-import datetime
 import json
 import os
 from itertools import combinations
@@ -10,11 +9,10 @@ class ValidationWorker:
         self.ruleEngine = rule_engine
         self.directory = ''
         self._report = {}
-        self._report['results'] = []
 
     def start(self):
         region, job, number = self.processResults[0]['job'].split('-')
-        self.directory = os.path.join('reports/', region, job + '-' + number)
+        self.directory = os.path.join('reports/', region, job + '-' + number, '')
         # Currently not useful.
         # + str(datetime.datetime.now()) + '/'
         print('Validation of ' + self.processResults[0]['job'] + ' reference job started')
@@ -30,40 +28,47 @@ class ValidationWorker:
     def validate(self):
         """ Applies every validation rule on each result combination"""
         for file_combination in self.get_result_combinations():
+            # Find out to which provider the file belongs to
+            provider_a = self.find_backend(file_combination[0])
+            provider_b = self.find_backend(file_combination[1])
             result = {}
+
             for current_rule in self.ruleEngine.get_rules():
+                current_rule.get_name_of_rule
                 current_rule.set_results(file_combination)
                 current_rule.set_directory(self.directory)
-                result[current_rule.get_name_of_rule()] = current_rule.apply()
+                result_of_rule = current_rule.apply()
+                if result_of_rule is not None:
+                    result[current_rule.get_name_of_rule()] = result_of_rule
 
-            name_of_combination = self.name_of_combination(file_combination)
-            self._report['results'].append({name_of_combination: result})
+            # Create the key for the provider
+            if self._report.get(provider_a) is None:
+                self._report[provider_a] = {'results': []}
+            if self._report.get(provider_b) is None:
+                self._report[provider_b] = {'results': []}
+
+            self._report[provider_a]['results'].append({
+                'compared_with': provider_b,
+                'file': file_combination[0],
+                'compared_against': file_combination[1],
+                'rule_result': result
+            })
+            self._report[provider_b]['results'].append({
+                'compared_with': provider_a,
+                'file': file_combination[1],
+                'compared_against': file_combination[0],
+                'rule_result': result
+            })
 
         print('Images and job results analyzed!')
         print('Saving to report to disk')
-        self.wrap_report()
+        self.save_report()
 
-    def wrap_report(self):
-        analysed_report = {}
-        for image_combination in self._report.get('results'):
-            for key, results in image_combination.items():
-                for job_info in self.processResults:
-                    if analysed_report.get(job_info['backend']) is None:
-                        analysed_report[job_info['backend']] = {}
-
-                    # We look for the provider and a result that matches to his files
-                    if os.path.split(job_info['file'])[1] in key:
-                        filename_of_provider = os.path.split(job_info['file'])[1]
-                        compared_backend = self.find_backend(key.replace(filename_of_provider, '').strip('__'))
-                        if analysed_report.get(job_info['backend']).get(filename_of_provider) is None:
-                            analysed_report[job_info['backend']][filename_of_provider] = []
-                        analysed_report[job_info['backend']][filename_of_provider].append({
-                            'compared_backend': compared_backend,
-                            'rule-results': results
-                        })
-
-        with open(self.directory + 'ValidationReportByBackend.json', 'w') as fp:
-            json.dump(analysed_report, fp)
+    def save_report(self):
+        for provider in self._report.keys():
+            path_to_report = os.path.join(self.directory, ('ValidationReport-' + provider + '.json'))
+            with open(path_to_report, 'w') as fp:
+                json.dump(self._report[provider], fp)
 
     def find_backend(self, file_name):
         """ Looks up the back end provider for a given file name"""
@@ -71,15 +76,6 @@ class ValidationWorker:
             if file_name in job_info['file']:
                 return job_info['backend']
         raise Exception('Provider not found')
-
-
-    @staticmethod
-    def name_of_combination(file_tuple):
-        first_file_path = file_tuple[0]
-        second_file_path = file_tuple[1]
-        first_file = (os.path.split(first_file_path)[1])
-        second_file = (os.path.split(second_file_path)[1])
-        return first_file + '__' + second_file
 
 
 

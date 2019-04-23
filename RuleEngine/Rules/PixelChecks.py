@@ -15,7 +15,7 @@ class PixelChecks(Rule):
 
     def check_rule(self, image_path_a, image_path_b, combination):
         """ Has two image paths as input, the threshold comes from the instantiation of the rule"""
-        logger = logging.getLogger('PixelChecks')
+        logger = logging.getLogger(self.get_name_of_rule())
         image_a = self.read_image(image_path_a)
         image_b = self.read_image(image_path_b)
         result = {}

@@ -1,4 +1,5 @@
 #!/bin/bash
+# https://stackoverflow.com/questions/44003444/using-travis-ci-to-build-jekyll-site-from-master-to-gh-pages-with-deploy-keys
 set -e # Exit with nonzero exit code if anything fails
 
 SOURCE_BRANCH="master"
