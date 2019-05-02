@@ -5,7 +5,7 @@ cycler==0.10.0
 dask==1.2.1
 decorator==4.4.0
 idna==2.8
-kiwisolver==1.0.1
+kiwisolver==1.1.0
 matplotlib==3.0.3
 networkx==2.3
 numpy==1.16.3
