@@ -18,6 +18,12 @@ class PixelChecks(Rule):
         logger = logging.getLogger(self.get_name_of_rule())
         image_a = self.read_image(image_path_a)
         image_b = self.read_image(image_path_b)
+        resize_factor = self._parameters.get('resize-factor')
+        print(resize_factor)
+        if resize_factor:
+            image_a = cv2.resize(image_a, None, fx=resize_factor, fy=resize_factor)
+            image_b = cv2.resize(image_b, None, fx=resize_factor, fy=resize_factor)
+
         result = {}
 
         if self._parameters.get('image-similarity-measures', 0) is not 0:
@@ -29,7 +35,8 @@ class PixelChecks(Rule):
 
             logger.info('Executing Image Similarity measures')
             try:
-                result['image-similarity-measures'], difference_image = image_similarity_measures(image_a, image_b)
+                result['image-similarity-measures'], difference_image = \
+                    image_similarity_measures(image_a, image_b)
                 # If there is a difference image and there are differences => store the file
                 if difference_image is not None and result['image-similarity-measures']['compare_ssim'] != 1.0:
                     file_save_path = self.create_file_path(combination, 'SSIM_', '.png')

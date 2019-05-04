@@ -18,24 +18,27 @@ class ClassificationChecks(Rule):
 
         image_a = self.read_image(image_path_a)
         image_b = self.read_image(image_path_b)
-        result = None
+        resize_factor = self._parameters.get('resize-factor')
+        if resize_factor:
+            image_a = cv2.resize(image_a, None, fx=resize_factor, fy=resize_factor)
+            image_b = cv2.resize(image_b, None, fx=resize_factor, fy=resize_factor)
 
-        if self._parameters.get('matching-boundaries', None) is not None and (image_a.shape == image_b.shape):
+        result = None
+        # check if X and Y resolution match, some results might already be grayscale while some are RGB images
+        if self._parameters.get('matching-boundaries', None) is not None and (image_a.shape[0] == image_b.shape[0]
+                                                                              and image_a.shape[1] == image_a.shape[1]):
+
             result = {'matching-boundaries': {}}
             edge_images = calculate_canny_edges(image_a, image_b, align_images=True)
-
             if create_comparison_image(edge_images) is not None:
                 file_save_path = self.create_file_path(combination, 'comparison_image_', '.png')
                 cv2.imwrite(file_save_path, create_comparison_image(edge_images))
                 result['matching-boundaries']['comparison-image'] = os.path.split(file_save_path)[1]
 
                 edge_detect_result = compute_overlap(edge_images)
-                if edge_detect_result:
-                    rule_state = edge_detect_result > float(self._parameters['matching-boundaries'])
-                    rule_state = 'passed' if rule_state else 'failed'
-                    result['matching-boundaries']['rule'] = rule_state
-                    result['matching-boundaries']['overlap-percentage'] = str(edge_detect_result)
-                else:
-                    result['matching-boundaries']['rule'] = 'Test was not able to run due to different image sizes'
+                rule_state = edge_detect_result > float(self._parameters['matching-boundaries'])
+                rule_state = 'passed' if rule_state else 'failed'
+                result['matching-boundaries']['rule'] = rule_state
+                result['matching-boundaries']['overlap-percentage'] = str(edge_detect_result)
 
         return result

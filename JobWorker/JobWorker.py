@@ -45,11 +45,15 @@ class JobWorker:
         # ToDo: This should be parallelized, as it sometimes can take long to fetch the results from a provider.
         job_directory = 'openeo-sentinel-reference-jobs/'
         for provider in self.backendProviders['providers']:
-            user = provider['credentials']['user']
-            password = provider['credentials']['password']
+            print(provider.get('local'))
+            if provider.get('local') is None:
+                user = provider['credentials']['user']
+                password = provider['credentials']['password']
 
-            con = openeo.connect(provider['baseURL'], auth_type=BearerAuth,
-                                auth_options={"username": user, "password": password})
+                con = openeo.connect(provider['baseURL'], auth_type=BearerAuth,
+                                    auth_options={"username": user, "password": password})
+            else:
+                continue
 
             # In the future, the regions layer could be removed,
             # it is not factual information but just a pattern for myself
@@ -72,12 +76,18 @@ class JobWorker:
                         if not os.path.exists(save_path):
                             os.makedirs(save_path)
 
+
                         job_identifier = region.split('/')[1] + '-' + job.split('/')[-1]
-                        file_path = save_path + '/' + job_identifier + '.' + 'png'
+
+                        if provider.get('local') is True:
+                            file_path = process_graph['file']
+                        else:
+                            file_path = save_path + '/' + job_identifier + '.' + 'png'
 
                         download_successful = False
                         start_time = time.time()
                         time.clock()
+                        print(job_identifier)
                         use_backends = True
                         if use_backends is True:
                             # stopwatch starting
@@ -102,6 +112,9 @@ class JobWorker:
                                 except ConnectionAbortedError as e:
                                     """ Unauthorized """
                                     print(e)
+
+                                # ToDo: catch other errors, as they might quit the application -
+                                #  however we want to log this as an error for the backend and store this in the report
                             # stopwatch end
                         end_time = time.time()
                         time_to_result = end_time - start_time

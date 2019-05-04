@@ -18,9 +18,10 @@ if __name__ == "__main__":
         job_results = jobWorker.get_all_jobs()
         for job_result in job_results:
             # Open the jobs validation rules, this path is saved for every provider
-            with open(job_result[0]['validation-rules-path'], 'r') as validation_rules:
-                # Defined validation rules
-                validation_rules_dict = json.loads(validation_rules.read())
+            if os.path.exists(job_result[0]['validation-rules-path']):
+                with open(job_result[0]['validation-rules-path'], 'r') as validation_rules:
+                    # Defined validation rules
+                    validation_rules_dict = json.loads(validation_rules.read())
 
 
                 # Validation rules selected by name

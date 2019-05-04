@@ -14,7 +14,7 @@ class Rule(ABC):
 
     def apply(self):
         logger = logging.getLogger(self.get_name_of_rule())
-        logger.info("Applying Rule " + self.get_name_of_rule())
+        logger.info("Applying")
         result = self.check_rule(self._results[0], self._results[1], self._results)
         return result
 

@@ -28,8 +28,8 @@ SHA=`git rev-parse --verify HEAD`
 # Delete all existing contents except .git (we will re-create them)
 git clone $REPO reports
 cd reports
-git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
-find -maxdepth 1 ! -name .git ! -name .gitignore ! -name . | xargs rm -rf
+git checkout $TARGET_BRANCH #|| git checkout --orphan $TARGET_BRANCH
+#find -maxdepth 1 ! -name .git ! -name .gitignore ! -name . | xargs rm -rf
 cd ..
 
 # Gets backend credentials
