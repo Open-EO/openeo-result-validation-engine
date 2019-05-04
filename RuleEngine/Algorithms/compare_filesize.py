@@ -2,6 +2,7 @@ import os
 from hurry.filesize import size
 from hurry.filesize import alternative
 
+
 def compare_filesize(image_path_a, image_path_b):
     """ Compares the file size of a file A with file B
     :returns file sizes and factor """

@@ -7,8 +7,8 @@ def compare_resolution(image_a, image_b):
     :returns a tuple of factors for the difference between width, height and the bands"""
     try:
         factors = divide(image_a.shape, image_b.shape)
-        factorsList = [factor for factor in factors]
+        factors_list = [factor for factor in factors]
     except ValueError:
-        factorsList = None
+        factors_list = None
 
-    return {'resolution_factors': factorsList}
+    return {'resolution_factors': factors_list}

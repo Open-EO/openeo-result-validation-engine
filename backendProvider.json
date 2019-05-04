@@ -1,20 +1,28 @@
 {
     "providers": [
       {
-            "name": "GEE",
-            "baseURL": "https://earthengine.openeo.org/v0.3",
-        "credentials": {
-          "user": "",
-          "password": ""
+      "name": "GEE",
+      "baseURL": "https://earthengine.openeo.org/v0.3",
+      "credentials": {
+        "user": "",
+        "password": ""
         }
-        },
-        {
-            "name": "EURAC",
-            "baseURL": "http://saocompute.eurac.edu/openEO_0_3_0/openeo",
-          "credentials": {
-            "user": "",
-            "password": ""
-          }
+      },
+      {
+      "name": "EURAC",
+      "baseURL": "http://saocompute.eurac.edu/openEO_0_3_0/openeo",
+      "credentials": {
+        "user": "",
+        "password": ""
         }
+      },
+      {
+        "name": "Local-Python",
+        "local": true
+      },
+      {
+        "name": "Local-R",
+        "local": true
+      }
     ]
 }

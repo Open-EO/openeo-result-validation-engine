@@ -1,0 +1,13 @@
+{
+  "job": "common",
+  "validation": {
+      "rules": {
+          "classification-checks": {
+            "matching-boundaries": "0.20",
+              "matching-colours": "False",
+              "number-of-classes": "Equal",
+              "equal-scale": "False"
+          }
+      }
+  }
+}

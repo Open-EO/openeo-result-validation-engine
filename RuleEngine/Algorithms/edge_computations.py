@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from sklearn.preprocessing import MinMaxScaler
 
 
 def calculate_canny_edges(image_a, image_b, align_images):
@@ -18,8 +19,12 @@ def calculate_canny_edges(image_a, image_b, align_images):
     for image in images:
         try:
             gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        # This should not be caught with an exception :)
         except cv2.error:
+            scaler = MinMaxScaler(copy=False, feature_range=(0, 255))
+            scaler.fit_transform(image)
             gray_image = np.uint8(image)
+
         # compute the median of the single channel pixel intensities
         v = np.median(gray_image)
         # apply automatic Canny edge detection using the computed median
@@ -43,7 +48,6 @@ def compute_overlap(edge_images):
 
         cv2.bitwise_and(edge_images[0], edge_images[1], overlap_image)
         cv2.bitwise_or(edge_images[0], edge_images[1], sum_images)
-
         non_zero_overlap_image = cv2.countNonZero(overlap_image)
         non_zero_sum_image = cv2.countNonZero(sum_images)
 

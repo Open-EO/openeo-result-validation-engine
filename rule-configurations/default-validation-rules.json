@@ -1,0 +1,29 @@
+{
+  "job": "common",
+  "validation": {
+      "rules": {
+          "input-data-checks": {
+          },
+          "output-data-checks": {
+              "matching-file-extensions": "png",
+              "file-size-check": true
+          },
+          "color-checks": {
+              "threshold": 1.2
+          },
+          "pixel-checks": {
+            "resolution-allow-divergence": 0.5,
+            "image-similarity-measures": 1.0,
+            "resize-factor": 0.05
+          },
+          "classification-checks": {
+            "matching-boundaries": "0.20",
+            "resize-factor": 0.05
+          },
+          "nan-value-check": {
+              "allow-nan": true,
+              "correct": 0
+          }
+      }
+  }
+}

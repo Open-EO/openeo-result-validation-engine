@@ -12,6 +12,7 @@ class ValidationWorker:
 
     def start(self):
         region, job, number = self.processResults[0]['job'].split('-')
+
         self.directory = os.path.join('reports/', region, job + '-' + number, '')
         # Currently not useful.
         # + str(datetime.datetime.now()) + '/'
@@ -23,7 +24,7 @@ class ValidationWorker:
         files = []
         for backend_name_file in self.processResults:
             files.append(backend_name_file['file'])
-        return set(combinations(files, 2))
+        return combinations(files, 2)
 
     def validate(self):
         """ Applies every validation rule on each result combination"""

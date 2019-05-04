@@ -3,6 +3,7 @@ import logging
 import cv2
 import numpy as np
 from skimage.measure import compare_ssim, compare_mse, compare_nrmse, compare_psnr
+from sklearn.preprocessing import MinMaxScaler
 
 
 def image_similarity_measures(image_a, image_b):
@@ -20,17 +21,20 @@ def image_similarity_measures(image_a, image_b):
         logger.info('Executing {}'.format(function.__name__))
 
         if function.__name__ == 'compare_ssim':
-            # If its a tif, we can just use the single band converted to uint8
             try:
                 gray_a = cv2.cvtColor(image_a, cv2.COLOR_BGR2GRAY)
                 gray_b = cv2.cvtColor(image_b, cv2.COLOR_BGR2GRAY)
+                # This should not be caught with an exception :), tif scaling
             except cv2.error:
-                gray_a = np.uint8(image_a)
-                gray_b = np.uint8(image_b)
+                scaler = MinMaxScaler(copy=False, feature_range=(0, 255))
+                scaler.fit_transform(image_a)
+                scaler.fit_transform(image_b)
 
             score, difference_image = function(gray_a, gray_b, full=True)
             if score != 1.0:
                 difference_image = (difference_image * 255).astype("uint8")
+            if score == np.nan:
+                score == 'NaN'
             result[function.__name__] = score
         else:
             score = function(image_a, image_b)
@@ -76,8 +80,7 @@ def img_registration(image_a, image_b):
         points2[i, :] = keypoints2[match.trainIdx].pt
 
     # Find homography
-    h, mask = cv2.findHomography(points1, points2, cv2.RANSAC)
-    print(mask)
+    h, _ = cv2.findHomography(points1, points2, cv2.RANSAC)
     # Use homography
     height, width, _ = image_b.shape
     imbReg = cv2.warpPerspective(image_a, h, (width, height))

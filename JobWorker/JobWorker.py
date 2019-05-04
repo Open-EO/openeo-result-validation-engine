@@ -60,9 +60,11 @@ class JobWorker:
                 for job in jobs:
                     process_graph_folder = os.path.join(job, provider['name'])
                     # ToDo: Think whether the directory should contain only one process graph anyway
+                    if os.path.exists(process_graph_folder) is False:
+                        continue
                     process_graphs = [f for f in os.listdir(process_graph_folder) if os.path.isfile(os.path.join(process_graph_folder, f))]
                     path_to_process_graph = os.path.join(process_graph_folder, process_graphs[0])
-
+                    path_to_validation_rules = os.path.join(job, 'validation-rules.json')
                     with open(path_to_process_graph, 'r') as process_graph:
                         process_graph = json.loads(process_graph.read())
                         save_path = process_graph_folder.replace(job_directory, 'reports/')
@@ -110,6 +112,7 @@ class JobWorker:
                                 'backend': provider['name'],
                                 'job': job_identifier,
                                 'file': file_path,
+                                'validation-rules-path': path_to_validation_rules,
                                 'time_to_result': time_to_result
                             }
                             self.results.append(details)
