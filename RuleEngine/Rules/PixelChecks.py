@@ -19,7 +19,7 @@ class PixelChecks(Rule):
         image_a = self.read_image(image_path_a)
         image_b = self.read_image(image_path_b)
         resize_factor = self._parameters.get('resize-factor')
-        print(resize_factor)
+        logger.info('Using resize factor of ' + str(resize_factor))
         if resize_factor:
             image_a = cv2.resize(image_a, None, fx=resize_factor, fy=resize_factor)
             image_b = cv2.resize(image_b, None, fx=resize_factor, fy=resize_factor)
@@ -29,9 +29,16 @@ class PixelChecks(Rule):
         if self._parameters.get('image-similarity-measures', 0) is not 0:
             result['compare_resolution'] = compare_resolution(image_a, image_b)
             # ToDo: Judge the resolution
+            logger.info('Checking resolution')
             resolution_allowed_divergence = self._parameters.get('resolution-allow-divergence')
-            print(resolution_allowed_divergence)
 
+            result_resolution_check = [resolution_factor > 1 - resolution_allowed_divergence
+                                       for resolution_factor in result['compare_resolution']['resolution_factors']]
+
+            if False in result_resolution_check:
+                result['compare_resolution']['passed'] = False
+            else:
+                result['compare_resolution']['passed'] = True
 
             logger.info('Executing Image Similarity measures')
             try:

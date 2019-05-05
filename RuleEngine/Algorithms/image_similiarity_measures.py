@@ -27,8 +27,8 @@ def image_similarity_measures(image_a, image_b):
                 # This should not be caught with an exception :), tif scaling
             except cv2.error:
                 scaler = MinMaxScaler(copy=False, feature_range=(0, 255))
-                scaler.fit_transform(image_a)
-                scaler.fit_transform(image_b)
+                gray_a = scaler.fit_transform(image_a)
+                gray_b = scaler.fit_transform(image_b)
 
             score, difference_image = function(gray_a, gray_b, full=True)
             if score != 1.0:

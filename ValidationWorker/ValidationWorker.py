@@ -14,8 +14,6 @@ class ValidationWorker:
         region, job, number = self.processResults[0]['job'].split('-')
 
         self.directory = os.path.join('reports/', region, job + '-' + number, '')
-        # Currently not useful.
-        # + str(datetime.datetime.now()) + '/'
         print('Validation of ' + self.processResults[0]['job'] + ' reference job started')
         self.validate()
 

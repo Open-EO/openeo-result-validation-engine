@@ -1,0 +1,6 @@
+{
+  "job": "common",
+  "validation": {
+    "ruleset-name": "default"
+  }
+}

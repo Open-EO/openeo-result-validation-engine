@@ -12,7 +12,7 @@ if __name__ == "__main__":
         logger = logging.getLogger('ValidationEngine')
         backendProviders = json.loads(backendProvidersFile.read())
 
-        jobWorker = JobWorker(backendProviders)
+        jobWorker = JobWorker(backendProviders, offline_mode=True)
         jobWorker.start_fetching()
 
         job_results = jobWorker.get_all_jobs()
