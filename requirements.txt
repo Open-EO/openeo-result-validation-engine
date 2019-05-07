@@ -1,6 +1,6 @@
 certifi==2019.3.9
 chardet==3.0.4
-cloudpickle==0.8.1
+cloudpickle==1.0.0
 cycler==0.10.0
 dask==1.2.1
 decorator==4.4.0
