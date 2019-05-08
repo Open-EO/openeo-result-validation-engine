@@ -18,6 +18,7 @@ class ColorChecks(Rule):
         logger.info('Executing Histogram Check')
         histogram_result = compare_histograms(image_a, image_b)
 
+        # ToDo: Proper values for decision
         # Reminder: Larger is better
         correleation_result = histogram_result.get('Correlation') > 0.5
         intersection_result = histogram_result.get('Intersection') > 1500
@@ -33,5 +34,5 @@ class ColorChecks(Rule):
         }
 
         result['compare_histograms'] = histogram_result
-        result['compare_histograms']['passed?'] = rule_result
+        result['compare_histograms']['passed'] = rule_result
         return result

@@ -36,6 +36,7 @@ class ValidationWorker:
                 current_rule.get_name_of_rule
                 current_rule.set_results(file_combination)
                 current_rule.set_directory(self.directory)
+
                 result_of_rule = current_rule.apply()
                 if result_of_rule is not None:
                     result[current_rule.get_name_of_rule()] = result_of_rule
@@ -47,16 +48,16 @@ class ValidationWorker:
                 self._report[provider_b] = {'results': []}
 
             self._report[provider_a]['results'].append({
-                'compared_with': provider_b,
-                'file': file_combination[0],
-                'compared_against': file_combination[1],
-                'rule_result': result
+                'file_a': file_combination[0],
+                'file_b': file_combination[1],
+                'compared_to_provider': provider_b,
+                'results': result
             })
             self._report[provider_b]['results'].append({
-                'compared_with': provider_a,
-                'file': file_combination[1],
-                'compared_against': file_combination[0],
-                'rule_result': result
+                'file_a': file_combination[0],
+                'file_b': file_combination[1],
+                'compared_to_provider': provider_a,
+                'results': result
             })
 
         print('Images and job results analyzed!')

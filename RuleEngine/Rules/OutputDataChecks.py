@@ -10,7 +10,7 @@ class OutputDataChecks(Rule):
         super(OutputDataChecks, self).__init__(parameters)
 
     def check_rule(self, image_path_a, image_path_b, combination):
-        result = {'combination': combination}
+        result = {}
         if self._parameters.get('matching-file-extensions', None) is not None:
             result['matching-file-extensions'] = compare_file_extensions(image_path_a, image_path_b)
 

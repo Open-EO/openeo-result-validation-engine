@@ -11,4 +11,5 @@ def compare_resolution(image_a, image_b):
     except ValueError:
         factors_list = None
 
-    return {'resolution_factors': factors_list}
+    return {'resolution_factors': factors_list,
+            'desription': 'Image a is X times smaller/greater than image b'}
