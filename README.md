@@ -96,10 +96,14 @@ Validation rules can be configured on a per job basis, in a file called `validat
 Activate the Python venv (`source venv/bin/activate`) and start the ValidationEngine with `python ValidationEngine.py`
 
 
-### Offline mode
+### Additional CLI arguments
 
 If you want to prevent the validation engine from downloading the same OpenEO jobs again you can pass the argument --offline True.
 `python ValidationEngine.py --offline True`
+
+To speed up the validation, a resize factor can be used. This factor reduces the size of the image and thus all computations are quicker. A value of 0.10 results in an image that is 10% of the original size.
+
+`python ValidationEngine.py --resize 0.10`
 
 ## Validation against local files
 Add a similar json-object as the one below to the `backendProvider.json`.
