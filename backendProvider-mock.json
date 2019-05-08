@@ -1,0 +1,12 @@
+{
+    "providers": [
+      {
+        "name": "First",
+        "local": true
+      },
+      {
+        "name": "Second",
+        "local": true
+      }
+    ]
+}

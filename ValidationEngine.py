@@ -49,23 +49,31 @@ def overwrite_resize_factor(validation_rules, resize_factor):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Validation Engine')
     parser.add_argument('--offline', default=False, type=bool)
+    parser.add_argument('--mock', default=False, type=bool)
     parser.add_argument('--resize', type=float)
     args = vars(parser.parse_args())
 
     logging.basicConfig(format='%(asctime)s %(name)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
-    with open('backendProvider.json', 'r') as backendProvidersFile:
+
+    backendProviderFilePath = 'backendProvider.json'
+    if args['mock']:
+        backendProviderFilePath = 'backendProvider-mock.json'
+
+    with open(backendProviderFilePath, 'r') as backendProvidersFile:
         logger = logging.getLogger('ValidationEngine')
         backendProviders = json.loads(backendProvidersFile.read())
 
-        jobWorker = JobWorker(backendProviders, offline_mode=args['offline'])
+        jobWorker = JobWorker(backendProviders, offline_mode=args['offline'], mock_mode=args['mock'])
         jobWorker.start_fetching()
 
         job_results = jobWorker.get_all_jobs()
         for job_result in job_results:
             # Read the validation rules from the job
             validation_rules_dict = read_validation_rules(job_result)
-            if args['resize']:
+            if args['resize'] and not args['mock']:
                 overwrite_resize_factor(validation_rules_dict, args['resize'])
+            if args['mock']:
+                overwrite_resize_factor(validation_rules_dict, 1)
 
             # Create configured rules from validation rules
             rule_engine = RuleEngine(validation_rules_dict)

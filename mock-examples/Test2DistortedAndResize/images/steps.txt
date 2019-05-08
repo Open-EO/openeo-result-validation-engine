@@ -1,0 +1,5 @@
+blurred with
+
+convert -resize 90% image.jpg newimage.jpg
+convert tv-test-2_resized.png -resize 960 tv-test-2_distored.png
+

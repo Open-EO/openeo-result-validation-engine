@@ -1,16 +1,16 @@
 import os
 import time
 import json
-import uuid
 
 import openeo
 from openeo.auth.auth_bearer import BearerAuth
 
 
 class JobWorker:
-    def __init__(self, backend_providers, offline_mode=None):
+    def __init__(self, backend_providers, offline_mode=None, mock_mode=None):
         self.results = []
         self.offline_mode = offline_mode
+        self.mock_mode = mock_mode
         self.backendProviders = backend_providers
         self._jobs_names = []
 
@@ -45,7 +45,8 @@ class JobWorker:
         """ This function fetches the results for each backend provider"""
         # ToDo: This should be parallelized, as it sometimes can take long to fetch the results from a provider.
         job_directory = 'openeo-sentinel-reference-jobs/'
-
+        if self.mock_mode:
+            job_directory = 'mock-examples'
         # In the future, the regions layer could be removed,
         # it is not factual information but just a pattern for myself
         regions = [f.path for f in os.scandir(job_directory) if f.is_dir()]
