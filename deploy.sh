@@ -19,9 +19,9 @@ function runValidation {
 # fi
 
 # Save some useful information
-REPO=`git config remote.origin.url`
+REPO=$(git config remote.origin.url)
 SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
-SHA=`git rev-parse --verify HEAD`
+SHA=$(git rev-parse --verify HEAD)
 
 # Clone the existing gh-pages for this repo into out/
 # Create a new empty branch if gh-pages doesn't exist yet (should only happen on first deply)
@@ -65,7 +65,7 @@ git commit -m "Deploy to GitHub Pages: ${SHA}"
 
 # Get the deploy key by using Travis's stored variables to decrypt deploy_key.enc
 chmod 600 ../openeo
-eval `ssh-agent -s`
+eval $(ssh-agent -s)
 ssh-add ../openeo
 
 # Now that we're all set up, we can push.
