@@ -27,19 +27,40 @@ class ValidationWorker:
     def validate(self):
         """ Applies every validation rule on each result combination"""
         for file_combination in self.get_result_combinations():
-            # Find out to which provider the file belongs to
-            provider_a = self.find_backend(file_combination[0])
-            provider_b = self.find_backend(file_combination[1])
+            # get to Job info for the given file
+            # this is currently a work around
+            job_info_a = self.find_job_info(file_combination[0])
+            job_info_b = self.find_job_info(file_combination[1])
+
+            provider_a = job_info_a['backend']
+            provider_b = job_info_b['backend']
             result = {}
 
-            for current_rule in self.ruleEngine.get_rules():
-                current_rule.get_name_of_rule
-                current_rule.set_results(file_combination)
-                current_rule.set_directory(self.directory)
+            # If both jobs returned results we can validate them against each other, we can still run the validation
+            # if the files were previously downloaded
+            if (job_info_a['download_successful'] and job_info_b['download_successful']) or \
+                    (os.path.exists(file_combination[0]) and os.path.exists(file_combination[1])):
+                for current_rule in self.ruleEngine.get_rules():
+                    current_rule.get_name_of_rule
+                    current_rule.set_results(file_combination)
+                    current_rule.set_directory(self.directory)
 
-                result_of_rule = current_rule.apply()
-                if result_of_rule is not None:
-                    result[current_rule.get_name_of_rule()] = result_of_rule
+                    result_of_rule = current_rule.apply()
+                    if result_of_rule is not None:
+                        result[current_rule.get_name_of_rule()] = result_of_rule
+            else:
+                result = {
+                    'provider_a_download_successful': job_info_a['download_successful'],
+                    'provider_b_download_successful': job_info_b['download_successful'],
+                    'description': 'Validation could not be performed as atleast one provider did not return data, '
+                                   'if there are validation results it is because local results were used'
+                }
+
+            result['performance'] = {
+                'provider_a': job_info_a['time_to_result'],
+                'provider_b': job_info_b['time_to_result'],
+                'unit': 'seconds'
+            }
 
             # Create the key for the provider
             if self._report.get(provider_a) is None:
@@ -70,12 +91,12 @@ class ValidationWorker:
             with open(path_to_report, 'w') as fp:
                 json.dump(self._report[provider], fp)
 
-    def find_backend(self, file_name):
+    def find_job_info(self, file_name):
         """ Looks up the back end provider for a given file name"""
         for job_info in self.processResults:
             if file_name in job_info['file']:
-                return job_info['backend']
-        raise Exception('Provider not found')
+                return job_info
+        raise Exception('Job info not found')
 
 
 

@@ -18,16 +18,16 @@ class TestAlgorithms(TestCase):
 
     def test_compare_resolution(self):
         result = compare_resolution(np.zeros((512, 512, 3)), np.zeros((512, 512, 3)))
-        self.assertEqual(result, {'resolution_factors': [1.0, 1.0, 1.0]})
+        self.assertEqual(result['resolution_factors'], [1.0, 1.0, 1.0])
 
         result = compare_resolution(np.zeros((512, 512, 3)), np.zeros((1024, 1024, 3)))
-        self.assertEqual(result, {'resolution_factors': [0.5, 0.5, 1.0]})
+        self.assertEqual(result['resolution_factors'], [0.5, 0.5, 1.0])
 
         result = compare_resolution(np.zeros((1024, 1024, 3)), np.zeros((512, 512, 3)))
-        self.assertEqual(result, {'resolution_factors': [2.0, 2.0, 1.0]})
+        self.assertEqual(result['resolution_factors'], [2.0, 2.0, 1.0])
 
         result = compare_resolution(np.zeros((1024, 1024, 3)), np.zeros((512, 512)))
-        self.assertEqual(result, {'resolution_factors': None})
+        self.assertEqual(result['resolution_factors'], None)
 
     def test_compare_filenames(self):
         file_a = 'test/test.png'

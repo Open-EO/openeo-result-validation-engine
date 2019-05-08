@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import argparse
 
 from JobWorker.JobWorker import JobWorker
 from RuleEngine.RuleEngine import RuleEngine
@@ -9,6 +10,7 @@ from ValidationWorker.ValidationWorker import ValidationWorker
 
 def read_validation_rules(job_info):
     """Reads the jobs validation rules from the job"""
+    logger = logging.getLogger('ValidationRules')
     if os.path.exists(job_info[0]['validation-rules-path']):
         with open(job_info[0]['validation-rules-path'], 'r') as validation_rules:
             # Defined validation rules
@@ -37,12 +39,16 @@ def read_validation_rules(job_info):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Validation Engine')
+    parser.add_argument('--offline', default=False, type=bool)
+    args = vars(parser.parse_args())
+
     logging.basicConfig(format='%(asctime)s %(name)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
     with open('backendProvider.json', 'r') as backendProvidersFile:
         logger = logging.getLogger('ValidationEngine')
         backendProviders = json.loads(backendProvidersFile.read())
 
-        jobWorker = JobWorker(backendProviders, offline_mode=False)
+        jobWorker = JobWorker(backendProviders, offline_mode=args['offline'])
         jobWorker.start_fetching()
 
         job_results = jobWorker.get_all_jobs()
@@ -57,6 +63,8 @@ if __name__ == "__main__":
             # Pass Rule_
             validation_worker = ValidationWorker(rule_engine, job_result)
             validation_worker.start()
+
+
 
 
 

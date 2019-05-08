@@ -90,8 +90,8 @@ class JobWorker:
                             except Exception as e:
                                 # ToDo: Log if a connection to a provider fails
                                 print(e)
-                                print('Skipping')
-                                continue
+                                print('Connection to provider failed')
+                                download_successful = False
                             # stopwatch starting
                             if provider['name'] == 'EURAC':
                                 try:
@@ -121,12 +121,13 @@ class JobWorker:
                                     print(e)
                                 except Exception as e:
                                     print(e)
-                                    # ToDo: Log if a result cannot be downloaded and store it in results
                                     download_successful = False
                             # stopwatch end
                         end_time = time.time()
                         time_to_result = end_time - start_time
                         print('Downloading results took ' + str(time_to_result) + ' seconds')
+                        if self.offline_mode:
+                            download_successful = True
 
                         self._jobs_names.append(job_identifier)
                         details = {
@@ -135,7 +136,7 @@ class JobWorker:
                             'file': file_path,
                             'validation-rules-path': path_to_validation_rules,
                             'time_to_result': time_to_result,
-                            'download_succesful': download_successful
+                            'download_successful': download_successful
                         }
                         self.results.append(details)
 
