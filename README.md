@@ -24,14 +24,14 @@ pip install -e .
 
 ## Configuration
 
-OpenEO back-end providers can be added in the backendProvider.json. This JSON contains an array of JSON objects that 
+OpenEO back-end providers can be added in the backendProvider.json. This JSON contains an array of JSON objects that
 contain the information for a given provider.
 
 * `name`: The name of the backend-provider.
 * `baseURL`: The address of the openEO API endpoint from the backend-provider.
 * `credentials`: The account information required to authenticate openEO requests.
-    * `user`: The username, this is optional and can be left empty
-    * `password`: The password to authenticate, this is optional and can be left empty
+  * `user`: The username, this is optional and can be left empty
+  * `password`: The password to authenticate, this is optional and can be left empty
 
 ```json
       {
@@ -54,13 +54,17 @@ e.g. `openEO-GEE` in our current example. This folder then contains a single pro
 Validation rules can be configured on a per job basis, in a file called `validation-rules.json`. There are three possible options:
 
 * Specifying no rules; `default` validation rules get selected (stored in the folder `rule-configurations`)
+
 * Specifying a `name` of a ruleset; the validation engine then tries to find a json file with the name `name`-validation-rules.json
+
 ```json
 {
   "ruleset-name": "quick"
 }
 ```
+
 * Specifying validation rules directly inside the json.
+
 ```json
 {
   "validation": {
@@ -93,13 +97,13 @@ Validation rules can be configured on a per job basis, in a file called `validat
 ```
 
 ## Run
-Activate the Python venv (`source venv/bin/activate`) and start the ValidationEngine with `python ValidationEngine.py`
 
+Activate the Python venv (`source venv/bin/activate`) and start the ValidationEngine with `python ValidationEngine.py`
 
 ### Additional CLI arguments
 
 If you want to prevent the validation engine from downloading the same OpenEO jobs again you can pass the argument `--offline True`.
-Example: 
+Example:
 `python ValidationEngine.py --offline True`
 
 To speed up the validation, a resize factor can be used. This factor reduces the size of the image and thus all computations are quicker. A value of 0.10 results in an image that is 10% of the original size. This of course reduces the quality of the validation.
@@ -108,6 +112,7 @@ Example:
 `python ValidationEngine.py --resize 0.10`
 
 ## Validation against local files
+
 Add a similar json-object as the one below to the `backendProvider.json`.
 
 ```json
@@ -127,5 +132,3 @@ This folder then should contain a json that stores the path to the locally store
 ```
 
 This allows to validate local results against openEO cloud-processed results and it also enables validation of just local results.
-
-
