@@ -9,16 +9,17 @@ Due to filesize limitations, comparison images are currently not stored in this 
 
 
 ## Installation
+We mostly use Python3 in a venv environment. The following commands have to be run sequentially to install the application and its dependencies.
 
 ```bash
-  - git clone --recursive https://github.com/Sijoma/openeo-validation-engine
-  - cd openeo-validation-engine
-  - python3 -m venv ./venv
-  - source venv/bin/activate
-  - pip install -r requirements.txt
-  - cd openeo-python-client
-  - pip install -r requirements.txt
-  - pip install -e .
+git clone --recursive https://github.com/Sijoma/openeo-validation-engine
+cd openeo-validation-engine
+python3 -m venv ./venv
+source venv/bin/activate
+pip install -r requirements.txt
+cd openeo-python-client
+pip install -r requirements.txt
+pip install -e .
 ```
 
 ## Configuration
@@ -95,10 +96,14 @@ Validation rules can be configured on a per job basis, in a file called `validat
 Activate the Python venv (`source venv/bin/activate`) and start the ValidationEngine with `python ValidationEngine.py`
 
 
-### Offline mode
+### Additional CLI arguments
 
 If you want to prevent the validation engine from downloading the same OpenEO jobs again you can pass the argument --offline True.
 `python ValidationEngine.py --offline True`
+
+To speed up the validation, a resize factor can be used. This factor reduces the size of the image and thus all computations are quicker. A value of 0.10 results in an image that is 10% of the original size.
+
+`python ValidationEngine.py --resize 0.10`
 
 ## Validation against local files
 Add a similar json-object as the one below to the `backendProvider.json`.
