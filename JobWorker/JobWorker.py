@@ -124,6 +124,8 @@ class JobWorker:
                                     download_successful = False
                             # stopwatch end
                         end_time = time.time()
+                        # ToDo: Time_to_result could be improved by measuring the time it takes until the images are
+                        #  ready to be downloaded, instead of measuring when they finished downloading
                         time_to_result = end_time - start_time
                         print('Downloading results took ' + str(time_to_result) + ' seconds')
                         if self.offline_mode:

@@ -38,7 +38,7 @@ class ValidationWorker:
 
             # If both jobs returned results we can validate them against each other, we can still run the validation
             # if the files were previously downloaded
-            if (job_info_a['download_successful'] and job_info_b['download_successful']) or \
+            if (job_info_a['download_successful'] and job_info_b['download_successful']) and \
                     (os.path.exists(file_combination[0]) and os.path.exists(file_combination[1])):
                 for current_rule in self.ruleEngine.get_rules():
                     current_rule.get_name_of_rule

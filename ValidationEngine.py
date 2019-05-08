@@ -38,9 +38,18 @@ def read_validation_rules(job_info):
             return json.loads(rules.read())
 
 
+def overwrite_resize_factor(validation_rules, resize_factor):
+    """ This function can be used to manually overwrite all resize factors for validation rules """
+    for rule in validation_rules['validation']['rules']:
+        for key in validation_rules['validation']['rules'][rule]:
+            if key == 'resize-factor':
+                validation_rules['validation']['rules'][rule]['resize-factor'] = resize_factor
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Validation Engine')
     parser.add_argument('--offline', default=False, type=bool)
+    parser.add_argument('--resize', type=float)
     args = vars(parser.parse_args())
 
     logging.basicConfig(format='%(asctime)s %(name)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
@@ -55,6 +64,8 @@ if __name__ == "__main__":
         for job_result in job_results:
             # Read the validation rules from the job
             validation_rules_dict = read_validation_rules(job_result)
+            if args['resize']:
+                overwrite_resize_factor(validation_rules_dict, args['resize'])
 
             # Create configured rules from validation rules
             rule_engine = RuleEngine(validation_rules_dict)

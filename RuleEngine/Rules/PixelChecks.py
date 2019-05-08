@@ -32,8 +32,9 @@ class PixelChecks(Rule):
             logger.info('Checking resolution')
             resolution_allowed_divergence = self._parameters.get('resolution-allow-divergence')
 
-            result_resolution_check = [resolution_factor > 1 - resolution_allowed_divergence
-                                       for resolution_factor in result['compare_resolution']['resolution_factors']]
+            result_resolution_check = [
+                1 - resolution_allowed_divergence < resolution_factor < 1 + resolution_allowed_divergence
+                for resolution_factor in result['compare_resolution']['resolution_factors']]
 
             if False in result_resolution_check:
                 result['compare_resolution']['passed'] = False
