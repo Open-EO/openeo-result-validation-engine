@@ -102,7 +102,7 @@ If you want to prevent the validation engine from downloading the same OpenEO jo
 Example: 
 `python ValidationEngine.py --offline True`
 
-To speed up the validation, a resize factor can be used. This factor reduces the size of the image and thus all computations are quicker. A value of 0.10 results in an image that is 10% of the original size.
+To speed up the validation, a resize factor can be used. This factor reduces the size of the image and thus all computations are quicker. A value of 0.10 results in an image that is 10% of the original size. This of course reduces the quality of the validation.
 
 Example:
 `python ValidationEngine.py --resize 0.10`
