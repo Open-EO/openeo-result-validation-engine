@@ -9,7 +9,7 @@ Due to filesize limitations, comparison images are currently not stored in this 
 
 
 ## Installation
-We mostly use Python3 in a venv environment. The following commands have to be run sequentially to install the application and its dependencies.
+We mostly use Python3 in a venv environment. Using a venv is not necessary but recommended. The following commands have to be run sequentially to install the application and its dependencies.
 
 ```bash
 git clone --recursive https://github.com/Sijoma/openeo-validation-engine
@@ -98,7 +98,12 @@ Validation rules can be configured on a per job basis, in a file called `validat
 
 ## Run
 
-Activate the Python venv (`source venv/bin/activate`) and start the ValidationEngine with `python ValidationEngine.py`
+Activate the Python venv and start the ValidationEngine.
+
+```bash
+source venv/bin/activate
+python ValidationEngine.py
+```
 
 ### Additional CLI arguments
 
@@ -127,7 +132,7 @@ This folder then should contain a json that stores the path to the locally store
 
 ```json
 {
-  "file": "/Users/simon/Documents/Uni/MasterThesis/openeo-sentinel-reference-jobs/Switzerland/Python/RawData/Python_NDVI_S2A_MSIL2A_20180604T103021_N0208_R108_T32TNT_20180604T165443.tiff"
+  "file": "/path/to/file/file.tiff"
 }
 ```
 
