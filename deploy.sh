@@ -8,7 +8,7 @@ TARGET_BRANCH="gh-pages"
 function runValidation {
     python -m unittest
     python ValidationEngine.py
-    python ValidationEngine.py --offline True --resize 1 --mock True
+    python ValidationEngine.py --mock True
 }
 
 # This could be useful once the system is in production
