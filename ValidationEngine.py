@@ -63,6 +63,9 @@ if __name__ == "__main__":
         logger = logging.getLogger('ValidationEngine')
         backendProviders = json.loads(backendProvidersFile.read())
 
+        if args['mock']:
+            args['offline'] = True
+
         jobWorker = JobWorker(backendProviders, offline_mode=args['offline'], mock_mode=args['mock'])
         jobWorker.start_fetching()
 

@@ -137,3 +137,11 @@ This folder then should contain a json that stores the path to the locally store
 ```
 
 This allows to validate local results against openEO cloud-processed results and it also enables validation of just local results.
+
+## Mocked examples
+
+Mocked examples can be run with:
+
+```bash
+python ValidationEngine.py --mock True 
+```
