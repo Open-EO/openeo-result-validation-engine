@@ -7,6 +7,14 @@
       {
         "name": "Second",
         "local": true
+      },
+      {
+        "name": "Third",
+        "local": true
+      },
+      {
+        "name": "Fourth",
+        "local": true
       }
     ]
 }

@@ -1,5 +1,4 @@
 {
-  "job": "common",
   "validation": {
       "rules": {
           "input-data-checks": {
@@ -14,15 +13,18 @@
           "pixel-checks": {
             "resolution-allow-divergence": 0.5,
             "image-similarity-measures": 1.0,
-            "resize-factor": 0.05
+            "resize-factor": 0.10
           },
           "classification-checks": {
             "matching-boundaries": "0.20",
-            "resize-factor": 0.05
+            "resize-factor": 0.10
           },
           "nan-value-check": {
               "allow-nan": true,
               "correct": 0
+          },
+          "cluster-checks": {
+            "deviation": 1
           }
       }
   }

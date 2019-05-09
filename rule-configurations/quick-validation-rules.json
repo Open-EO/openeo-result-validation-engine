@@ -1,5 +1,4 @@
 {
-  "job": "common",
   "validation": {
       "rules": {
           "classification-checks": {
