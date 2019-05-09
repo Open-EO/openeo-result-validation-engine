@@ -24,7 +24,7 @@ class RuleFactory:
         try:
             imported_module = importlib.import_module(RULES_DIRECTORY + pascal_case_rule_name)
             class_ = getattr(imported_module, pascal_case_rule_name)
-        except ModuleNotFoundError:
+        except ImportError:
             print('Rule not implemented - skipping')
             return None
 
