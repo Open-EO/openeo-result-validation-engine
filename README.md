@@ -107,7 +107,7 @@ python ValidationEngine.py
 
 ### Additional CLI arguments
 
-Run `bash python ValidationEngine.py --help` to get information on all available CLI commands.
+Run `python ValidationEngine.py --help` to get information on all available CLI commands.
 
 If you want to prevent the validation engine from downloading the same OpenEO jobs again you can pass the argument `--offline True`.
 Example:
