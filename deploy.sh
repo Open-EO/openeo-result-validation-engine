@@ -6,7 +6,6 @@ SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
 
 function runValidation {
-    python -m unittest
     python ValidationEngine.py
     python ValidationEngine.py --mock True
 }
