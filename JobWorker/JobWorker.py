@@ -7,9 +7,10 @@ from openeo.auth.auth_bearer import BearerAuth
 
 
 class JobWorker:
-    def __init__(self, backend_providers, offline_mode=None, mock_mode=None):
+    def __init__(self, backend_providers, offline_mode=None, mock_mode=None, job_identifier_to_run=None):
         self.results = []
         self.offline_mode = offline_mode
+        self.selectedJob = job_identifier_to_run
         self.mock_mode = mock_mode
         self.backendProviders = backend_providers
         self._jobs_names = []
@@ -64,7 +65,8 @@ class JobWorker:
                     # ToDo: Think whether the directory should contain only one process graph anyway
                     if os.path.exists(process_graph_folder) is False:
                         continue
-                    process_graphs = [f for f in os.listdir(process_graph_folder) if os.path.isfile(os.path.join(process_graph_folder, f))]
+                    process_graphs = [f for f in os.listdir(process_graph_folder)
+                                      if os.path.isfile(os.path.join(process_graph_folder, f))]
                     path_to_process_graph = os.path.join(process_graph_folder, process_graphs[0])
                     path_to_validation_rules = os.path.join(job, 'validation-rules.json')
                     with open(path_to_process_graph, 'r') as process_graph:
@@ -75,6 +77,10 @@ class JobWorker:
                             os.makedirs(save_path)
 
                         job_identifier = region.split('/')[1] + '-' + job.split('/')[-1]
+                        # Only run selected job that is passed by the CLI argument
+                        if self.selectedJob:
+                            if self.selectedJob != job_identifier:
+                                continue
 
                         if provider.get('local') is True:
                             file_path = process_graph['file']
@@ -118,7 +124,7 @@ class JobWorker:
                                             print(openEO_job.describe_job())
                                             time.sleep(15)
                                 except ConnectionAbortedError as e:
-                                    """ Unauthorized """
+                                    # Not authorized etc.
                                     print(e)
                                 except Exception as e:
                                     print(e)

@@ -48,9 +48,13 @@ def overwrite_resize_factor(validation_rules, resize_factor):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Validation Engine')
-    parser.add_argument('--offline', default=False, type=bool)
-    parser.add_argument('--mock', default=False, type=bool)
-    parser.add_argument('--resize', type=float)
+    parser.add_argument('--offline', default=False, type=bool,
+                        help='Offline mode that can be used to prevent downloading back-end results again')
+    parser.add_argument('--mock', default=False, type=bool,
+                        help='Runs the mock examples in offline mode, without any resizing')
+    parser.add_argument('--resize', type=float, help='Resize factor for images, Example: 0.5')
+    parser.add_argument('--refJob', default=None, type=str,
+                        help='String of <Region>-Job<Number>, Example: <Switzerland-Job-2>')
     args = vars(parser.parse_args())
 
     logging.basicConfig(format='%(asctime)s %(name)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
@@ -66,7 +70,8 @@ if __name__ == "__main__":
         if args['mock']:
             args['offline'] = True
 
-        jobWorker = JobWorker(backendProviders, offline_mode=args['offline'], mock_mode=args['mock'])
+        jobWorker = JobWorker(backendProviders, offline_mode=args['offline'], mock_mode=args['mock'],
+                              job_identifier_to_run=args['refJob'])
         jobWorker.start_fetching()
 
         job_results = jobWorker.get_all_jobs()
@@ -83,6 +88,7 @@ if __name__ == "__main__":
             rule_engine.parse_rules()
 
             # Pass Rule_
+
             validation_worker = ValidationWorker(rule_engine, job_result)
             validation_worker.start()
 

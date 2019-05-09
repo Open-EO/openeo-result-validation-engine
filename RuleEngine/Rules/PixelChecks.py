@@ -28,7 +28,6 @@ class PixelChecks(Rule):
 
         if self._parameters.get('image-similarity-measures', 0) is not 0:
             result['compare_resolution'] = compare_resolution(image_a, image_b)
-            # ToDo: Judge the resolution
             logger.info('Checking resolution')
             resolution_allowed_divergence = self._parameters.get('resolution-allow-divergence')
 

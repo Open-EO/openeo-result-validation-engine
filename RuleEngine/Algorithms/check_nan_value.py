@@ -17,22 +17,24 @@ def check_nan_value(image_a, image_b):
 
 
 def check_single_image_nan(image):
-    zero_in_image = 0 in image
+    # ToDo: This NaN Check does not work properly for images as NaN values do not exist
+    #  they are transparent RGBA(R, G, B, 0), white is RGB(255,255,255)
+    white_in_image = [255, 255, 255] in image
     nan_in_image = np.isnan(image).any()
 
-    if zero_in_image and nan_in_image:
+    if white_in_image and nan_in_image:
         result = {
-            'types': [0, str(np.nan)],
-            'count': [np.count_nonzero(image == 0), np.count_nonzero(np.isnan(image))]
+            'types': ['white', 'transparent'],
+            'count': [np.count_nonzero(image == [255, 255, 255]), np.count_nonzero(np.isnan(image))]
         }
-    elif zero_in_image and not nan_in_image:
+    elif white_in_image and not nan_in_image:
         result = {
-            'types': [0],
-            'count': np.count_nonzero(image == 0)
+            'types': ['white'],
+            'count': np.count_nonzero(image == [255, 255, 255])
         }
     elif nan_in_image:
         result = {
-            'types': [str(np.nan)],
+            'types': ['transparent'],
             'count': np.count_nonzero(np.isnan(image))
         }
     else:

@@ -107,6 +107,8 @@ python ValidationEngine.py
 
 ### Additional CLI arguments
 
+Run `bash python ValidationEngine.py --help` to get information on all available CLI commands.
+
 If you want to prevent the validation engine from downloading the same OpenEO jobs again you can pass the argument `--offline True`.
 Example:
 `python ValidationEngine.py --offline True`
@@ -115,6 +117,21 @@ To speed up the validation, a resize factor can be used. This factor reduces the
 
 Example:
 `python ValidationEngine.py --resize 0.10`
+
+Mocked examples (jobs stored in the folder mock-examples) can be run with:
+
+```bash
+python ValidationEngine.py --mock True 
+```
+
+To run only a specific reference job, the job-identifier can be passed as an argument.
+The structure of the id is as follows: <Region>-Job-<Number>
+Examples: Island-Job-2, Netherlands-Job-2
+
+```bash
+python ValidationEngine.py --refJob Switzerland-Job-1 
+```
+
 
 ## Validation against local files
 
@@ -138,10 +155,3 @@ This folder then should contain a json that stores the path to the locally store
 
 This allows to validate local results against openEO cloud-processed results and it also enables validation of just local results.
 
-## Mocked examples
-
-Mocked examples can be run with:
-
-```bash
-python ValidationEngine.py --mock True 
-```
