@@ -1,8 +1,6 @@
 tack_after_pastey.class
 .vscode
 
-# pngs from reports
-*.png
 
 .DS_Store
 

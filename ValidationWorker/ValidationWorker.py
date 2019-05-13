@@ -71,14 +71,17 @@ class ValidationWorker:
             self._report[provider_a]['results'].append({
                 'file_a': file_combination[0],
                 'file_b': file_combination[1],
-                'compared_to_provider': provider_b,
-                'results': result
+                'provider_a': provider_a,
+                'provider_b': provider_b,
+                'job-identifier': job_info_a['job'],
+                'rule_results': result
             })
             self._report[provider_b]['results'].append({
                 'file_a': file_combination[0],
                 'file_b': file_combination[1],
                 'compared_to_provider': provider_a,
-                'results': result
+                'job-identifier': job_info_a['job'],
+                'rule_results': result
             })
 
         print('Images and job results analyzed!')
@@ -97,6 +100,5 @@ class ValidationWorker:
             if file_name in job_info['file']:
                 return job_info
         raise Exception('Job info not found')
-
 
 

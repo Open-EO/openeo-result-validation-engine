@@ -81,13 +81,11 @@ if __name__ == "__main__":
             if args['resize'] and not args['mock']:
                 overwrite_resize_factor(validation_rules_dict, args['resize'])
             if args['mock']:
-                overwrite_resize_factor(validation_rules_dict, 1)
+                overwrite_resize_factor(validation_rules_dict, 0.5)
 
             # Create configured rules from validation rules
             rule_engine = RuleEngine(validation_rules_dict)
             rule_engine.parse_rules()
-
-            # Pass Rule_
 
             validation_worker = ValidationWorker(rule_engine, job_result)
             validation_worker.start()

@@ -125,9 +125,9 @@ class JobWorker:
                                             download_successful = True
                                         except ConnectionAbortedError:
                                             download_successful = False
-                                            print('Retrying to download file in 15 seconds')
+                                            print('Retrying to download file in 10 seconds')
                                             print(openEO_job.describe_job())
-                                            time.sleep(15)
+                                            time.sleep(10)
                                 except ConnectionAbortedError as e:
                                     # Not authorized etc.
                                     print(e)

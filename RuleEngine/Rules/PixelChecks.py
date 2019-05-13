@@ -24,7 +24,7 @@ class PixelChecks(Rule):
             image_a = cv2.resize(image_a, None, fx=resize_factor, fy=resize_factor)
             image_b = cv2.resize(image_b, None, fx=resize_factor, fy=resize_factor)
 
-        result = {}
+        result = {'passed': False}
 
         if self._parameters.get('image-similarity-measures', 0) is not 0:
             result['compare_resolution'] = compare_resolution(image_a, image_b)
@@ -36,9 +36,9 @@ class PixelChecks(Rule):
                 for resolution_factor in result['compare_resolution']['resolution_factors']]
 
             if False in result_resolution_check:
-                result['compare_resolution']['passed'] = False
+                result['compare_resolution']['passed'] = str(False)
             else:
-                result['compare_resolution']['passed'] = True
+                result['compare_resolution']['passed'] = str(True)
 
             logger.info('Executing Image Similarity measures')
             try:
@@ -49,8 +49,21 @@ class PixelChecks(Rule):
                     file_save_path = self.create_file_path(combination, 'SSIM_', '.png')
                     cv2.imwrite(file_save_path, difference_image)
                     result['differenceImage_Path'] = os.path.split(file_save_path)[1]
+
+                ism_passed = result['image-similarity-measures']['compare_ssim'] >= self._parameters.get('image-similarity-measures')
+
+                result['image-similarity-measures']['passed'] = str(ism_passed)
             except ValueError as e:
                 result['image-similarity-measures'] = str(e)
+                return None
+
+            if result['compare_resolution']['passed'] == 'True' \
+                    and result['image-similarity-measures']['passed'] == 'True':
+                result['passed'] = 'True'
+            else:
+                result['passed'] = 'False'
+
+
 
         return result
 

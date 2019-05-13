@@ -8,7 +8,6 @@ class NanValueCheck(Rule):
         self._name_of_rule = 'nan-value-check'
         super(NanValueCheck, self).__init__(parameters)
 
-
     def check_rule(self, image_path_a, image_path_b, combination):
         """ Has two image paths as inputs, calls functions that concern the use case of validating classifications """
         result = None
@@ -21,7 +20,7 @@ class NanValueCheck(Rule):
                 passed = True if result_check_nan['file_a'] == result_check_nan['file_b'] else False
                 result = {
                     'nan-value-comparison': result_check_nan,
-                    'passed': passed
+                    'passed': str(passed)
                     }
 
         return result

@@ -22,4 +22,6 @@ class OutputDataChecks(Rule):
             else:
                 result['file-size-check']['rule'] = 'passed'
 
+        result['passed'] = str(result['file-size-check']['rule'] == 'passed' and result['matching-file-extensions'])
+
         return result

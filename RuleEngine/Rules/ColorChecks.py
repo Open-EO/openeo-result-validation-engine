@@ -20,19 +20,20 @@ class ColorChecks(Rule):
 
         # ToDo: Proper values for decision
         # Reminder: Larger is better
-        correleation_result = histogram_result.get('Correlation') > 0.5
-        intersection_result = histogram_result.get('Intersection') > 1500
-        # Reminder: Lower is better
-        chi_squared_result = histogram_result.get('Chi-Squared') < 2700
-        hellinger_result = histogram_result.get('Hellinger') < 0.50
+        if histogram_result:
+            correleation_result = histogram_result.get('Correlation') > 0.5
+            intersection_result = histogram_result.get('Intersection') > 1500
+            # Reminder: Lower is better
+            chi_squared_result = histogram_result.get('Chi-Squared') < 2700
+            hellinger_result = histogram_result.get('Hellinger') < 0.50
 
-        rule_result = {
-            'Correlation': correleation_result,
-            'Intersection': intersection_result,
-            'Chi-Squared': chi_squared_result,
-            'Hellinger': hellinger_result
-        }
+            rule_result = {
+                'Correlation': correleation_result,
+                'Intersection': intersection_result,
+                'Chi-Squared': chi_squared_result,
+                'Hellinger': hellinger_result
+            }
 
-        result['compare_histograms'] = histogram_result
-        result['compare_histograms']['passed'] = rule_result
+            result['histograms'] = histogram_result
+            result['passed'] = str(correleation_result)
         return result
