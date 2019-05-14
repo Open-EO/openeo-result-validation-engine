@@ -14,6 +14,15 @@ class NanValueCheck(Rule):
         image_a = self.read_image(image_path_a)
         image_b = self.read_image(image_path_b)
 
+        try:
+            if image_a and image_b:
+                print('Images read')
+            else:
+                return {'passed': False,
+                        'message': 'Reading image'}
+        except ValueError as e:
+            """ Workaround, sometimes the image cannot be loaded and thus we cannot check with .all()"""
+
         if self._parameters.get('allow-nan', None) is True:
             result_check_nan = check_nan_value(image_a, image_b)
             if result_check_nan:

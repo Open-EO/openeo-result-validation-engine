@@ -16,8 +16,20 @@ class PixelChecks(Rule):
     def check_rule(self, image_path_a, image_path_b, combination):
         """ Has two image paths as input, the threshold comes from the instantiation of the rule"""
         logger = logging.getLogger(self.get_name_of_rule())
+
         image_a = self.read_image(image_path_a)
         image_b = self.read_image(image_path_b)
+
+        try:
+            if image_a and image_b:
+                print('Images read')
+            else:
+                return {'passed': False,
+                        'message': 'Reading image'}
+        except ValueError as e:
+            """ Workaround, sometimes the image cannot be loaded and thus we cannot check with .all()"""
+
+
         resize_factor = self._parameters.get('resize-factor')
         logger.info('Using resize factor of ' + str(resize_factor))
         if resize_factor:

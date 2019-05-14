@@ -15,6 +15,15 @@ class ColorChecks(Rule):
         image_b = self.read_image(image_path_b)
         result = {}
 
+        try:
+            if image_a and image_b:
+                print('Images read')
+            else:
+                return {'passed': False,
+                        'message': 'Reading image'}
+        except ValueError as e:
+            """ Workaround, sometimes the image cannot be loaded and thus we cannot check with .all()"""
+
         logger.info('Executing Histogram Check')
         histogram_result = compare_histograms(image_a, image_b)
 
@@ -36,4 +45,5 @@ class ColorChecks(Rule):
 
             result['histograms'] = histogram_result
             result['passed'] = str(correleation_result)
+
         return result

@@ -18,13 +18,23 @@ class ClassificationChecks(Rule):
 
         image_a = self.read_image(image_path_a)
         image_b = self.read_image(image_path_b)
-
+        result = None
         resize_factor = self._parameters.get('resize-factor')
+
+        try:
+            if image_a and image_b:
+                print('Images read')
+            else:
+                return {'passed': False,
+                        'message': 'Reading image'}
+        except ValueError as e:
+            """ Workaround, sometimes the image cannot be loaded and thus we cannot check with .all()"""
+
         if resize_factor:
             image_a = cv2.resize(image_a, None, fx=resize_factor, fy=resize_factor)
             image_b = cv2.resize(image_b, None, fx=resize_factor, fy=resize_factor)
 
-        result = None
+
         # check if X and Y resolution match, some results might already be grayscale while some are RGB images
         if self._parameters.get('matching-boundaries', None) is not None and (image_a.shape[0] == image_b.shape[0]
                                                                               and image_a.shape[1] == image_a.shape[1]):
