@@ -130,6 +130,7 @@ class JobWorker:
                                             openEO_job.download_results(file_path)
                                             print(openEO_job.describe_job())
                                             download_successful = True
+                                            print(openEO_job.delete_job())
                                         except ConnectionAbortedError:
                                             download_successful = False
                                             print('Retrying to download file in 10 seconds')

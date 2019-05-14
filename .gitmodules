@@ -5,3 +5,4 @@
 [submodule "openeo-python-client"]
 	path = openeo-python-client
 	url = https://github.com/Sijoma/openeo-python-client
+	branch = master
