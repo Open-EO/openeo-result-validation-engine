@@ -34,7 +34,6 @@ class ClassificationChecks(Rule):
             image_a = cv2.resize(image_a, None, fx=resize_factor, fy=resize_factor)
             image_b = cv2.resize(image_b, None, fx=resize_factor, fy=resize_factor)
 
-
         # check if X and Y resolution match, some results might already be grayscale while some are RGB images
         if self._parameters.get('matching-boundaries', None) is not None and (image_a.shape[0] == image_b.shape[0]
                                                                               and image_a.shape[1] == image_a.shape[1]):

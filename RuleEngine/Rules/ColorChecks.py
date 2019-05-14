@@ -27,21 +27,22 @@ class ColorChecks(Rule):
         logger.info('Executing Histogram Check')
         histogram_result = compare_histograms(image_a, image_b)
 
-        # ToDo: Proper values for decision
         # Reminder: Larger is better
         if histogram_result:
-            correleation_result = histogram_result.get('Correlation') > 0.5
+            correleation_result = histogram_result.get('Correlation') > self._parameters.get('threshold')
             intersection_result = histogram_result.get('Intersection') > 1500
             # Reminder: Lower is better
             chi_squared_result = histogram_result.get('Chi-Squared') < 2700
             hellinger_result = histogram_result.get('Hellinger') < 0.50
 
+            # We skip the other histogram comparisons as they are hard to judge
             rule_result = {
                 'Correlation': correleation_result,
                 'Intersection': intersection_result,
                 'Chi-Squared': chi_squared_result,
                 'Hellinger': hellinger_result
             }
+            print(rule_result)
 
             result['histograms'] = histogram_result
             result['passed'] = str(correleation_result)

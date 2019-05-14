@@ -68,11 +68,13 @@ class JobWorker:
 
                     process_graphs = [f for f in os.listdir(process_graph_folder)
                                       if os.path.isfile(os.path.join(process_graph_folder, f))]
+
                     try:
                         path_to_process_graph = os.path.join(process_graph_folder, process_graphs[0])
                     except Exception:
                         print("Job not configured for provider:", provider)
                         continue
+
                     path_to_validation_rules = os.path.join(job, 'validation-rules.json')
                     with open(path_to_process_graph, 'r') as process_graph:
                         process_graph = json.loads(process_graph.read())
@@ -95,6 +97,8 @@ class JobWorker:
                         download_successful = False
                         start_time = time.time()
                         time.clock()
+                        backend_job_id = ''
+
                         if self.offline_mode is not True:
                             try:
                                 con = openeo.connect(provider['baseURL'], auth_type=BearerAuth,
@@ -105,6 +109,7 @@ class JobWorker:
                                 print('Connection to provider failed')
                                 download_successful = False
                             # stopwatch starting
+
                             if provider['name'] == 'EURAC':
                                 try:
                                     print('Downloading synchronously')
@@ -119,9 +124,11 @@ class JobWorker:
                                     openEO_job = con.create_job(process_graph, output_format='PNG')
                                     openEO_job.start_job()
                                     print(openEO_job.describe_job())
+                                    backend_job_id = openEO_job.describe_job().get('job_id')
                                     while download_successful is not True:
                                         try:
                                             openEO_job.download_results(file_path)
+                                            print(openEO_job.describe_job())
                                             download_successful = True
                                         except ConnectionAbortedError:
                                             download_successful = False
@@ -139,19 +146,28 @@ class JobWorker:
                         # ToDo: Time_to_result could be improved by measuring the time it takes until the images are
                         #  ready to be downloaded, instead of measuring when they finished downloading
                         time_to_result = end_time - start_time
-                        print('Downloading results took ' + str(time_to_result) + ' seconds')
+
+                        if download_successful:
+                            print('Downloading results took ' + str(time_to_result) + ' seconds')
+                        else:
+                            print('Download error')
+                            time_to_result = float("inf")
+
                         if self.offline_mode:
                             download_successful = True
 
                         self._jobs_names.append(job_identifier)
+
                         details = {
                             'backend': provider['name'],
                             'job': job_identifier,
                             'file': file_path,
                             'validation-rules-path': path_to_validation_rules,
+                            'provider_job_id': backend_job_id,
                             'time_to_result': time_to_result,
                             'download_successful': download_successful
                         }
+
                         self.results.append(details)
 
         self._jobs_names = set(self._jobs_names)

@@ -5,10 +5,10 @@
           },
           "output-data-checks": {
               "matching-file-extensions": "png",
-              "file-size-check": true
+              "file-size-check": 0.2
           },
           "color-checks": {
-              "threshold": 1.2
+              "threshold": 0.5
           },
           "pixel-checks": {
             "resolution-allow-divergence": 0.5,
@@ -22,9 +22,6 @@
           "nan-value-check": {
               "allow-nan": true,
               "correct": 0
-          },
-          "cluster-checks": {
-            "deviation": 1
           }
       }
   }
