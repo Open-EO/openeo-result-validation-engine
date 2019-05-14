@@ -152,6 +152,8 @@ class JobWorker:
                             print('Downloading results took ' + str(time_to_result) + ' seconds')
                         else:
                             print('Download error')
+                            if provider['name'] is not 'EURAC':
+                                print(openEO_job.delete_job())
                             time_to_result = float("inf")
 
                         if self.offline_mode:
