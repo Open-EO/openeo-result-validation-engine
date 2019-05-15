@@ -69,18 +69,26 @@ class ValidationWorker:
                 self._report[provider_b] = {'results': []}
 
             self._report[provider_a]['results'].append({
-                'file_a': file_combination[0],
-                'file_b': file_combination[1],
-                'provider_a': provider_a,
-                'provider_b': provider_b,
-                'job-identifier': job_info_a['job'],
+                'meta-information': {
+                    'file_a': file_combination[0],
+                    'file_b': file_combination[1],
+                    'provider_a': provider_a,
+                    'provider_b': provider_b,
+                    'job-identifier': job_info_a['job'],
+                    'provider-job-id_a': job_info_a['provider_job_id'],
+                    'provider-job-id_b': job_info_b['provider_job_id']
+                },
                 'rule_results': result
             })
             self._report[provider_b]['results'].append({
-                'file_a': file_combination[0],
-                'file_b': file_combination[1],
-                'compared_to_provider': provider_a,
-                'job-identifier': job_info_a['job'],
+                'meta-information': {
+                    'file_a': file_combination[0],
+                    'file_b': file_combination[1],
+                    'compared_to_provider': provider_a,
+                    'job-identifier': job_info_a['job'],
+                    'provider-job-id_a': job_info_a['provider_job_id'],
+                    'provider-job-id_b': job_info_b['provider_job_id']
+                },
                 'rule_results': result
             })
 

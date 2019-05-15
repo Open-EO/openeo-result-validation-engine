@@ -151,7 +151,8 @@ class JobWorker:
                         if download_successful:
                             print('Downloading results took ' + str(time_to_result) + ' seconds')
                         else:
-                            print('Download error')
+                            print('No download: for' + provider['name'] + ' , our own job-id: ' + job_identifier)
+                            print('Backend Job ID: ' + backend_job_id)
                             if provider['name'] is 'GEE':
                                 print(openEO_job.delete_job())
                             time_to_result = float("inf")

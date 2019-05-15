@@ -19,10 +19,10 @@ class OutputDataChecks(Rule):
             result['file-size-check'] = compare_filesize(image_path_a, image_path_b)
             file_size_factor = result['file-size-check'].get('file_size_factor')
             if file_size_factor > 1 + file_size_check or file_size_factor < 1 - file_size_check:
-                result['file-size-check']['rule'] = 'failed'
+                result['file-size-check']['passed'] = str(False)
             else:
-                result['file-size-check']['rule'] = 'passed'
+                result['file-size-check']['passed'] = str(True)
 
-        result['passed'] = str(result['file-size-check']['rule'] == 'passed' and result['matching-file-extensions'])
+        result['passed'] = str(result['file-size-check']['passed'] == 'True' and result['matching-file-extensions'])
 
         return result
