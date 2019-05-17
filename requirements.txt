@@ -14,7 +14,7 @@ Pillow==6.0.0
 pyparsing==2.4.0
 python-dateutil==2.8.0
 PyWavelets==1.0.3
-requests==2.21.0
+requests==2.22.0
 requests-mock==1.6.0
 scikit-image==0.15.0
 scipy==1.2.1
