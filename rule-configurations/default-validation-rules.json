@@ -8,7 +8,10 @@
               "file-size-check": 0.2
           },
           "color-checks": {
-              "threshold": 0.5
+            "threshold-correlation": 0.5,
+            "threshold-intersection": 1500,
+            "threshold-chi-squared": 2700,
+            "threshold-hellinger": 0.5
           },
           "pixel-checks": {
             "resolution-allow-divergence": 0.5,
@@ -20,8 +23,7 @@
             "resize-factor": 0.10
           },
           "nan-value-check": {
-              "allow-nan": true,
-              "correct": 0
+            "allow-nan": false
           }
       }
   }

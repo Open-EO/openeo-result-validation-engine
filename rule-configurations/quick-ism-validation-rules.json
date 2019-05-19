@@ -1,0 +1,11 @@
+{
+  "validation": {
+      "rules": {
+        "pixel-checks": {
+          "resolution-allow-divergence": 0.5,
+          "image-similarity-measures": 0.95,
+          "resize-factor": 1
+          }
+      }
+  }
+}

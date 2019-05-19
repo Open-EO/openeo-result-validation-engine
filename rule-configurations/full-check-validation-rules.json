@@ -1,0 +1,30 @@
+{
+  "validation": {
+    "rules": {
+      "input-data-checks": {
+      },
+      "output-data-checks": {
+        "matching-file-extensions": "png",
+        "file-size-check": 0.2
+      },
+      "color-checks": {
+        "threshold-correlation": 0.5,
+        "threshold-intersection": 1500,
+        "threshold-chi-squared": 2700,
+        "threshold-hellinger'": 0.50
+      },
+      "pixel-checks": {
+        "resolution-allow-divergence": 0.2,
+        "image-similarity-measures": 0.95,
+        "resize-factor": 1
+      },
+      "classification-checks": {
+        "matching-boundaries": 0.30,
+        "resize-factor": 1
+      },
+      "nan-value-check": {
+        "allow-nan": false
+      }
+    }
+  }
+}

@@ -95,6 +95,7 @@ class JobWorker:
                             file_path = save_path + '/' + job_identifier + '.' + 'png'
 
                         download_successful = False
+                        # start stopwatch
                         start_time = time.time()
                         time.clock()
                         backend_job_id = ''
@@ -108,7 +109,6 @@ class JobWorker:
                                 print(e)
                                 print('Connection to provider failed')
                                 download_successful = False
-                            # stopwatch starting
 
                             if provider['name'] == 'EURAC':
                                 try:
@@ -117,7 +117,6 @@ class JobWorker:
                                     download_successful = True
                                 except Exception as e:
                                     print(e)
-                                    # ToDo: Log if a result cannot be downloaded and store it in results
                                     download_successful = False
                             else:
                                 try:

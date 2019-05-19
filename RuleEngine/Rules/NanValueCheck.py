@@ -10,7 +10,6 @@ class NanValueCheck(Rule):
 
     def check_rule(self, image_path_a, image_path_b, combination):
         """ Has two image paths as inputs, calls functions that concern the use case of validating classifications """
-        result = None
         image_a = self.read_image(image_path_a)
         image_b = self.read_image(image_path_b)
 
@@ -23,7 +22,11 @@ class NanValueCheck(Rule):
         except ValueError as e:
             """ Workaround, sometimes the image cannot be loaded and thus we cannot check with .all()"""
 
-        if self._parameters.get('allow-nan', None) is True:
+        result = {
+            'passed': str(True)
+        }
+
+        if self._parameters.get('allow-nan', None) is False:
             result_check_nan = check_nan_value(image_a, image_b)
             if result_check_nan:
                 passed = True if result_check_nan['file_a'] == result_check_nan['file_b'] else False
