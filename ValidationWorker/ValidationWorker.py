@@ -56,7 +56,7 @@ class ValidationWorker:
                                    'if there are validation results it is because local results were used'
                 }
 
-            result['performance'] = {
+            performance = {
                 'provider_a': job_info_a['time_to_result'],
                 'provider_b': job_info_b['time_to_result'],
                 'unit': 'seconds'
@@ -76,7 +76,8 @@ class ValidationWorker:
                     'provider_b': provider_b,
                     'job-identifier': job_info_a['job'],
                     'provider-job-id_a': job_info_a['provider_job_id'],
-                    'provider-job-id_b': job_info_b['provider_job_id']
+                    'provider-job-id_b': job_info_b['provider_job_id'],
+                    'performance': performance
                 },
                 'rule_results': result
             })
@@ -87,7 +88,8 @@ class ValidationWorker:
                     'compared_to_provider': provider_a,
                     'job-identifier': job_info_a['job'],
                     'provider-job-id_a': job_info_a['provider_job_id'],
-                    'provider-job-id_b': job_info_b['provider_job_id']
+                    'provider-job-id_b': job_info_b['provider_job_id'],
+                    'performance': performance
                 },
                 'rule_results': result
             })
