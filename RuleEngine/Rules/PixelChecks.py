@@ -4,7 +4,7 @@ import os
 import cv2
 
 from RuleEngine.Algorithms.compare_resolution import compare_resolution
-from RuleEngine.Algorithms.image_similiarity_measures import image_similarity_measures
+from RuleEngine.Algorithms.image_funcs import image_similarity_measures
 from RuleEngine.Rules.Rule import Rule
 
 
