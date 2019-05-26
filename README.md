@@ -9,7 +9,7 @@ Due to filesize limitations, comparison images are currently not stored in this 
 
 
 ## Installation
-We mostly use Python3 in a venv environment. Using a venv is not necessary but recommended. The following commands have to be run sequentially to install the application and its dependencies.
+We use Python3 in a venv environment. Using a venv is not necessary but recommended. The following commands have to be run sequentially to install the application and its dependencies.
 
 ```bash
 git clone --recursive https://github.com/Sijoma/openeo-validation-engine
