@@ -1,28 +1,20 @@
 {
     "providers": [
       {
-      "name": "GEE",
+      "name": "WWU_GEE_COPERNICUS_S2",
       "baseURL": "https://earthengine.openeo.org/v0.3",
-      "credentials": {
-        "user": "group2",
-        "password": "test123"
-        }
-      },
-      {
-      "name": "EURAC",
-      "baseURL": "http://saocompute.eurac.edu/openEO_0_3_0/openeo",
       "credentials": {
         "user": "",
         "password": ""
         }
       },
       {
-        "name": "Local-Python",
-        "local": true
-      },
-      {
-        "name": "Local-R",
-        "local": true
+      "name": "WWU_GEE_COPERNICUS_S2_SR",
+      "baseURL": "https://earthengine.openeo.org/v0.3",
+      "credentials": {
+        "user": "",
+        "password": ""
+        }
       }
     ]
 }
