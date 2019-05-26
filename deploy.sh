@@ -6,7 +6,7 @@ SOURCE_BRANCH="master"
 TARGET_BRANCH="reports-GEE_S2-vs-GEE_SR"
 
 function runValidation {
-    python ValidationEngine.py
+    python ValidationEngine.py --resize 1
 }
 
 # This could be useful once the system is in production
