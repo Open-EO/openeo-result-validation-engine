@@ -1,0 +1,20 @@
+{
+    "providers": [
+      {
+      "name": "WWU_GEE_COPERNICUS_S2",
+      "baseURL": "https://earthengine.openeo.org/v0.3",
+      "credentials": {
+        "user": "",
+        "password": ""
+        }
+      },
+      {
+      "name": "WWU_GEE_COPERNICUS_S2_SR",
+      "baseURL": "https://earthengine.openeo.org/v0.3",
+      "credentials": {
+        "user": "",
+        "password": ""
+        }
+      }
+    ]
+}
