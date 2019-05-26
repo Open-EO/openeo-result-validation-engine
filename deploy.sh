@@ -3,11 +3,10 @@
 set -e # Exit with nonzero exit code if anything fails
 
 SOURCE_BRANCH="master"
-TARGET_BRANCH="reports:GEE_S2-vs-GEE_SR"
+TARGET_BRANCH="reports-GEE_S2-vs-GEE_SR"
 
 function runValidation {
     python ValidationEngine.py
-    python ValidationEngine.py --mock True
 }
 
 # This could be useful once the system is in production
@@ -28,7 +27,7 @@ SHA=$(git rev-parse --verify HEAD)
 # Delete all existing contents except .git (we will re-create them)
 git clone $REPO reports
 cd reports
-git checkout $TARGET_BRANCH #|| git checkout --orphan $TARGET_BRANCH
+git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 #find -maxdepth 1 ! -name .git ! -name .gitignore ! -name . | xargs rm -rf
 cd ..
 
