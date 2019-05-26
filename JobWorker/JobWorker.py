@@ -69,6 +69,9 @@ class JobWorker:
                     process_graphs = [f for f in os.listdir(process_graph_folder)
                                       if os.path.isfile(os.path.join(process_graph_folder, f))]
 
+                    # Filter out all files in the folder that are not JSON
+                    process_graphs = [fi for fi in process_graphs if fi.endswith(".json")]
+
                     try:
                         path_to_process_graph = os.path.join(process_graph_folder, process_graphs[0])
                     except Exception:
@@ -77,6 +80,7 @@ class JobWorker:
 
                     path_to_validation_rules = os.path.join(job, 'validation-rules.json')
                     with open(path_to_process_graph, 'r') as process_graph:
+
                         process_graph = json.loads(process_graph.read())
                         save_path = process_graph_folder.replace(job_directory, 'reports/')
 
@@ -100,7 +104,7 @@ class JobWorker:
                         time.clock()
                         backend_job_id = ''
 
-                        if self.offline_mode is not True:
+                        if self.offline_mode is not True and provider.get('local') is not True:
                             try:
                                 con = openeo.connect(provider['baseURL'], auth_type=BearerAuth,
                                                      auth_options={"username": user, "password": password})
@@ -147,16 +151,16 @@ class JobWorker:
                         #  ready to be downloaded, instead of measuring when they finished downloading
                         time_to_result = end_time - start_time
 
-                        if download_successful:
+                        if download_successful or provider.get('local') is True:
                             print('Downloading results took ' + str(time_to_result) + ' seconds')
                         else:
-                            print('No download: for' + provider['name'] + ' , our own job-id: ' + job_identifier)
+                            print('No download: ' + provider['name'] + ' , our own job-id: ' + job_identifier)
                             print('Backend Job ID: ' + backend_job_id)
                             if provider['name'] is 'GEE':
                                 print(openEO_job.delete_job())
                             time_to_result = float("inf")
 
-                        if self.offline_mode:
+                        if self.offline_mode or provider.get('local') is True:
                             download_successful = True
 
                         self._jobs_names.append(job_identifier)

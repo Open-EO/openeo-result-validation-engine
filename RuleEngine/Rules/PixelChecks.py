@@ -67,7 +67,6 @@ class PixelChecks(Rule):
                 result['image-similarity-measures']['passed'] = str(ism_passed)
             except ValueError as e:
                 result['image-similarity-measures'] = str(e)
-                return None
 
             if result['compare_resolution']['passed'] == 'True' \
                     and result['image-similarity-measures']['passed'] == 'True':
