@@ -4,8 +4,8 @@
       "name": "GEE",
       "baseURL": "https://earthengine.openeo.org/v0.3",
       "credentials": {
-        "user": "group2",
-        "password": "test123"
+        "user": "",
+        "password": ""
         }
       },
       {
