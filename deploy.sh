@@ -38,7 +38,7 @@ ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL}_iv"
 ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
 ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
 #openssl aes-256-cbc -K $encrypted_db6b38dbc639_key -iv $encrypted_db6b38dbc639_iv -in secrets.tar.enc -out secrets.tar -d
-openssl aes-256-cbc -K $encrypted_db6b38dbc639_key -iv $encrypted_db6b38dbc639_iv -in secrets_GEE-GEE_SR.tar.enc -out secrets_GEE-GEE_SR.tar -d
+openssl aes-256-cbc -K $encrypted_db6b38dbc639_key -iv $encrypted_db6b38dbc639_iv -in secrets_GEE-GEE_SR.tar.enc -out secrets.tar -d
 tar xvf secrets.tar
 
 
