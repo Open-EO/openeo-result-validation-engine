@@ -6,15 +6,15 @@
       "credentials": {
         "user": "",
         "password": ""
-      }
-    },
+        }
+      },
     {
       "name": "EURAC",
       "baseURL": "http://saocompute.eurac.edu/openEO_0_3_0/openeo",
       "credentials": {
         "user": "",
         "password": ""
+        }
       }
-    }
   ]
 }
