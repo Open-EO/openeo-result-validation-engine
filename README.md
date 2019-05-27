@@ -9,8 +9,8 @@ COPERNICUS_S2_SR does not contain L2A data for the Venezuela and Island jobs.
 ### Job-1
 
 <p float="left">
-  <img src="Netherlands/Job-1/WWU_GEE_COPERNICUS_S2/Netherlands-Job-1.png" width="250" />
-  <img src="Netherlands/Job-1/WWU_GEE_COPERNICUS_S2_SR/Netherlands-Job-1.png" width="250" /> 
+  <img src="Netherlands/Job-1/WWU_GEE_COPERNICUS_S2/Netherlands-Job-1.png" width="500" />
+  <img src="Netherlands/Job-1/WWU_GEE_COPERNICUS_S2_SR/Netherlands-Job-1.png" width="500" /> 
 </p>
 
 <span float="left">Outputs from back ends: COPERNICUS_S2 (left) COPERNICUS_S2_SR (right)</span>
@@ -24,8 +24,8 @@ COPERNICUS_S2_SR does not contain L2A data for the Venezuela and Island jobs.
 ### Job-2
 
 <p float="left">
-  <img src="Netherlands/Job-2/WWU_GEE_COPERNICUS_S2/Netherlands-Job-2.png" width="250" />
-  <img src="Netherlands/Job-2/WWU_GEE_COPERNICUS_S2_SR/Netherlands-Job-2.png" width="250" /> 
+  <img src="Netherlands/Job-2/WWU_GEE_COPERNICUS_S2/Netherlands-Job-2.png" width="500" />
+  <img src="Netherlands/Job-2/WWU_GEE_COPERNICUS_S2_SR/Netherlands-Job-2.png" width="500" /> 
 </p>
 
 <span float="left">Outputs from back ends: COPERNICUS_S2 (left) COPERNICUS_S2_SR (right)</span>
@@ -40,8 +40,8 @@ COPERNICUS_S2_SR does not contain L2A data for the Venezuela and Island jobs.
 ## Switzerland
 
 <p float="left">
-  <img src="Switzerland/Job-1/WWU_GEE_COPERNICUS_S2/Switzerland-Job-1.png" width="250" />
-  <img src="Switzerland/Job-1/WWU_GEE_COPERNICUS_S2_SR/Switzerland-Job-1.png" width="250" /> 
+  <img src="Switzerland/Job-1/WWU_GEE_COPERNICUS_S2/Switzerland-Job-1.png" width="500" />
+  <img src="Switzerland/Job-1/WWU_GEE_COPERNICUS_S2_SR/Switzerland-Job-1.png" width="500" /> 
 </p>
 
 <span float="left">Outputs from back ends: COPERNICUS_S2 (left) COPERNICUS_S2_SR (right)</span>
@@ -55,8 +55,8 @@ COPERNICUS_S2_SR does not contain L2A data for the Venezuela and Island jobs.
 ## Uganda
 
 <p float="left">
-  <img src="Uganda/Job-1/WWU_GEE_COPERNICUS_S2/Uganda-Job-1.png" width="250" />
-  <img src="Uganda/Job-1/WWU_GEE_COPERNICUS_S2_SR/Uganda-Job-1.png" width="250" /> 
+  <img src="Uganda/Job-1/WWU_GEE_COPERNICUS_S2/Uganda-Job-1.png" width="500" />
+  <img src="Uganda/Job-1/WWU_GEE_COPERNICUS_S2_SR/Uganda-Job-1.png" width="500" /> 
 </p>
 
 <span float="left">Outputs from back ends: COPERNICUS_S2 (left) COPERNICUS_S2_SR (right)</span>
@@ -70,8 +70,8 @@ COPERNICUS_S2_SR does not contain L2A data for the Venezuela and Island jobs.
 ## Venezuela
 
 <p float="left">
-  <img src="Venezuela/Job-1/WWU_GEE_COPERNICUS_S2/Venezuela-Job-1.png" width="250" />
-  <img src="Venezuela/Job-1/WWU_GEE_COPERNICUS_S2_SR/Venezuela-Job-1.png" width="250" /> 
+  <img src="Venezuela/Job-1/WWU_GEE_COPERNICUS_S2/Venezuela-Job-1.png" width="500" />
+  <img src="Venezuela/Job-1/WWU_GEE_COPERNICUS_S2_SR/Venezuela-Job-1.png" width="500" /> 
 </p>
 
 <span float="left">Outputs from back ends: COPERNICUS_S2 (left) and no output for COPERNICUS_S2_SR</span>
