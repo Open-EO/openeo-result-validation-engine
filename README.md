@@ -157,3 +157,10 @@ This folder then should contain a json that stores the path to the locally store
 
 This allows to validate local results against openEO cloud-processed results and it also enables validation of just local results.
 
+## Validation "Studies"
+
+We the ValidationEngine every 24 hours to compute the validation results for two "studies". 
+
+The validation reports for the comparison between back-end providers EURAC and WWU/GEE can be found in the branch [gh-pages](https://github.com/Sijoma/openeo-validation-engine/tree/gh-pages) of this repository. It only contains the JSON reports as the raw data from EURAC is to large.
+
+The validation reports for the comparison between the COPERNICUS/S2 and COPERNICUS/S2_SR data set of the WWU/GEE back end can be found in the branch [reports-GEE_S2-vs-GEE_SR](https://github.com/Sijoma/openeo-validation-engine/tree/reports-GEE_S2-vs-GEE_SR) of this repository. These branch also contains imagery, as we are not able to retrieve native resolution from the WWU/GEE back end and thus are able to store the images on GitHub.
