@@ -35,7 +35,7 @@ contain the information for a given provider.
 
 ```json
       {
-      "name": "openEO-GEE",
+      "name": "WWU_GEE",
       "baseURL": "https://earthengine.openeo.org/v0.3",
       "credentials": {
         "user": "Example",
@@ -73,23 +73,25 @@ Validation rules can be configured on a per job basis, in a file called `validat
           },
           "output-data-checks": {
               "matching-file-extensions": "png",
-              "file-size-check": true
+              "file-size-check": 0.2
           },
           "color-checks": {
-              "threshold": 1.2
+            "threshold-correlation": 0.5,
+            "threshold-intersection": 1500,
+            "threshold-chi-squared": 2700,
+            "threshold-hellinger": 0.5
           },
           "pixel-checks": {
             "resolution-allow-divergence": 0.5,
-            "image-similarity-measures": 1.0,
-            "resize-factor": 0.05
+            "image-similarity-measures": 0.95,
+            "resize-factor": 0.5
           },
           "classification-checks": {
-            "matching-boundaries": "0.20",
-            "resize-factor": 0.05
+            "matching-boundaries": 0.20,
+            "resize-factor": 0.5
           },
           "nan-value-check": {
-              "allow-nan": true,
-              "correct": 0
+            "allow-nan": false
           }
       }
   }
