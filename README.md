@@ -19,7 +19,7 @@ COPERNICUS_S2_SR does not contain L2A data for the Venezuela and Island jobs.
 <p style="text-align: center;">classification-checks</p>
 
 ![Overview](Netherlands/Job-1/SSIM_Netherlands-Job-1_Netherlands-Job-1.png)
-<p style="text-align: center;">SIM of pixel-checks</p>
+<p style="text-align: center;">SSIM of pixel-checks</p>
 
 ### Job-2
 
@@ -34,7 +34,7 @@ COPERNICUS_S2_SR does not contain L2A data for the Venezuela and Island jobs.
 <p style="text-align: center;">classification-checks</p>
 
 ![Overview](Netherlands/Job-2/SSIM_Netherlands-Job-2_Netherlands-Job-2.png)
-<p style="text-align: center;">SIM of pixel-checks</p>
+<p style="text-align: center;">SSIM of pixel-checks</p>
 
 
 ## Switzerland
@@ -65,7 +65,7 @@ COPERNICUS_S2_SR does not contain L2A data for the Venezuela and Island jobs.
 <p style="text-align: center;">classification-checks</p>
 
 ![Overview](Uganda/Job-1/SSIM_Uganda-Job-1_Uganda-Job-1.png)
-<p style="text-align: center;">SIM of pixel-checks</p>
+<p style="text-align: center;">SSIM of pixel-checks</p>
 
 ## Venezuela
 
@@ -80,4 +80,4 @@ COPERNICUS_S2_SR does not contain L2A data for the Venezuela and Island jobs.
 <p style="text-align: center;">classification-checks</p>
 
 ![Overview](Venezuela/Job-1/SSIM_Venezuela-Job-1_Venezuela-Job-1.png)
-<p style="text-align: center;">SIM of pixel-checks</p>
+<p style="text-align: center;">SSIM of pixel-checks</p>
