@@ -1,7 +1,7 @@
 {
     "providers": [
       {
-      "name": "GEE",
+      "name": "WWU_GEE",
       "baseURL": "https://earthengine.openeo.org/v0.3",
       "credentials": {
         "user": "",
