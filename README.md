@@ -1,8 +1,10 @@
-# Reports for Copernicus_S2_SR
+# Reports for the dataset comparison for the WWU/GEE back end
 
-This is the comparison between using the COPERNICUS_S2 (Sentinel 2 L1C) and COPERNICUS_S2_SR (Sentinel 2 L2A).
+This is the comparison between using the COPERNICUS_S2 (Sentinel 2 L1C) and COPERNICUS_S2_SR (Sentinel 2 L2A) for the computation of an NDVI.
 
-COPERNICUS_S2_SR does not contain L2A data for the Venezuela and Island jobs. 
+COPERNICUS_S2_SR does not contain L2A data for the Venezuela and Island jobs.
+
+The full validation reports can be accessed in the respective folders of this branch.
 
 ## Netherlands
 
