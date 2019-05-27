@@ -4,8 +4,8 @@
       "name": "GEE",
       "baseURL": "https://earthengine.openeo.org/v0.3",
       "credentials": {
-        "user": "group3",
-        "password": "test123"
+        "user": "",
+        "password": ""
         }
       },
       {
@@ -15,14 +15,6 @@
         "user": "",
         "password": ""
         }
-      },
-      {
-        "name": "Local-Python",
-        "local": true
-      },
-      {
-        "name": "Local-R",
-        "local": true
       }
     ]
 }
