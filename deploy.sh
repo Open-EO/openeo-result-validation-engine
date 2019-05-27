@@ -33,13 +33,13 @@ git checkout $TARGET_BRANCH #|| git checkout --orphan $TARGET_BRANCH
 cd ..
 
 # Gets backend credentials
-#rm -rf backendProvider.json
-#ENCRYPTED_KEY_VAR="encrypted_${ENCRYPTION_LABEL}_key"
-#ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL}_iv"
-#ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
-#ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
-#openssl aes-256-cbc -K $encrypted_db6b38dbc639_key -iv $encrypted_db6b38dbc639_iv -in secrets.tar.enc -out secrets.tar -d
-#tar xvf secrets.tar
+rm -rf backendProvider.json
+ENCRYPTED_KEY_VAR="encrypted_${ENCRYPTION_LABEL}_key"
+ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL}_iv"
+ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
+ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
+openssl aes-256-cbc -K $encrypted_db6b38dbc639_key -iv $encrypted_db6b38dbc639_iv -in secrets.tar.enc -out secrets.tar -d
+tar xvf secrets.tar
 
 
 echo "Running validation"
