@@ -6,7 +6,7 @@ dask==1.2.2
 decorator==4.4.0
 idna==2.8
 kiwisolver==1.1.0
-matplotlib==3.0.3
+matplotlib==3.1.0
 networkx==2.3
 numpy==1.16.3
 opencv-python==4.1.0.25
