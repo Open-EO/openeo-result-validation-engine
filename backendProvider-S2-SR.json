@@ -1,20 +1,20 @@
 {
-  "providers": [
-    {
-      "name": "GEE",
+    "providers": [
+      {
+      "name": "WWU_GEE_COPERNICUS_S2",
       "baseURL": "https://earthengine.openeo.org/v0.3",
       "credentials": {
         "user": "",
         "password": ""
         }
       },
-    {
-      "name": "EURAC",
-      "baseURL": "http://saocompute.eurac.edu/openEO_0_3_0/openeo",
+      {
+      "name": "WWU_GEE_COPERNICUS_S2_SR",
+      "baseURL": "https://earthengine.openeo.org/v0.3",
       "credentials": {
         "user": "",
         "password": ""
         }
       }
-  ]
+    ]
 }

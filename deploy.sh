@@ -3,11 +3,10 @@
 set -e # Exit with nonzero exit code if anything fails
 
 SOURCE_BRANCH="master"
-TARGET_BRANCH="gh-pages"
+TARGET_BRANCH="reports-GEE_S2-vs-GEE_SR"
 
 function runValidation {
-    python ValidationEngine.py
-    python ValidationEngine.py --mock True
+    python ValidationEngine.py --resize 1
 }
 
 # This could be useful once the system is in production
@@ -28,7 +27,7 @@ SHA=$(git rev-parse --verify HEAD)
 # Delete all existing contents except .git (we will re-create them)
 git clone $REPO reports
 cd reports
-git checkout $TARGET_BRANCH #|| git checkout --orphan $TARGET_BRANCH
+git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 #find -maxdepth 1 ! -name .git ! -name .gitignore ! -name . | xargs rm -rf
 cd ..
 
@@ -40,6 +39,8 @@ ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
 ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
 openssl aes-256-cbc -K $encrypted_db6b38dbc639_key -iv $encrypted_db6b38dbc639_iv -in secrets.tar.enc -out secrets.tar -d
 tar xvf secrets.tar
+rm -rf backendProvider.json
+mv backendProvider-S2-SR.json backendProvider.json
 
 
 echo "Running validation"
@@ -51,10 +52,10 @@ git config user.name "Travis CI"
 git config user.email "$COMMIT_AUTHOR_EMAIL"
 
 # If there are no changes to the compiled out (e.g. this is a README update) then just bail.
-if git diff --quiet; then
-    echo "No changes to the output on this push; exiting."
-    exit 0
-fi
+#if git diff --quiet; then
+#    echo "No changes to the output on this push; exiting."
+#    exit 0
+#fi
 
 # Commit the "changes", i.e. the new version.
 # The delta will show diffs between new and old versions.
