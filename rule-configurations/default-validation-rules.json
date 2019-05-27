@@ -16,11 +16,11 @@
           "pixel-checks": {
             "resolution-allow-divergence": 0.5,
             "image-similarity-measures": 0.95,
-            "resize-factor": 0.10
+            "resize-factor": 0.5
           },
           "classification-checks": {
             "matching-boundaries": 0.20,
-            "resize-factor": 0.10
+            "resize-factor": 0.5
           },
           "nan-value-check": {
             "allow-nan": false
