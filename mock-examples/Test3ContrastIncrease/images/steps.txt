@@ -1,0 +1,1 @@
+Increased contrast by a value of 5 with gimp
