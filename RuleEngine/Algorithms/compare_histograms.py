@@ -5,7 +5,9 @@ OPENCV_METHODS = (
     ("Correlation", cv2.HISTCMP_CORREL),
     ("Intersection", cv2.HISTCMP_INTERSECT),
     ("Chi-Squared", cv2.HISTCMP_CHISQR),
-    ("Hellinger", cv2.HISTCMP_BHATTACHARYYA))
+    ("Hellinger", cv2.HISTCMP_BHATTACHARYYA),
+    ("Chi-Square-Alt", cv2.HISTCMP_CHISQR_ALT),
+    ("Kullback-Leibler", cv2.HISTCMP_KL_DIV))
 
 
 def compare_histograms(image_a, image_b):

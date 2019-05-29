@@ -33,17 +33,23 @@ class ColorChecks(Rule):
             correleation_result = histogram_result.get('Correlation') > self._parameters.get('threshold-correlation',
                                                                                              0.5)
             intersection_result = histogram_result.get('Intersection') > self._parameters.get('threshold-intersection',
-                                                                                              2700)
+                                                                                              345)
             # Reminder: Lower is better
             chi_squared_result = histogram_result.get('Chi-Squared') < self._parameters.get('threshold-chi-squared',
                                                                                             1500)
             hellinger_result = histogram_result.get('Hellinger') < self._parameters.get('threshold-hellinger', 0.5)
 
+            # ToDo: Figure out proper default thresholds
+            chi_Square_alt_result = histogram_result.get('Chi-Square-Alt') < self._parameters.get('threshold-chi-square-alt', 5000)
+            kullback_leibler_result = histogram_result.get('Kullback-Leibler') < self._parameters.get('threshold-kullback-leibler', 5000)
+
             rule_result = {
                 'Correlation': correleation_result,
                 'Intersection': intersection_result,
                 'Chi-Squared': chi_squared_result,
-                'Hellinger': hellinger_result
+                'Hellinger': hellinger_result,
+                'Chi-Square-Alt': chi_Square_alt_result,
+                'Kullback-Leibler': kullback_leibler_result
             }
 
             result['histograms'] = histogram_result
