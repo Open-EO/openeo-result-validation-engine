@@ -98,7 +98,7 @@ Validation rules can be configured on a per job basis, in a file called `validat
 }
 ```
 
-## Run
+## Usage
 
 Activate the Python venv and start the ValidationEngine.
 
