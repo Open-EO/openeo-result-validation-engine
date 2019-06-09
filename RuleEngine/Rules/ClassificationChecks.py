@@ -18,9 +18,8 @@ class ClassificationChecks(Rule):
 
         image_a = self.read_image(image_path_a)
         image_b = self.read_image(image_path_b)
-        result = None
+        result = {'passed': str(False)}
         resize_factor = self._parameters.get('resize-factor')
-
         try:
             if image_a and image_b:
                 print('Images read')
@@ -37,7 +36,6 @@ class ClassificationChecks(Rule):
         # check if X and Y resolution match, some results might already be grayscale while some are RGB images
         if self._parameters.get('matching-boundaries', None) is not None and (image_a.shape[0] == image_b.shape[0]
                                                                               and image_a.shape[1] == image_a.shape[1]):
-            result = {'passed': str(False)}
             result['matching-boundaries'] = {}
             edge_images = calculate_canny_edges(image_a, image_b, align_images=True)
             if create_comparison_image(edge_images) is not None:
