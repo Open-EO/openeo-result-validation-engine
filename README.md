@@ -1,7 +1,6 @@
-# openeo-validation-engine (OVE)
+# openeo-result-validation-engine
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/072695f2ebbb404cb0512b711efa76d4)](https://app.codacy.com/app/simonschulte1991/openeo-validation-engine?utm_source=github.com&utm_medium=referral&utm_content=Sijoma/openeo-validation-engine&utm_campaign=Badge_Grade_Dashboard)
-[![Build Status](https://travis-ci.com/Sijoma/openeo-validation-engine.svg?branch=master)](https://travis-ci.com/Sijoma/openeo-validation-engine)
+[![Build Status](https://travis-ci.com/Open-EO/openeo-result-validation-engine.svg?branch=master)](https://travis-ci.com/Open-EO/openeo-result-validation-engine)
 
 The openeo-validation-engine uses the [OpenEO-sentinel-reference-jobs](https://github.com/Sijoma/openeo-sentinel-reference-jobs) as a submodule and fetches the results of these jobs from every specified back-end provider. The results are then validated and a report is generated for each job. These reports are then pushed to the gh-pages branch of this repository.
 
@@ -12,8 +11,8 @@ Due to filesize limitations, comparison images are currently not stored in this 
 We use Python3 in a venv environment. Using a venv is not necessary but recommended. The following commands have to be run sequentially to install the application and its dependencies.
 
 ```bash
-git clone --recursive https://github.com/Sijoma/openeo-validation-engine
-cd openeo-validation-engine
+git clone --recursive https://github.com/Open-EO/openeo-result-validation-engine
+cd openeo-result-validation-engine
 python3 -m venv ./venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -161,6 +160,6 @@ This allows to validate local results against openEO cloud-processed results and
 
 The ValidationEngine runs every 24 hours to compute the validation results for two "studies". 
 
-Validation reports for the comparison between back-end providers EURAC and WWU/GEE can be found in the branch [gh-pages](https://github.com/Sijoma/openeo-validation-engine/tree/gh-pages) of this repository. It only contains the JSON reports as the raw data from EURAC is to large.
+Validation reports for the comparison between back-end providers EURAC and WWU/GEE can be found in the branch [gh-pages](https://github.com/Open-EO/openeo-result-validation-engine/tree/gh-pages) of this repository. It only contains the JSON reports as the raw data from EURAC is to large.
 
-Validation reports for the comparison between the COPERNICUS/S2 and COPERNICUS/S2_SR data set of the WWU/GEE back end can be found in the branch [reports-GEE_S2-vs-GEE_SR](https://github.com/Sijoma/openeo-validation-engine/tree/reports-GEE_S2-vs-GEE_SR) of this repository. These branch also contains imagery, as we are not able to retrieve native resolution from the WWU/GEE back end and thus are able to store the images on GitHub.
+Validation reports for the comparison between the COPERNICUS/S2 and COPERNICUS/S2_SR data set of the WWU/GEE back end can be found in the branch [reports-GEE_S2-vs-GEE_SR](https://github.com/Open-EO/openeo-result-validation-engine/tree/reports-GEE_S2-vs-GEE_SR) of this repository. These branch also contains imagery, as we are not able to retrieve native resolution from the WWU/GEE back end and thus are able to store the images on GitHub.
