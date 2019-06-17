@@ -64,9 +64,9 @@ git add -A .
 git commit -m "Deploy to GitHub Pages: ${SHA}"
 
 # Get the deploy key by using Travis's stored variables to decrypt deploy_key.enc
-chmod 600 ../openeo
-eval $(ssh-agent -s)
-ssh-add ../openeo
+#chmod 600 ../openeo
+#eval $(ssh-agent -s)
+#ssh-add ../openeo
 
 # Now that we're all set up, we can push.
 git push $SSH_REPO $TARGET_BRANCH
