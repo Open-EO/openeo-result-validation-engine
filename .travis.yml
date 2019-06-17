@@ -19,5 +19,5 @@ script:
 env:
   global:
   - ENCRYPTION_LABEL: db6b38dbc639
-  - COMMIT_AUTHOR_EMAIL: "simonschulte@posteo.net"
+  - COMMIT_AUTHOR_EMAIL: "keine@mail.net"
     

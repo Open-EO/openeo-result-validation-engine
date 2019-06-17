@@ -166,3 +166,15 @@ The ValidationEngine runs every 24 hours to compute the validation results for t
 Validation reports for the comparison between back-end providers EURAC and WWU/GEE can be found in the branch [gh-pages](https://github.com/Open-EO/openeo-result-validation-engine/tree/gh-pages) of this repository. It only contains the JSON reports as the raw data from EURAC is to large.
 
 Validation reports for the comparison between the COPERNICUS/S2 and COPERNICUS/S2_SR data set of the WWU/GEE back end can be found in the branch [reports-GEE_S2-vs-GEE_SR](https://github.com/Open-EO/openeo-result-validation-engine/tree/reports-GEE_S2-vs-GEE_SR) of this repository. These branch also contains imagery, as we are not able to retrieve native resolution from the WWU/GEE back end and thus are able to store the images on GitHub.
+
+## Encrypting Git Token
+
+To publish the validation reports to Github this repository needs a valid GitHub Token.
+
+1. install the Travis CI Command Line Client by running 
+`gem install travis` and login with `travis login --org`
+2. Generate SSH-KEY
+`ssh-keygen -t rsa -b 4096 -C "your_github_email@example.com"`
+3. Add deploy_key.pub to the repository https://github.com/Open-EO/openeo-result-validation-engine/settings/keys
+4. Encrypt the deploy_key.pub file with the Travis CLI `travis encrypt-file deploy_key --add (This will generate an encryption label)`
+5. Adjust encryption label in .travis.yml line 21
