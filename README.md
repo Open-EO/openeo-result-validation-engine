@@ -1,7 +1,7 @@
 # openeo-result-validation-engine
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/6fe179a5dc8e4ac29bdf94f1e9d40fa4)](https://app.codacy.com/app/m-mohr/openeo-result-validation-engine?utm_source=github.com&utm_medium=referral&utm_content=Open-EO/openeo-result-validation-engine&utm_campaign=Badge_Grade_Dashboard)
-[![Build Status](https://travis-ci.com/Open-EO/openeo-result-validation-engine.svg?branch=master)](https://travis-ci.com/Open-EO/openeo-result-validation-engine)
+[![Build Status](https://travis-ci.org/Open-EO/openeo-result-validation-engine.svg?branch=master)](https://travis-ci.org/Open-EO/openeo-result-validation-engine)
 
 The openeo-validation-engine uses the [OpenEO-sentinel-reference-jobs](https://github.com/Sijoma/openeo-sentinel-reference-jobs) as a submodule and fetches the results of these jobs from every specified back-end provider. The results are then validated and a report is generated for each job. These reports are then pushed to the gh-pages branch of this repository.
 
