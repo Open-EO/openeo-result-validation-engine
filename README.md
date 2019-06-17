@@ -77,9 +77,11 @@ Validation rules can be configured on a per job basis, in a file called `validat
           },
           "color-checks": {
             "threshold-correlation": 0.5,
-            "threshold-intersection": 1500,
-            "threshold-chi-squared": 2700,
-            "threshold-hellinger": 0.5
+            "threshold-intersection": 345,
+            "threshold-chi-squared": 1500,
+            "threshold-hellinger": 0.5,
+            "threshold-chi-square-alt": 5000,
+            "threshold-kullback-leibler": 5000
           },
           "pixel-checks": {
             "resolution-allow-divergence": 0.5,
