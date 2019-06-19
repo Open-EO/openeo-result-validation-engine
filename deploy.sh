@@ -6,8 +6,8 @@ SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
 
 function runValidation {
-    python ValidationEngine.py
-    python ValidationEngine.py --mock True
+#    python ValidationEngine.py
+#    python ValidationEngine.py --mock True
 }
 
 # This could be useful once the system is in production
