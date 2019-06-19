@@ -43,7 +43,7 @@ cd ..
 #tar xvf secrets.tar
 
 echo "Running validation"
-#runValidation
+runValidation
 
 # Now let's go have some fun with the cloned repo
 cd reports
@@ -56,11 +56,6 @@ git config user.email "$COMMIT_AUTHOR_EMAIL"
 #    exit 0
 #fi
 
-
-#test
-date > test.txt
-
-
 # Commit the "changes", i.e. the new version.
 # The delta will show diffs between new and old versions.
 
@@ -69,7 +64,6 @@ git add -A .
 git commit -m "Deploy to GitHub Pages: ${SHA}"
 
 # Get the deploy key by using Travis's stored variables to decrypt deploy_key.enc
-#openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in deploy_key.enc -out deploy_key -d
 openssl aes-256-cbc -K $encrypted_8ad09701ad5d_key -iv $encrypted_8ad09701ad5d_iv -in ../deploy_key.enc -out deploy_key -d
 chmod 600 deploy_key
 eval $(ssh-agent -s)
