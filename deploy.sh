@@ -6,8 +6,8 @@ SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
 
 function runValidation {
-#    python ValidationEngine.py
-#    python ValidationEngine.py --mock True
+    python ValidationEngine.py
+    python ValidationEngine.py --mock True
 }
 
 # This could be useful once the system is in production
@@ -44,7 +44,7 @@ cd ..
 
 
 echo "Running validation"
-runValidation
+#runValidation
 
 # Now let's go have some fun with the cloned repo
 cd reports
