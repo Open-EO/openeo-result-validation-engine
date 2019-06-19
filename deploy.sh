@@ -57,6 +57,11 @@ git config user.email "$COMMIT_AUTHOR_EMAIL"
 #    exit 0
 #fi
 
+
+#test
+date > test.txt
+
+
 # Commit the "changes", i.e. the new version.
 # The delta will show diffs between new and old versions.
 
