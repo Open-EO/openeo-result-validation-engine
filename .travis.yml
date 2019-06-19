@@ -15,6 +15,7 @@ before_script:
   -in deploy_key.enc -out deploy_key -d
 - ls -a
 - chmod 600 deploy_key
+- eval $(ssh-agent -s)
 - ssh-add deploy_key
 script:
 - bash ./deploy.sh
