@@ -11,12 +11,6 @@ install:
 - cd ..
 before_script:
 - chmod +x deploy.sh
-- openssl aes-256-cbc -K $encrypted_8ad09701ad5d_key -iv $encrypted_8ad09701ad5d_iv
-  -in deploy_key.enc -out deploy_key -d
-- ls -a
-- chmod 600 deploy_key
-- eval $(ssh-agent -s)
-- ssh-add deploy_key
 script:
 - bash ./deploy.sh
 env:
