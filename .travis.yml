@@ -1,23 +1,21 @@
 language: python
 python:
-  - "3.5"
+- '3.5'
 cache: pip
 install:
-  - pip install -r requirements.txt
-  - cd openeo-python-client
-  - pip install -r requirements.txt
-  - pip install -r requirements-dev.txt
-  - pip install -e .
-  - cd ..
-
+- pip install -r requirements.txt
+- cd openeo-python-client
+- pip install -r requirements.txt
+- pip install -r requirements-dev.txt
+- pip install -e .
+- cd ..
 before_script:
-  - chmod +x deploy.sh
-
+- chmod +x deploy.sh
+- openssl aes-256-cbc -K $encrypted_8ad09701ad5d_key -iv $encrypted_8ad09701ad5d_iv
+  -in deploy_key.enc -out deploy_key -d
 script:
-  - bash ./deploy.sh
-
+- bash ./deploy.sh
 env:
   global:
-  - ENCRYPTION_LABEL: db6b38dbc639
-  - COMMIT_AUTHOR_EMAIL: "keine@mail.net"
-    
+  - COMMIT_AUTHOR_EMAIL: simonschulte@posteo.net
+
